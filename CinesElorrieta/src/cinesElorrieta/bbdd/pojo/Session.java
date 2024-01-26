@@ -13,7 +13,7 @@ public class Session implements Serializable {
 
 	int sessionID = 0;
 	Date sessionDate = null;
-	// int roomId = 0; Esto es la relacion no se como hacerla
+	// int roomId = 0; Esto es la relacion no se como hacerla.
 
 	public int getSessionID() {
 		return 0;
