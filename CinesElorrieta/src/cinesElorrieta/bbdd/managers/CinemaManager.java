@@ -5,15 +5,24 @@ import java.util.ArrayList;
 import cinesElorrieta.bbdd.pojo.Cinema;
 
 /**
- * Manager de la tabla t_cinema. Contiene los metodos de acceso a dicha tabla
+ * Manager of the table t_cines. It contains all the methods for that table.
  */
 public class CinemaManager {
 
-	public Cinema getCinema (int id) {
+	/**
+	 * Gets the cinema especified by the ID.
+	 * @param id
+	 * @return
+	 */
+	public Cinema getCinema(int id) {
 		return null;
 	}
-	
-	public ArrayList <Cinema> getAllCinemas (){
+
+	/**
+	 * Gets all cinemas of the table t_cines. Returns a LIST of cinemas.
+	 * @return
+	 */
+	public ArrayList<Cinema> getAllCinemas() {
 		return null;
 	}
 }
