@@ -2,6 +2,7 @@ package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,10 +14,10 @@ public class Session implements Serializable {
 
 	int sessionID = 0;
 	Date sessionDate = null;
-	// int roomId = 0; Esto es la relacion no se como hacerla.
+	List<Room> rooms = null;
 
 	public int getSessionID() {
-		return 0;
+		return sessionID;
 	}
 
 	public void setSessionID(int sessionID) {
@@ -24,7 +25,7 @@ public class Session implements Serializable {
 	}
 
 	public Date getSessionDate() {
-		return null;
+		return sessionDate;
 	}
 
 	public void setSessionDate(Date sessionDate) {
@@ -35,9 +36,17 @@ public class Session implements Serializable {
 		return serialVersionUID;
 	}
 
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(sessionDate, sessionID);
+		return Objects.hash(rooms, sessionDate, sessionID);
 	}
 
 	@Override
@@ -49,12 +58,13 @@ public class Session implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Session other = (Session) obj;
-		return Objects.equals(sessionDate, other.sessionDate) && sessionID == other.sessionID;
+		return Objects.equals(rooms, other.rooms) && Objects.equals(sessionDate, other.sessionDate)
+				&& sessionID == other.sessionID;
 	}
 
 	@Override
 	public String toString() {
-		return "Session [sessionID=" + sessionID + ", sessionDate=" + sessionDate + "]";
+		return "Session [sessionID=" + sessionID + ", sessionDate=" + sessionDate + ", rooms=" + rooms + "]";
 	}
 
 }

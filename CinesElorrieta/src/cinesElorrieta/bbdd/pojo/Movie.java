@@ -18,7 +18,7 @@ public class Movie implements Serializable {
 	// int sesionID = 0; Esto es la relacion no se como hacerla
 
 	public int getMovieId() {
-		return 0;
+		return movieId;
 	}
 
 	public void setMovieId(int movieId) {
@@ -26,7 +26,7 @@ public class Movie implements Serializable {
 	}
 
 	public Date getMovieDuration() {
-		return null;
+		return movieDuration;
 	}
 
 	public void setMovieDuration(Date movieDuration) {
@@ -34,7 +34,7 @@ public class Movie implements Serializable {
 	}
 
 	public String getMovieKind() {
-		return null;
+		return movieKind;
 	}
 
 	public void setMovieKind(String movieKind) {
@@ -42,7 +42,7 @@ public class Movie implements Serializable {
 	}
 
 	public Double getMoviePrice() {
-		return null;
+		return moviePrice;
 	}
 
 	public void setMoviePrice(Double moviePrice) {

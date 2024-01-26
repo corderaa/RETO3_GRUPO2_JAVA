@@ -19,7 +19,7 @@ public class User implements Serializable {
 	// int ticketId = null; Esto es la relacion no se como hacerla
 
 	public String getUserId() {
-		return null;
+		return userId;
 	}
 
 	public void setUserId(String userId) {
@@ -27,7 +27,7 @@ public class User implements Serializable {
 	}
 
 	public String getUserName() {
-		return null;
+		return userName;
 	}
 
 	public void setUserName(String userName) {
@@ -35,7 +35,7 @@ public class User implements Serializable {
 	}
 
 	public String getUserLasName() {
-		return null;
+		return userLasName;
 	}
 
 	public void setUserLasName(String userLasName) {
@@ -43,7 +43,7 @@ public class User implements Serializable {
 	}
 
 	public String getUserSex() {
-		return null;
+		return userSex;
 	}
 
 	public void setUserSex(String userSex) {
@@ -51,7 +51,7 @@ public class User implements Serializable {
 	}
 
 	public String getUserPassword() {
-		return null;
+		return userPassword;
 	}
 
 	public void setUserPassword(String userPassword) {
@@ -59,7 +59,7 @@ public class User implements Serializable {
 	}
 
 	public String getUserEmail() {
-		return null;
+		return userEmail;
 	}
 
 	public void setUserEmail(String userEmail) {

@@ -15,7 +15,7 @@ public class Cinema implements Serializable {
 	String cinemaAddress = null;
 
 	public int getCinemaId() {
-		return 0;
+		return cinemaId;
 	}
 
 	public void setCinemaId(int cinemaId) {
@@ -23,7 +23,7 @@ public class Cinema implements Serializable {
 	}
 
 	public String getCinemaName() {
-		return null;
+		return cinemaName;
 	}
 
 	public void setCinemaName(String cinemaName) {
@@ -31,7 +31,7 @@ public class Cinema implements Serializable {
 	}
 
 	public String getCinemaAddress() {
-		return null;
+		return cinemaAddress;
 	}
 
 	public void setCinemaAddress(String cinemaAddress) {
