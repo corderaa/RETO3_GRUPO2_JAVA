@@ -11,6 +11,7 @@ public class CinemaManager {
 
 	/**
 	 * Gets the cinema especified by the ID.
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -20,6 +21,7 @@ public class CinemaManager {
 
 	/**
 	 * Gets all cinemas of the table t_cines. Returns a LIST of cinemas.
+	 * 
 	 * @return
 	 */
 	public ArrayList<Cinema> getAllCinemas() {
