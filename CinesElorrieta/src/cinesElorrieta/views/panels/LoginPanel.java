@@ -3,7 +3,20 @@ package cinesElorrieta.views.panels;
 import javax.swing.JPanel;
 
 public class LoginPanel extends JPanel{
+	
+	/**
+	 * The automatically generated static final of UID
+	 */
+	
+	private static final long serialVersionUID = -232803811176026518L;
 
-	private static final long serialVersionUID = -1361992430232736568L;
-
+	/**
+	 * Method that verifies the entered user
+	 */
+	
+	public void verifyUser(){
+		
+	}
+	
 }
+
