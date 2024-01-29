@@ -1,6 +1,7 @@
 package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,9 +11,11 @@ public class Room implements Serializable {
 
 	private static final long serialVersionUID = 7008417407809251211L;
 
-	int roomId = 0;
-	String roomName = null;
-	int cinemaId = 0;
+	private int roomId = 0;
+	private int cinemaId = 0;
+	private String roomName = null;
+
+	private List<Session> sessions = null;
 
 	public int getRoomId() {
 		return roomId;
@@ -30,6 +33,18 @@ public class Room implements Serializable {
 		this.roomName = roomName;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public List<Session> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(List<Session> sessions) {
+		this.sessions = sessions;
+	}
+
 	public int getCinemaId() {
 		return cinemaId;
 	}
@@ -38,13 +53,9 @@ public class Room implements Serializable {
 		this.cinemaId = cinemaId;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(cinemaId, roomId, roomName);
+		return Objects.hash(roomId, roomName);
 	}
 
 	@Override
@@ -56,12 +67,13 @@ public class Room implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Room other = (Room) obj;
-		return cinemaId == other.cinemaId && roomId == other.roomId && Objects.equals(roomName, other.roomName);
+		return roomId == other.roomId && Objects.equals(roomName, other.roomName);
 	}
 
 	@Override
 	public String toString() {
-		return "Room [roomId=" + roomId + ", roomName=" + roomName + ", cinemaId=" + cinemaId + "]";
+		return "Room [roomId=" + roomId + ", roomName=" + roomName + ", cinema=" + cinemaId + ", sessions=" + sessions
+				+ "]";
 	}
 
 }

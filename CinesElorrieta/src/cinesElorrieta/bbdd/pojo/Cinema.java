@@ -1,6 +1,7 @@
 package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,9 +11,11 @@ public class Cinema implements Serializable {
 
 	private static final long serialVersionUID = 3419524778141517579L;
 
-	int cinemaId = 0;
-	String cinemaName = null;
-	String cinemaAddress = null;
+	private int cinemaId = 0;
+	private String cinemaName = null;
+	private String cinemaAddress = null;
+
+	List<Room> rooms = null;
 
 	public int getCinemaId() {
 		return cinemaId;

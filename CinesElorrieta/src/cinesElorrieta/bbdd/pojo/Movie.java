@@ -16,6 +16,7 @@ public class Movie implements Serializable {
 	Date movieDuration = null;
 	String movieKind = null;
 	Double moviePrice = 0.0;
+
 	List<Session> SessionIDs = null;
 
 	public int getMovieId() {

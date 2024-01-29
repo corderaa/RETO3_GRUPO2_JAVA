@@ -14,12 +14,14 @@ public class Ticket implements Serializable {
 
 	int tickedId = 0;
 	Date ticketBuyDate = null;
-	int movieId = 0;
 	Date ticketDate = null;
-	int roomId = 0;
 	double ticketPrice = 0;
-	int sessionId = 0;
-	int userId = 0;
+
+	private Cinema cinema = null;
+	private Movie movie = null;
+	private Room room = null;
+	private Session session = null;
+	private User user = null;
 
 	public int getTickedId() {
 		return tickedId;
@@ -37,28 +39,12 @@ public class Ticket implements Serializable {
 		this.ticketBuyDate = ticketBuyDate;
 	}
 
-	public int getMovieId() {
-		return movieId;
-	}
-
-	public void setMovieId(int movieId) {
-		this.movieId = movieId;
-	}
-
 	public Date getTicketDate() {
 		return ticketDate;
 	}
 
 	public void setTicketDate(Date ticketDate) {
 		this.ticketDate = ticketDate;
-	}
-
-	public int getRoomId() {
-		return roomId;
-	}
-
-	public void setRoomId(int roomId) {
-		this.roomId = roomId;
 	}
 
 	public double getTicketPrice() {
@@ -69,20 +55,44 @@ public class Ticket implements Serializable {
 		this.ticketPrice = ticketPrice;
 	}
 
-	public int getSessionId() {
-		return sessionId;
+	public Cinema getCinema() {
+		return cinema;
 	}
 
-	public void setSessionId(int sessionId) {
-		this.sessionId = sessionId;
+	public void setCinema(Cinema cinema) {
+		this.cinema = cinema;
 	}
 
-	public int getUserId() {
-		return userId;
+	public Movie getMovie() {
+		return movie;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public static long getSerialversionuid() {
@@ -91,7 +101,7 @@ public class Ticket implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(movieId, roomId, sessionId, tickedId, ticketBuyDate, ticketDate, ticketPrice, userId);
+		return Objects.hash(cinema, movie, room, session, tickedId, ticketBuyDate, ticketDate, ticketPrice, user);
 	}
 
 	@Override
@@ -103,18 +113,19 @@ public class Ticket implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Ticket other = (Ticket) obj;
-		return movieId == other.movieId && roomId == other.roomId && sessionId == other.sessionId
+		return Objects.equals(cinema, other.cinema) && Objects.equals(movie, other.movie)
+				&& Objects.equals(room, other.room) && Objects.equals(session, other.session)
 				&& tickedId == other.tickedId && Objects.equals(ticketBuyDate, other.ticketBuyDate)
 				&& Objects.equals(ticketDate, other.ticketDate)
 				&& Double.doubleToLongBits(ticketPrice) == Double.doubleToLongBits(other.ticketPrice)
-				&& userId == other.userId;
+				&& Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Ticket [tickedId=" + tickedId + ", ticketBuyDate=" + ticketBuyDate + ", movieId=" + movieId
-				+ ", ticketDate=" + ticketDate + ", roomId=" + roomId + ", ticketPrice=" + ticketPrice + ", sessionId="
-				+ sessionId + ", userId=" + userId + "]";
+		return "Ticket [tickedId=" + tickedId + ", ticketBuyDate=" + ticketBuyDate + ", ticketDate=" + ticketDate
+				+ ", ticketPrice=" + ticketPrice + ", cinema=" + cinema + ", movie=" + movie + ", room=" + room
+				+ ", session=" + session + ", user=" + user + "]";
 	}
 
 }

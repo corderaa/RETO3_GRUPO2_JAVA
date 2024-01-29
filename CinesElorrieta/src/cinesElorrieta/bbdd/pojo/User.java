@@ -11,13 +11,14 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 2732415763483267232L;
 
-	String userId = null;
-	String userName = null;
-	String userLasName = null;
-	String userSex = null;
-	String userPassword = null;
-	String userEmail = null;
-	List<Ticket> ticketId = null;
+	private String userId = null;
+	private String userName = null;
+	private String userLasName = null;
+	private String userGender = null;
+	private String userPassword = null;
+	private String userEmail = null;
+
+	private List<Ticket> ticketId = null;
 
 	public String getUserId() {
 		return userId;
@@ -44,11 +45,11 @@ public class User implements Serializable {
 	}
 
 	public String getUserSex() {
-		return userSex;
+		return userGender;
 	}
 
 	public void setUserSex(String userSex) {
-		this.userSex = userSex;
+		this.userGender = userSex;
 	}
 
 	public String getUserPassword() {
@@ -73,7 +74,7 @@ public class User implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userEmail, userId, userLasName, userName, userPassword, userSex);
+		return Objects.hash(userEmail, userId, userLasName, userName, userPassword, userGender);
 	}
 
 	@Override
@@ -87,13 +88,21 @@ public class User implements Serializable {
 		User other = (User) obj;
 		return Objects.equals(userEmail, other.userEmail) && Objects.equals(userId, other.userId)
 				&& Objects.equals(userLasName, other.userLasName) && Objects.equals(userName, other.userName)
-				&& Objects.equals(userPassword, other.userPassword) && Objects.equals(userSex, other.userSex);
+				&& Objects.equals(userPassword, other.userPassword) && Objects.equals(userGender, other.userGender);
 	}
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userLasName=" + userLasName + ", userSex="
-				+ userSex + ", userPassword=" + userPassword + ", userEmail=" + userEmail + "]";
+				+ userGender + ", userPassword=" + userPassword + ", userEmail=" + userEmail + "]";
+	}
+
+	public List<Ticket> getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(List<Ticket> ticketId) {
+		this.ticketId = ticketId;
 	}
 
 }

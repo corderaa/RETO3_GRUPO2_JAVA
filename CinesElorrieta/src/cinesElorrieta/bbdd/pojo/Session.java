@@ -11,10 +11,12 @@ public class Session implements Serializable {
 
 	private static final long serialVersionUID = 346639021818786350L;
 
-	int sessionID = 0;
-	Date sessionDate = null;
-	int idRoom = 0;
-	int idCinema = 0;
+	private int sessionID = 0;
+	private Date sessionDate = null;
+
+	private Room room = null;
+	private Cinema cinema = null;
+	private Movie movie = null;
 
 	public int getSessionID() {
 		return sessionID;
@@ -36,33 +38,33 @@ public class Session implements Serializable {
 		return serialVersionUID;
 	}
 
-	public int getRooms() {
-		return 0;
+	public Cinema getCinema() {
+		return cinema;
 	}
 
-	public void setRooms(int idroom) {
-		this.idRoom = idroom;
+	public void setCinema(Cinema cinema) {
+		this.cinema = cinema;
 	}
 
-	public int getIdRoom() {
-		return idRoom;
+	public Room getRoom() {
+		return room;
 	}
 
-	public void setIdRoom(int idRoom) {
-		this.idRoom = idRoom;
+	public void setRoom(Room room) {
+		this.room = room;
 	}
 
-	public int getIdCinema() {
-		return idCinema;
+	public Movie getMovie() {
+		return movie;
 	}
 
-	public void setIdCinema(int idCinema) {
-		this.idCinema = idCinema;
+	public void setMovie(Movie movie) {
+		this.movie = movie;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idCinema, idRoom, sessionDate, sessionID);
+		return Objects.hash(cinema, movie, room, sessionDate, sessionID);
 	}
 
 	@Override
@@ -74,14 +76,15 @@ public class Session implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Session other = (Session) obj;
-		return idCinema == other.idCinema && idRoom == other.idRoom && Objects.equals(sessionDate, other.sessionDate)
+		return Objects.equals(cinema, other.cinema) && Objects.equals(movie, other.movie)
+				&& Objects.equals(room, other.room) && Objects.equals(sessionDate, other.sessionDate)
 				&& sessionID == other.sessionID;
 	}
 
 	@Override
 	public String toString() {
-		return "Session [sessionID=" + sessionID + ", sessionDate=" + sessionDate + ", idRoom=" + idRoom + ", idCinema="
-				+ idCinema + "]";
+		return "Session [sessionID=" + sessionID + ", sessionDate=" + sessionDate + ", room=" + room + ", cinema="
+				+ cinema + ", movie=" + movie + "]";
 	}
 
 }
