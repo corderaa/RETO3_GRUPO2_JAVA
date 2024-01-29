@@ -2,6 +2,7 @@ package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,7 +16,7 @@ public class Movie implements Serializable {
 	Date movieDuration = null;
 	String movieKind = null;
 	Double moviePrice = 0.0;
-	// int sesionID = 0; Esto es la relacion no se como hacerla
+	List<Session> SessionIDs = null;
 
 	public int getMovieId() {
 		return movieId;
@@ -49,13 +50,21 @@ public class Movie implements Serializable {
 		this.moviePrice = moviePrice;
 	}
 
+	public List<Session> getSessionIDs() {
+		return SessionIDs;
+	}
+
+	public void setSessionIDs(List<Session> sessionIDs) {
+		SessionIDs = sessionIDs;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(movieDuration, movieId, movieKind, moviePrice);
+		return Objects.hash(SessionIDs, movieDuration, movieId, movieKind, moviePrice);
 	}
 
 	@Override
@@ -67,14 +76,14 @@ public class Movie implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Movie other = (Movie) obj;
-		return Objects.equals(movieDuration, other.movieDuration) && movieId == other.movieId
-				&& Objects.equals(movieKind, other.movieKind) && Objects.equals(moviePrice, other.moviePrice);
+		return Objects.equals(SessionIDs, other.SessionIDs) && Objects.equals(movieDuration, other.movieDuration)
+				&& movieId == other.movieId && Objects.equals(movieKind, other.movieKind)
+				&& Objects.equals(moviePrice, other.moviePrice);
 	}
 
 	@Override
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", movieDuration=" + movieDuration + ", movieKind=" + movieKind
-				+ ", moviePrice=" + moviePrice + "]";
+				+ ", moviePrice=" + moviePrice + ", SessionIDs=" + SessionIDs + "]";
 	}
-
 }

@@ -18,6 +18,7 @@ public class Ticket implements Serializable {
 	int roomId = 0;
 	double ticketPrice = 0;
 	int sessionId = 0;
+	int userId = 0;
 
 	public int getTickedId() {
 		return tickedId;
@@ -75,13 +76,21 @@ public class Ticket implements Serializable {
 		this.sessionId = sessionId;
 	}
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(movieId, roomId, sessionId, tickedId, ticketBuyDate, ticketDate, ticketPrice);
+		return Objects.hash(movieId, roomId, sessionId, tickedId, ticketBuyDate, ticketDate, ticketPrice, userId);
 	}
 
 	@Override
@@ -96,14 +105,15 @@ public class Ticket implements Serializable {
 		return movieId == other.movieId && roomId == other.roomId && sessionId == other.sessionId
 				&& tickedId == other.tickedId && Objects.equals(ticketBuyDate, other.ticketBuyDate)
 				&& Objects.equals(ticketDate, other.ticketDate)
-				&& Double.doubleToLongBits(ticketPrice) == Double.doubleToLongBits(other.ticketPrice);
+				&& Double.doubleToLongBits(ticketPrice) == Double.doubleToLongBits(other.ticketPrice)
+				&& userId == other.userId;
 	}
 
 	@Override
 	public String toString() {
 		return "Ticket [tickedId=" + tickedId + ", ticketBuyDate=" + ticketBuyDate + ", movieId=" + movieId
 				+ ", ticketDate=" + ticketDate + ", roomId=" + roomId + ", ticketPrice=" + ticketPrice + ", sessionId="
-				+ sessionId + "]";
+				+ sessionId + ", userId=" + userId + "]";
 	}
 
 }

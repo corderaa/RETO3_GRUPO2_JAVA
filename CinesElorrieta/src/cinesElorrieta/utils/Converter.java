@@ -8,12 +8,12 @@ import java.util.Date;
 public class Converter {
 
 	/**
-	 * Convierte una fecha en formato String a util.date
+	 * Converts a Date.Util
 	 * 
 	 * @param fecha
 	 * @return la fecha convertida
 	 */
-	public Date stringToDate (String fecha) {
+	public Date stringvToDate(String fecha) {
 		return null;
 	}
 

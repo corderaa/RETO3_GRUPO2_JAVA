@@ -1,6 +1,7 @@
 package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,7 +17,7 @@ public class User implements Serializable {
 	String userSex = null;
 	String userPassword = null;
 	String userEmail = null;
-	// int ticketId = null; Esto es la relacion no se como hacerla
+	List<Ticket> ticketId = null;
 
 	public String getUserId() {
 		return userId;

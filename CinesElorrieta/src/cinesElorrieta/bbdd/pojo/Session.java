@@ -2,7 +2,6 @@ package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,7 +13,8 @@ public class Session implements Serializable {
 
 	int sessionID = 0;
 	Date sessionDate = null;
-	List<Room> rooms = null;
+	int idRoom = 0;
+	int idCinema = 0;
 
 	public int getSessionID() {
 		return sessionID;
@@ -36,17 +36,33 @@ public class Session implements Serializable {
 		return serialVersionUID;
 	}
 
-	public List<Room> getRooms() {
-		return rooms;
+	public int getRooms() {
+		return 0;
 	}
 
-	public void setRooms(List<Room> rooms) {
-		this.rooms = rooms;
+	public void setRooms(int idroom) {
+		this.idRoom = idroom;
+	}
+
+	public int getIdRoom() {
+		return idRoom;
+	}
+
+	public void setIdRoom(int idRoom) {
+		this.idRoom = idRoom;
+	}
+
+	public int getIdCinema() {
+		return idCinema;
+	}
+
+	public void setIdCinema(int idCinema) {
+		this.idCinema = idCinema;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(rooms, sessionDate, sessionID);
+		return Objects.hash(idCinema, idRoom, sessionDate, sessionID);
 	}
 
 	@Override
@@ -58,13 +74,14 @@ public class Session implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Session other = (Session) obj;
-		return Objects.equals(rooms, other.rooms) && Objects.equals(sessionDate, other.sessionDate)
+		return idCinema == other.idCinema && idRoom == other.idRoom && Objects.equals(sessionDate, other.sessionDate)
 				&& sessionID == other.sessionID;
 	}
 
 	@Override
 	public String toString() {
-		return "Session [sessionID=" + sessionID + ", sessionDate=" + sessionDate + ", rooms=" + rooms + "]";
+		return "Session [sessionID=" + sessionID + ", sessionDate=" + sessionDate + ", idRoom=" + idRoom + ", idCinema="
+				+ idCinema + "]";
 	}
 
 }

@@ -5,13 +5,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 /**
- * 
+ * The main JFrame
  */
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
+	/**
+	 * Initializes the frame
+	 */
 	public void run() {
 		try {
 			MainFrame frame = new MainFrame();
@@ -21,6 +24,9 @@ public class MainFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Defines the components of the main JFrame.
+	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
