@@ -7,6 +7,7 @@ import java.util.Objects;
 /**
  * Object of the t_entrada from the DB. It represents a ticket.
  */
+
 public class Ticket implements Serializable {
 
 	private static final long serialVersionUID = 6484501230287264913L;
