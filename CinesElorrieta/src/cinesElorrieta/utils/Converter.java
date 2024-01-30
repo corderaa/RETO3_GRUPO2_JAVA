@@ -13,7 +13,17 @@ public class Converter {
 	 * @param fecha
 	 * @return la fecha convertida
 	 */
-	public Date stringvToDate(String fecha) {
+	public Date SQLDateToUTILDate(String fecha) {
+		return null;
+	}
+
+	/**
+	 * Converts a SQL.Date
+	 * 
+	 * @param fecha
+	 * @return la fecha convertida
+	 */
+	public Date UtilDateToSQLDate(String fecha) {
 		return null;
 	}
 

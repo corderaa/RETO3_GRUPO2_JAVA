@@ -20,40 +20,40 @@ public class MoviesPanel extends JPanel {
 	/*
 	 * Order the movies
 	 */
-	
+
 	public void orderedMovies() {
 
 	}
-	
+
 	/*
 	 * Dates when you can see the movie
 	 */
-	
+
 	public void movieDates() {
-		
+
 	}
-	
+
 	/*
 	 * Selected movie broadcast schedule
 	 */
-	
+
 	public void movieTime() {
-		
+
 	}
-	
+
 	/*
 	 * Room where you can watch the movie
 	 */
-	
-	public void movieHall(){
-		
+
+	public void movieHall() {
+
 	}
-	
+
 	/*
 	 * Price of the selected movie
 	 */
-	
+
 	public void moviePrice() {
-		
+
 	}
 }
