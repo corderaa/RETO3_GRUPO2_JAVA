@@ -18,8 +18,6 @@ public class User implements Serializable {
 	private String userPassword = null;
 	private String userEmail = null;
 
-	private List<Ticket> ticketId = null;
-
 	public String getUserId() {
 		return userId;
 	}
@@ -96,13 +94,4 @@ public class User implements Serializable {
 		return "User [userId=" + userId + ", userName=" + userName + ", userLasName=" + userLasName + ", userSex="
 				+ userGender + ", userPassword=" + userPassword + ", userEmail=" + userEmail + "]";
 	}
-
-	public List<Ticket> getTicketId() {
-		return ticketId;
-	}
-
-	public void setTicketId(List<Ticket> ticketId) {
-		this.ticketId = ticketId;
-	}
-
 }
