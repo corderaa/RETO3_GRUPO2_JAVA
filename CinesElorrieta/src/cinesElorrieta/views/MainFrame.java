@@ -19,7 +19,6 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MoviesPanel moviesPanel;
-	private LoginPanel loginPanel;
 	private CinemasPanel cinemasPanel;
 	private WelcomePanel welcomePanel;
 	private CheckoutPanel checkoutPanel;
@@ -47,7 +46,10 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		RegisterPanel registerPanel = new RegisterPanel();
-		contentPane.add(registerPanel.getRegisterPanel());
+		//RegisterPanel registerPanel = new RegisterPanel();
+		//contentPane.add(registerPanel.getRegisterPanel());
+
+		LoginPanel loginPanel = new LoginPanel();
+		contentPane.add(loginPanel.getLoginPanel());
 	}
 }

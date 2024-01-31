@@ -71,14 +71,13 @@ public class UserManager {
 			} catch (Exception e) {
 				// No hace falta
 			}
-			;
+
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
 				// No hace falta
 			}
-			;
 		}
 	}
 }

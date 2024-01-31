@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.SwingConstants;
 
 import cinesElorrieta.bbdd.managers.UserManager;
@@ -138,6 +140,8 @@ public class RegisterPanel {
 				newUser.setUserSex(getUserGenre());
 
 				userManager.insertUser(newUser);
+
+				panelRegister.setVisible(false);
 			}
 
 			/**
