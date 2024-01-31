@@ -5,7 +5,7 @@ public class DBUtils {
 	/**
 	 * URL of the database.
 	 */
-	public static final String URL = "";
+	public static final String URL = "http://localhost/phpmyadmin/reto3_prueba";
 
 	/**
 	 * DRIVER used to interact with the database.

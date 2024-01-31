@@ -15,8 +15,6 @@ public class Cinema implements Serializable {
 	private String cinemaName = null;
 	private String cinemaAddress = null;
 
-	List<Room> rooms = null;
-
 	public int getCinemaId() {
 		return cinemaId;
 	}

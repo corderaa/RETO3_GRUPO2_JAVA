@@ -40,26 +40,10 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 553, 401);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-
-		welcomePanel = new WelcomePanel();
-		setContentPane(welcomePanel);
-
-		cinemasPanel = new CinemasPanel();
-		setContentPane(cinemasPanel);
-
-		loginPanel = new LoginPanel();
-		setContentPane(loginPanel);
-
-		moviesPanel = new MoviesPanel();
-		setContentPane(moviesPanel);
-
-		checkoutPanel = new CheckoutPanel();
-		setContentPane(checkoutPanel);
 	}
-
 }
