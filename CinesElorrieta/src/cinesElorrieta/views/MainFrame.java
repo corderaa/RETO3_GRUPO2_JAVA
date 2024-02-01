@@ -46,6 +46,9 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		// WelcomePanel welcomePanel = new WelcomePanel();
+		// contentPane.add(welcomePanel.getWelcomePanel());
+
 		RegisterPanel registerPanel = new RegisterPanel();
 		contentPane.add(registerPanel.getRegisterPanel());
 
