@@ -19,18 +19,24 @@ public class LoginPanel {
 
 		JTextField textFieldMail;
 		JTextField textFieldPassword;
+		JPanel panelForm;
+		JLabel lblTitle;
+		JLabel lblMain;
+		JLabel lblPassword;
+		JButton btnLogin;
+		JPanel panelForm_background;
 
 		loginPanel = new JPanel();
 		loginPanel.setBackground(new Color(255, 66, 70));
 		loginPanel.setBounds(0, 0, 1234, 741);
 		loginPanel.setLayout(null);
 
-		JPanel panelForm = new JPanel();
+		panelForm = new JPanel();
 		panelForm.setBounds(394, 102, 426, 522);
 		loginPanel.add(panelForm);
 		panelForm.setLayout(null);
 
-		JLabel lblTitle = new JLabel("I N I C I A R  S E S I O N");
+		lblTitle = new JLabel("I N I C I A R  S E S I O N");
 		lblTitle.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 28));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(53, 59, 320, 57);
@@ -41,7 +47,7 @@ public class LoginPanel {
 		textFieldMail.setBounds(47, 197, 331, 40);
 		panelForm.add(textFieldMail);
 
-		JLabel lblMain = new JLabel("Correo:");
+		lblMain = new JLabel("Correo:");
 		lblMain.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		lblMain.setBounds(47, 166, 76, 20);
 		panelForm.add(lblMain);
@@ -51,19 +57,19 @@ public class LoginPanel {
 		textFieldPassword.setBounds(47, 296, 331, 40);
 		panelForm.add(textFieldPassword);
 
-		JLabel lblPassword = new JLabel("Contraseña:");
+		lblPassword = new JLabel("Contraseña:");
 		lblPassword.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		lblPassword.setBounds(47, 265, 115, 20);
 		panelForm.add(lblPassword);
 
-		JButton btnLogin = new JButton("ENTRAR");
+		btnLogin = new JButton("ENTRAR");
 		btnLogin.setForeground(new Color(255, 255, 255));
 		btnLogin.setBackground(new Color(255, 51, 51));
 		btnLogin.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
 		btnLogin.setBounds(47, 409, 331, 57);
 		panelForm.add(btnLogin);
 
-		JPanel panelForm_background = new JPanel();
+		panelForm_background = new JPanel();
 		panelForm_background.setLayout(null);
 		panelForm_background.setBackground(Color.BLACK);
 		panelForm_background.setBounds(423, 71, 436, 529);

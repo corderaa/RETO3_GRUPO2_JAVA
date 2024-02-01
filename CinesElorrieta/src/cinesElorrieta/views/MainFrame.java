@@ -46,10 +46,10 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		//RegisterPanel registerPanel = new RegisterPanel();
-		//contentPane.add(registerPanel.getRegisterPanel());
+		RegisterPanel registerPanel = new RegisterPanel();
+		contentPane.add(registerPanel.getRegisterPanel());
 
-		LoginPanel loginPanel = new LoginPanel();
-		contentPane.add(loginPanel.getLoginPanel());
+		// LoginPanel loginPanel = new LoginPanel();
+		// contentPane.add(loginPanel.getLoginPanel());
 	}
 }
