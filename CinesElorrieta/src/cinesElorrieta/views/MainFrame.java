@@ -1,5 +1,7 @@
 package cinesElorrieta.views;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,10 +16,11 @@ import cinesElorrieta.views.panels.WelcomePanel;
 /**
  * The main JFrame
  */
-public class MainFrame extends JFrame {
+public class MainFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JFrame frame;
+	private ArrayList<JPanel> paneles = null;
+
 	private MoviesPanel moviesPanel;
 	private CinemasPanel cinemasPanel;
 	private WelcomePanel welcomePanel;
@@ -28,31 +31,56 @@ public class MainFrame extends JFrame {
 	 */
 	public void run() {
 		try {
-			MainFrame frame = new MainFrame();
-			frame.setVisible(true);
+			new MainFrame().frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public MainFrame() {
+		initialize();
+	}
+
 	/**
 	 * Defines the components of the main JFrame.
 	 */
-	public MainFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1250, 780);
-		contentPane = new JPanel();
+	public void initialize() {
+
+		frame = new JFrame();
+		frame.setBounds(100, 100, 1250, 780);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		paneles = new ArrayList<JPanel>();
+		
+		RegisterPanel gestorpanel1 = new RegisterPanel(paneles);
+		JPanel panelRegister = gestorpanel1.getPanel();
+		panelRegister.setVisible(true);
+		
+		paneles.add(panelRegister);
+		frame.getContentPane().add(panelRegister);
+		
+		LoginPanel gestorpanel2 = new LoginPanel(paneles);
+		JPanel loginPanel = gestorpanel2.getLoginPanel();
+		loginPanel.setVisible(false);
+
+		paneles.add(loginPanel);
+		frame.getContentPane().add(loginPanel);
+		
+		/*contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		*/
+		
 		// WelcomePanel welcomePanel = new WelcomePanel();
 		// contentPane.add(welcomePanel.getWelcomePanel());
 
-		RegisterPanel registerPanel = new RegisterPanel();
+		/*RegisterPanel registerPanel = new RegisterPanel();
 		contentPane.add(registerPanel.getRegisterPanel());
 
-		// LoginPanel loginPanel = new LoginPanel();
-		// contentPane.add(loginPanel.getLoginPanel());
+		LoginPanel loginPanel = new LoginPanel();
+		contentPane.add(loginPanel.getLoginPanel());
+		 */
 	}
 }

@@ -1,12 +1,15 @@
 package cinesElorrieta.views.panels;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 
@@ -20,25 +23,24 @@ import javax.swing.JCheckBox;
 public class RegisterPanel {
 
 	private JPanel panelRegister = null;
+	private JPanel panelFormulario = null;
+	private JLabel lblTitulo = null;
+	private JTextField textFieldUser = null;
+	private JLabel lblUsuario = null;
+	private JTextField textFieldMail = null;
+	private JLabel lblCorreo = null;
+	private JTextField textFieldPassword = null;
+	private JLabel lblContrasea = null;
+	private JButton btnRegistrarse = null;
+	private JLabel lblDni = null;
+	private JTextField textFieldDNI = null;
+	private JCheckBox chckbxMale = null;
+	private JCheckBox chckbxFemale = null;
+	private JTextField textFieldLasName = null;
+	private JLabel lblApellidos = null;
+	private JPanel panelFormulario_fondo = null;
 
-	public JPanel getRegisterPanel() {
-
-		JPanel panelFormulario;
-		JLabel lblTitulo;
-		JLabel lblCorreo;
-		JLabel lblContrasea;
-		JLabel lblUsuario;
-		JButton btnRegistrarse;
-		JLabel lblDni;
-		JLabel lblApellidos;
-		JPanel panelFormulario_fondo;
-		JTextField textFieldUser;
-		JTextField textFieldMail;
-		JTextField textFieldPassword;
-		JTextField textFieldDNI;
-		JTextField textFieldLasName;
-		JCheckBox chckbxMale;
-		JCheckBox chckbxFemale;
+	public RegisterPanel(ArrayList<JPanel> paneles) {
 
 		panelRegister = new JPanel();
 		panelRegister.setBackground(new Color(255, 66, 70));
@@ -141,7 +143,9 @@ public class RegisterPanel {
 
 				userManager.insertUser(newUser);
 
-				panelRegister.setVisible(false);
+				paneles.get(0).setVisible(false);
+				paneles.get(1).setVisible(true);
+		
 			}
 
 			/**
@@ -150,6 +154,7 @@ public class RegisterPanel {
 			 * 
 			 * @return
 			 */
+
 			public String getUserGenre() {
 
 				if (chckbxMale.isSelected()) {
@@ -160,7 +165,12 @@ public class RegisterPanel {
 					return null;
 				}
 			}
+
 		});
+
+	}
+
+	public JPanel getPanel() {
 
 		return panelRegister;
 	}

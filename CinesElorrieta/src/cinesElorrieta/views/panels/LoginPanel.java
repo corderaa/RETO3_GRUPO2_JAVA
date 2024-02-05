@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,17 +15,16 @@ import javax.swing.SwingConstants;
 public class LoginPanel {
 
 	private JPanel loginPanel = null;
+	private JTextField textFieldMail = null;
+	private JTextField textFieldPassword = null;
+	private JPanel panelForm = null;
+	private JLabel lblTitle = null;
+	private JLabel lblMain = null;
+	private JLabel lblPassword = null;
+	private JButton btnLogin = null;
+	private JPanel panelForm_background = null;
 
-	public JPanel getLoginPanel() {
-
-		JTextField textFieldMail;
-		JTextField textFieldPassword;
-		JPanel panelForm;
-		JLabel lblTitle;
-		JLabel lblMain;
-		JLabel lblPassword;
-		JButton btnLogin;
-		JPanel panelForm_background;
+	public LoginPanel (ArrayList<JPanel> paneles) {
 
 		loginPanel = new JPanel();
 		loginPanel.setBackground(new Color(255, 66, 70));
@@ -87,6 +87,11 @@ public class LoginPanel {
 
 		});
 
+		
+	}
+
+	public JPanel getLoginPanel() {
+		
 		return loginPanel;
 	}
 }
