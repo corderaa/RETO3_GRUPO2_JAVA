@@ -24,7 +24,7 @@ public class LoginPanel {
 	private JButton btnLogin = null;
 	private JPanel panelForm_background = null;
 
-	public LoginPanel (ArrayList<JPanel> paneles) {
+	public LoginPanel(ArrayList<JPanel> paneles) {
 
 		loginPanel = new JPanel();
 		loginPanel.setBackground(new Color(255, 66, 70));
@@ -87,11 +87,10 @@ public class LoginPanel {
 
 		});
 
-		
 	}
 
 	public JPanel getLoginPanel() {
-		
+
 		return loginPanel;
 	}
 }

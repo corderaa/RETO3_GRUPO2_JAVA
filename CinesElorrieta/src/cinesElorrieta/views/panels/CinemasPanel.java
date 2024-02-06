@@ -22,21 +22,21 @@ import cinesElorrieta.bbdd.pojo.Session;
 public class CinemasPanel {
 
 	private JPanel cinemasPanel;
+	private JTable tableCinemas;
+	private JTable tableMovies;
+	private JScrollPane scrollPanePelis;
+	private JLabel lblCines;
+	private JLabel lblPEL;
+	private JLabel lblCines_fondo;
+	private JLabel lblCines_fondo_1;
+	private JButton btnNewButton;
+	private JButton btnFinalizar;
+	private JScrollPane scrollPaneCinema;
+	private DefaultTableModel cinemaModel;
+	private DefaultTableModel modelMovies;
+	private JButton btnSelect;
 
-	public JPanel getCinemasPanel() {
-
-		JTable tableCinemas;
-		JTable tableMovies;
-		JScrollPane scrollPanePelis;
-		JLabel lblCines;
-		JLabel lblPEL;
-		JLabel lblCines_fondo;
-		JLabel lblCines_fondo_1;
-		JButton btnNewButton;
-		JButton btnFinalizar;
-		JScrollPane scrollPaneCinema;
-		DefaultTableModel cinemaModel;
-		JButton btnSelect;
+	public CinemasPanel(ArrayList<JPanel> paneles) {
 
 		cinemasPanel = new JPanel();
 		cinemasPanel.setBackground(new Color(255, 66, 70));
@@ -94,7 +94,7 @@ public class CinemasPanel {
 		scrollPanePelis.setBounds(78, 330, 1077, 345);
 		cinemasPanel.add(scrollPanePelis);
 
-		DefaultTableModel modelMovies = new DefaultTableModel();
+		modelMovies = new DefaultTableModel();
 		modelMovies.addColumn("Nombre de la Pelicula");
 		modelMovies.addColumn("Genero de la pelicula");
 		modelMovies.addColumn("Duracion");
@@ -130,6 +130,9 @@ public class CinemasPanel {
 				displayMoviesPanel(modelMovies, selectedCinemaId);
 			}
 		});
+	}
+
+	public JPanel getCinemasPanel() {
 
 		return cinemasPanel;
 	}

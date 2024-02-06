@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-
+import cinesElorrieta.views.panels.CinemasPanel;
 import cinesElorrieta.views.panels.LoginPanel;
 
 import cinesElorrieta.views.panels.RegisterPanel;
@@ -18,7 +17,7 @@ import cinesElorrieta.views.panels.WelcomePanel;
 public class MainFrame {
 
 	private JFrame frame;
-	private ArrayList<JPanel> paneles = null;
+	private ArrayList<JPanel> panels = null;
 
 	/**
 	 * Initializes the frame
@@ -45,31 +44,39 @@ public class MainFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		paneles = new ArrayList<JPanel>();
+		panels = new ArrayList<JPanel>();
 
 		// Panel 0
-		WelcomePanel gestorpanel0 = new WelcomePanel(paneles);
+		WelcomePanel gestorpanel0 = new WelcomePanel(panels);
 		JPanel welcomePanel = gestorpanel0.getPanel();
 		welcomePanel.setVisible(true);
 
-		paneles.add(welcomePanel);
+		panels.add(welcomePanel);
 		frame.getContentPane().add(welcomePanel);
 
 		// Panel 1
-		RegisterPanel gestorpanel1 = new RegisterPanel(paneles);
+		RegisterPanel gestorpanel1 = new RegisterPanel(panels);
 		JPanel panelRegister = gestorpanel1.getPanel();
 		panelRegister.setVisible(false);
 
-		paneles.add(panelRegister);
+		panels.add(panelRegister);
 		frame.getContentPane().add(panelRegister);
 
 		// Panel 2
-		LoginPanel gestorpanel2 = new LoginPanel(paneles);
+		LoginPanel gestorpanel2 = new LoginPanel(panels);
 		JPanel loginPanel = gestorpanel2.getLoginPanel();
 		loginPanel.setVisible(false);
 
-		paneles.add(loginPanel);
+		panels.add(loginPanel);
 		frame.getContentPane().add(loginPanel);
+
+		// Panel 3
+		CinemasPanel gestorpanel3 = new CinemasPanel(panels);
+		JPanel cinemasPanel = gestorpanel3.getCinemasPanel();
+		cinemasPanel.setVisible(false);
+
+		panels.add(cinemasPanel);
+		frame.getContentPane().add(cinemasPanel);
 
 	}
 }
