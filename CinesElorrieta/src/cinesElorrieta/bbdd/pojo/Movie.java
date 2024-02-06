@@ -1,7 +1,6 @@
 package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +12,9 @@ public class Movie implements Serializable {
 	private static final long serialVersionUID = 5115264711006430061L;
 
 	int movieId = 0;
-	Date movieDuration = null;
+	String movieDuration = null;
 	String movieKind = null;
+	String movieName = null;
 	Double moviePrice = 0.0;
 
 	List<Session> SessionIDs = null;
@@ -27,12 +27,20 @@ public class Movie implements Serializable {
 		this.movieId = movieId;
 	}
 
-	public Date getMovieDuration() {
+	public String getMovieDuration() {
 		return movieDuration;
 	}
 
-	public void setMovieDuration(Date movieDuration) {
+	public void setMovieDuration(String movieDuration) {
 		this.movieDuration = movieDuration;
+	}
+
+	public String getMovieName() {
+		return movieName;
+	}
+
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
 	}
 
 	public String getMovieKind() {
@@ -65,7 +73,7 @@ public class Movie implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(SessionIDs, movieDuration, movieId, movieKind, moviePrice);
+		return Objects.hash(SessionIDs, movieDuration, movieId, movieKind, movieName, moviePrice);
 	}
 
 	@Override
@@ -79,12 +87,13 @@ public class Movie implements Serializable {
 		Movie other = (Movie) obj;
 		return Objects.equals(SessionIDs, other.SessionIDs) && Objects.equals(movieDuration, other.movieDuration)
 				&& movieId == other.movieId && Objects.equals(movieKind, other.movieKind)
-				&& Objects.equals(moviePrice, other.moviePrice);
+				&& Objects.equals(movieName, other.movieName) && Objects.equals(moviePrice, other.moviePrice);
 	}
 
 	@Override
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", movieDuration=" + movieDuration + ", movieKind=" + movieKind
-				+ ", moviePrice=" + moviePrice + ", SessionIDs=" + SessionIDs + "]";
+				+ ", movieName=" + movieName + ", moviePrice=" + moviePrice + ", SessionIDs=" + SessionIDs + "]";
 	}
+
 }
