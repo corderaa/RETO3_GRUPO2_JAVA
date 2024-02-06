@@ -2,8 +2,11 @@ package cinesElorrieta.views.panels;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,20 +15,23 @@ import javax.swing.SwingConstants;
 
 public class WelcomePanel {
 
-	private JPanel welcomePanel;
+	private JPanel welcomePanel = null;
 
-	public JPanel getWelcomePanel() {
+	private JLabel lblTitulo = null;
+	private JLabel lblTitulo_fondo = null;
+	private JLabel lblNewLabel = null;
+	private JLabel lblNewLabel_fondo = null;
+	private JButton btnNewButton = null;
 
-		JLabel lblTitulo;
-		JLabel lblTitulo_fondo;
-		JLabel lblNewLabel;
-		JLabel lblNewLabel_fondo;
-		JButton btnNewButton;
+	
+
+	public WelcomePanel (ArrayList<JPanel> paneles) {
 
 		welcomePanel = new JPanel();
 		welcomePanel.setBackground(new Color(255, 66, 70));
 		welcomePanel.setBounds(0, 0, 1234, 741);
 		welcomePanel.setLayout(null);
+
 
 		lblTitulo = new JLabel("BIENVENIDO A CINES ELORRIETA");
 		lblTitulo.setForeground(new Color(255, 255, 255));
@@ -61,13 +67,39 @@ public class WelcomePanel {
 		btnNewButton.setBounds(0, 718, 64, 23);
 		welcomePanel.add(btnNewButton);
 
+		btnNewButton.addActionListener(new ActionListener() {	
+			public void actionPerformed(ActionEvent e) {
+				/*try {
+					Thread.sleep(3000);
+				} catch (InterruptedException a) {
+					// No hacer nada
+				}*/
+				
+				paneles.get(0).setVisible(false);
+				paneles.get(1).setVisible(false);
+				paneles.get(2).setVisible(true);
+			
+			}
+		});
 		welcomePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				paneles.get(0).setVisible(false);
+				paneles.get(1).setVisible(true);
+				paneles.get(2).setVisible(false);
+
 			}
 		});
+
+
+		
+	}
+
+	public JPanel getPanel() {
 
 		return welcomePanel;
 	}
 
-}
+		}
+	
