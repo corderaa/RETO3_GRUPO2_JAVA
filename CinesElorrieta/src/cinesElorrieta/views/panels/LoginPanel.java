@@ -8,9 +8,13 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import cinesElorrieta.bbdd.managers.UserManager;
+import cinesElorrieta.bbdd.pojo.User;
 
 public class LoginPanel {
 
@@ -77,16 +81,29 @@ public class LoginPanel {
 
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// codigo para cojer los datos del usuario
-			}
+				
+				String mail = textFieldMail.getText();
+				String password = textFieldPassword.getText();
 
-			public boolean verifyUser() {
-				// verificar que los datos estan correcto he iniciar sesion
-				return false;
-			}
+				
+				boolean correctLogin = verifyUser(mail, password);
 
+			
+				if (correctLogin) {
+					JOptionPane.showMessageDialog(null, "BIeeeeeeeeeeeeeeeeen");
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+				}
+			}
 		});
+	}
 
+	private boolean verifyUser(String mail, String password) {
+		
+		UserManager userManager = new UserManager();
+		User user = userManager.getUser(mail, password);
+
+		return user != null;
 	}
 
 	public JPanel getLoginPanel() {

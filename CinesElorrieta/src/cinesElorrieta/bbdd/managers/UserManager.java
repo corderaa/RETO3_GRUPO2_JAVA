@@ -2,6 +2,8 @@ package cinesElorrieta.bbdd.managers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -20,8 +22,72 @@ public class UserManager {
 	 * @param id
 	 * @return
 	 */
-	public User getUser(int id) {
-		return null;
+	public User getUser(String mail, String password) {
+		
+		// La conexion con BBDD
+		Connection connection = null;
+		
+		// Vamos a lanzar una sentencia SQL contra la BBDD mas o menos
+		PreparedStatement statement = null;
+		
+		//Consulta a la base de datos y nos da los resultados
+		ResultSet resultSet = null;
+		
+		//Llamamos al usuario
+		User user = null;
+
+		try {
+			// El Driver que vamos a usar
+			Class.forName(DBUtils.DRIVER);
+
+			// Abrimos la conexion con BBDD
+			connection = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASS);
+
+			// Montamos la SQL
+			String sql = "SELECT * FROM t_user WHERE userMail = ? AND userPassword = ?";
+
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, mail);
+			statement.setString(2, password);
+
+			// Vamos a lanzar la sentencia...
+			resultSet = statement.executeQuery();
+
+			// Si encuentra el usuario lo envia no es necesario todo pero bueno
+			if (resultSet.next()) {
+				
+				user = new User();
+				
+				user.setUserId(resultSet.getString("userDNI"));
+				user.setUserName(resultSet.getString("userName"));
+				user.setUserLasName(resultSet.getString("userSurname"));
+				user.setUserSex(resultSet.getString("userGender"));
+				user.setUserPassword(resultSet.getString("userPassword"));
+				user.setUserEmail(resultSet.getString("userMail"));
+			}
+
+		} catch (SQLException sqle) {
+			System.out.println("Error con la BBDD - " + sqle.getMessage());
+		} catch (Exception e) {
+			System.out.println("Error generico - " + e.getMessage());
+		} finally {
+			// Cerramos al reves de como las abrimos
+			try {
+				if (statement != null)
+					statement.close();
+			} catch (Exception e) {
+				// No hace falta
+			}
+
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (Exception e) {
+				// No hace falta
+			}
+		}
+
+		return user;
 	}
 
 	/**
@@ -80,4 +146,5 @@ public class UserManager {
 			}
 		}
 	}
+
 }
