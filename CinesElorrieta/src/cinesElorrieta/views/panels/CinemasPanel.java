@@ -27,7 +27,7 @@ import cinesElorrieta.bbdd.pojo.Session;
 public class CinemasPanel {
 
 	private JPanel cinemasPanel;
-	private ArrayList<Session> selectedSessions = new ArrayList<Session>();
+	public ArrayList<Session> selectedSessions = new ArrayList<Session>();
 
 	private JTable tableCinemas;
 	private JTable tableMovies;
@@ -199,7 +199,8 @@ public class CinemasPanel {
 
 		btnFinalize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// llevar al siguiente panel
+				paneles.get(4).setVisible(true);
+				paneles.get(3).setVisible(false);
 			}
 		});
 
@@ -244,11 +245,14 @@ public class CinemasPanel {
 				Session selectedSession = sesionManager.getTheDataFromSelectedSession(selectedCinemaId, selectedMovieId,
 						selectedDateTime);
 
-				if (selectedSessions.size() >= 5) {
+				int listSize = 0;
+				listSize = selectedSessions.size();
+
+				if (listSize >= 5) {
+					selectedSessions.add(selectedSession);
+				} else {
 					JOptionPane.showMessageDialog(null,
 							"Ya has llegado al numero maximo de peliculas que puedes seleccionar!!!");
-				} else {
-					selectedSessions.add(selectedSession);
 				}
 			}
 		});
@@ -421,5 +425,9 @@ public class CinemasPanel {
 
 	public JPanel getCinemasPanel() {
 		return cinemasPanel;
+	}
+
+	public ArrayList<Session> getSelectedSessions() {
+		return selectedSessions;
 	}
 }

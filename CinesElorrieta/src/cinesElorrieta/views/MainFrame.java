@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import cinesElorrieta.views.panels.CheckoutPanel;
 import cinesElorrieta.views.panels.CinemasPanel;
 import cinesElorrieta.views.panels.LoginPanel;
 
@@ -78,5 +79,16 @@ public class MainFrame {
 		panels.add(cinemasPanel);
 		frame.getContentPane().add(cinemasPanel);
 
+		// Panel 4
+		CheckoutPanel gestorpanel4 = new CheckoutPanel(panels, gestorpanel3.getSelectedSessions());
+		JPanel checkoutPanel = gestorpanel4.getCheckoutPanel();
+		checkoutPanel.setVisible(false);
+
+		panels.add(checkoutPanel);
+		frame.getContentPane().add(checkoutPanel);
+	}
+
+	public ArrayList<JPanel> getPanels() {
+		return panels;
 	}
 }
