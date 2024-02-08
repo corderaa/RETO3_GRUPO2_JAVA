@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -15,25 +18,36 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import cinesElorrieta.bbdd.managers.CinemaManager;
+import cinesElorrieta.bbdd.managers.MovieManager;
 import cinesElorrieta.bbdd.managers.SesionManager;
 import cinesElorrieta.bbdd.pojo.Cinema;
+import cinesElorrieta.bbdd.pojo.Movie;
 import cinesElorrieta.bbdd.pojo.Session;
 
 public class CinemasPanel {
 
 	private JPanel cinemasPanel;
+	private ArrayList<Session> selectedSessions = new ArrayList<Session>();
+
 	private JTable tableCinemas;
 	private JTable tableMovies;
-	private JScrollPane scrollPanePelis;
-	private JLabel lblCines;
-	private JLabel lblPEL;
-	private JLabel lblCines_fondo;
-	private JLabel lblCines_fondo_1;
-	private JButton btnNewButton;
-	private JButton btnFinalizar;
+	private JTable tableDate;
+	private JTable tableTableTime;
+	private JScrollPane scrollPaneMovies;
+	private JLabel lblCinemas;
+	private JLabel lblMovies;
+	private JLabel lblCinemas_Background;
+	private JLabel lblMovies_Background;
+	private JButton btnClose;
+	private JButton btnSelectSession;
+	private JButton btnFinalize;
 	private JScrollPane scrollPaneCinema;
+	private JScrollPane scrollPaneDate;
+	private JScrollPane scrollPaneTime;
 	private DefaultTableModel cinemaModel;
 	private DefaultTableModel modelMovies;
+	private DefaultTableModel dateModel;
+	private DefaultTableModel timeModel;
 	private JButton btnSelect;
 
 	public CinemasPanel(ArrayList<JPanel> paneles) {
@@ -43,25 +57,25 @@ public class CinemasPanel {
 		cinemasPanel.setBounds(0, 0, 1234, 741);
 		cinemasPanel.setLayout(null);
 
-		lblCines = new JLabel("N U E S T R O S    C I N E S");
-		lblCines.setForeground(new Color(255, 255, 255));
-		lblCines.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
-		lblCines.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCines.setBounds(259, 11, 715, 93);
-		cinemasPanel.add(lblCines);
+		lblCinemas = new JLabel("S E L E C C I O N   D E   S E S I O N E S");
+		lblCinemas.setForeground(new Color(255, 255, 255));
+		lblCinemas.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
+		lblCinemas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCinemas.setBounds(259, 11, 715, 93);
+		cinemasPanel.add(lblCinemas);
 
-		lblCines_fondo = new JLabel("N U E S T R O S    C I N E S");
-		lblCines_fondo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCines_fondo.setForeground(new Color(0, 0, 0));
-		lblCines_fondo.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
-		lblCines_fondo.setBounds(264, 11, 695, 93);
-		cinemasPanel.add(lblCines_fondo);
+		lblCinemas_Background = new JLabel("S E L E C C I O N   D E   S E S I O N E S");
+		lblCinemas_Background.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCinemas_Background.setForeground(new Color(0, 0, 0));
+		lblCinemas_Background.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
+		lblCinemas_Background.setBounds(264, 11, 695, 93);
+		cinemasPanel.add(lblCinemas_Background);
 
-		btnNewButton = new JButton("CERRAR");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(204, 51, 51));
-		btnNewButton.setBounds(1135, 686, 89, 44);
-		cinemasPanel.add(btnNewButton);
+		btnClose = new JButton("CERRAR");
+		btnClose.setForeground(new Color(255, 255, 255));
+		btnClose.setBackground(new Color(204, 51, 51));
+		btnClose.setBounds(1135, 686, 89, 44);
+		cinemasPanel.add(btnClose);
 
 		scrollPaneCinema = new JScrollPane();
 		scrollPaneCinema.setBounds(78, 90, 1077, 93);
@@ -90,51 +104,154 @@ public class CinemasPanel {
 		btnSelect.setBounds(479, 194, 256, 44);
 		cinemasPanel.add(btnSelect);
 
-		scrollPanePelis = new JScrollPane();
-		scrollPanePelis.setBounds(78, 330, 1077, 345);
-		cinemasPanel.add(scrollPanePelis);
+		scrollPaneMovies = new JScrollPane();
+		scrollPaneMovies.setBounds(78, 330, 735, 345);
+		cinemasPanel.add(scrollPaneMovies);
 
-		modelMovies = new DefaultTableModel();
+		modelMovies = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+
+				return false;
+			}
+		};
+		modelMovies.addColumn("Id de la Pelicula");
 		modelMovies.addColumn("Nombre de la Pelicula");
 		modelMovies.addColumn("Genero de la pelicula");
 		modelMovies.addColumn("Duracion");
-		modelMovies.addColumn("Fecha Emision");
 		tableMovies = new JTable(modelMovies);
-		scrollPanePelis.setViewportView(tableMovies);
+		scrollPaneMovies.setViewportView(tableMovies);
 
-		lblPEL = new JLabel("P E L I C U L A S   D I S P O N I B L E S");
-		lblPEL.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPEL.setForeground(Color.WHITE);
-		lblPEL.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
-		lblPEL.setBounds(259, 245, 715, 93);
-		cinemasPanel.add(lblPEL);
+		lblMovies = new JLabel("P E L I C U L A S   D I S P O N I B L E S");
+		lblMovies.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMovies.setForeground(Color.WHITE);
+		lblMovies.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
+		lblMovies.setBounds(259, 245, 715, 93);
+		cinemasPanel.add(lblMovies);
 
-		lblCines_fondo_1 = new JLabel("P E L I C U L A S   D I S P O N I B L E S");
-		lblCines_fondo_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCines_fondo_1.setForeground(Color.BLACK);
-		lblCines_fondo_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
-		lblCines_fondo_1.setBounds(264, 245, 695, 93);
-		cinemasPanel.add(lblCines_fondo_1);
+		lblMovies_Background = new JLabel("P E L I C U L A S   D I S P O N I B L E S");
+		lblMovies_Background.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMovies_Background.setForeground(Color.BLACK);
+		lblMovies_Background.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
+		lblMovies_Background.setBounds(264, 245, 695, 93);
+		cinemasPanel.add(lblMovies_Background);
 
-		btnFinalizar = new JButton("FINALIZAR");
-		btnFinalizar.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
-		btnFinalizar.setBackground(Color.WHITE);
-		btnFinalizar.setBounds(479, 686, 256, 44);
-		cinemasPanel.add(btnFinalizar);
+		btnFinalize = new JButton("FINALIZAR");
+		btnFinalize.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
+		btnFinalize.setBackground(Color.WHITE);
+		btnFinalize.setBounds(334, 684, 256, 44);
+		cinemasPanel.add(btnFinalize);
+
+		scrollPaneDate = new JScrollPane();
+		scrollPaneDate.setBounds(823, 330, 332, 158);
+		cinemasPanel.add(scrollPaneDate);
+
+		dateModel = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+
+				return false;
+			}
+		};
+		dateModel.addColumn("Fecha Emision");
+		tableDate = new JTable(dateModel);
+		scrollPaneDate.setViewportView(tableDate);
+
+		scrollPaneTime = new JScrollPane();
+		scrollPaneTime.setBounds(823, 499, 332, 176);
+		cinemasPanel.add(scrollPaneTime);
+
+		timeModel = new DefaultTableModel() {
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+
+				return false;
+			}
+		};
+		timeModel.addColumn("Horario Emision");
+		tableTableTime = new JTable(timeModel);
+		scrollPaneTime.setViewportView(tableTableTime);
+
+		btnSelectSession = new JButton("SELECCIONAR SESION");
+		btnSelectSession.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
+		btnSelectSession.setBackground(Color.WHITE);
+		btnSelectSession.setBounds(598, 684, 256, 44);
+		cinemasPanel.add(btnSelectSession);
 
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String selectedCinemaId = null;
 
-				String selectedCinemaId = (String) cinemaModel.getValueAt(tableCinemas.getSelectedRow(), 0);
+				try {
+					selectedCinemaId = (String) cinemaModel.getValueAt(tableCinemas.getSelectedRow(), 0);
 
-				displayMoviesPanel(modelMovies, selectedCinemaId);
+				} catch (Exception d) {
+					System.err.println("Err, index para el numero de Rows"); // no deveria salir
+				}
+
+				modelMovies.setRowCount(0);
+				displayMoviesTable(modelMovies, selectedCinemaId);
 			}
 		});
-	}
 
-	public JPanel getCinemasPanel() {
+		btnFinalize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// llevar al siguiente panel
+			}
+		});
 
-		return cinemasPanel;
+		tableMovies.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					dateModel.setRowCount(0);
+					timeModel.setRowCount(0);
+					displayMoviesDate(dateModel, tableCinemas, cinemaModel, tableMovies, modelMovies);
+				}
+			}
+		});
+
+		tableDate.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					timeModel.setRowCount(0);
+					displayMoviesTime(timeModel, tableCinemas, cinemaModel, tableMovies, modelMovies, tableDate,
+							dateModel);
+				}
+			}
+		});
+
+		tableCinemas.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				modelMovies.setRowCount(0);
+				dateModel.setRowCount(0);
+				timeModel.setRowCount(0);
+			}
+		});
+
+		btnSelectSession.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SesionManager sesionManager = new SesionManager();
+
+				String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
+				String selectedMovieId = getSelectedMovieId(tableMovies, modelMovies);
+
+				String selectedDateTime = tableDate.getValueAt(0, 0).toString() + " "
+						+ tableTableTime.getValueAt(0, 0).toString();
+
+				Session selectedSession = sesionManager.getTheDataFromSelectedSession(selectedCinemaId, selectedMovieId,
+						selectedDateTime);
+
+				if (selectedSessions.size() >= 5) {
+					JOptionPane.showMessageDialog(null,
+							"Ya has llegado al numero maximo de peliculas que puedes seleccionar!!!");
+				} else {
+					selectedSessions.add(selectedSession);
+				}
+			}
+		});
 	}
 
 	/**
@@ -148,32 +265,161 @@ public class CinemasPanel {
 
 		ArrayList<Cinema> cinemaList = cinemaManager.getAllCinemas();
 
-		for (int i = 0; i < cinemaList.size(); i++) {
-			if (cinemaList.get(i) != null) {
+		if (null == cinemaList) {
+			JOptionPane.showMessageDialog(null, "Err, No hay Cines");
+		} else {
+			for (int i = 0; i < cinemaList.size(); i++) {
+				if (cinemaList.get(i) != null) {
 
-				String idCinema = Integer.toString(cinemaList.get(i).getCinemaId());
-				String[] row = { idCinema, cinemaList.get(i).getCinemaName(), cinemaList.get(i).getCinemaAddress() };
+					String idCinema = Integer.toString(cinemaList.get(i).getCinemaId());
+					String[] row = { idCinema, cinemaList.get(i).getCinemaName(),
+							cinemaList.get(i).getCinemaAddress() };
 
-				cinemaModel.addRow(row);
+					cinemaModel.addRow(row);
+				}
 			}
 		}
 	}
 
-	private void displayMoviesPanel(DefaultTableModel modelMovies, String cinemaId) {
+	/**
+	 * // * Displays in the table rows all the data about the Movies taken from the
+	 * DB.
+	 * 
+	 * @param modelMovies
+	 * @param cinemaId
+	 */
+	private void displayMoviesTable(DefaultTableModel modelMovies, String cinemaId) {
 
-		SesionManager sessionManager = new SesionManager();
+		MovieManager movieManager = new MovieManager();
 
-		ArrayList<Session> moviesFromSessions = sessionManager.getAllMoviesFromSessionContainingCinema(cinemaId);
+		ArrayList<Movie> moviesFromSessions = movieManager.getAllMoviesFromCinema(cinemaId);
 
-		for (int i = 0; i < moviesFromSessions.size(); i++) {
-			if (null != moviesFromSessions.get(i)) {
-				String[] row = { moviesFromSessions.get(i).getMovie().getMovieName(),
-						moviesFromSessions.get(i).getMovie().getMovieKind(),
-						moviesFromSessions.get(i).getMovie().getMovieDuration(),
-						moviesFromSessions.get(i).getSessionDate() };
-
-				modelMovies.addRow(row);
+		if (null == moviesFromSessions) {
+			JOptionPane.showMessageDialog(null, "Err, No existen Sessiones para el Cine con la id: " + cinemaId);
+		} else {
+			for (int i = 0; i < moviesFromSessions.size(); i++) {
+				if (null != moviesFromSessions.get(i)) {
+					String movieId = Integer.toString(moviesFromSessions.get(i).getMovieId());
+					String[] row = { movieId, moviesFromSessions.get(i).getMovieName(),
+							moviesFromSessions.get(i).getMovieKind(), moviesFromSessions.get(i).getMovieDuration() };
+					modelMovies.addRow(row);
+				}
 			}
 		}
+	}
+
+	/**
+	 * Displays in the table rows the date about the Movies taken from the DB.
+	 * 
+	 * @param moviesFromSessions
+	 * @param dateModel
+	 */
+	private void displayMoviesDate(DefaultTableModel dateModel, JTable tableCinemas, DefaultTableModel cinemaModel,
+			JTable moviesTable, DefaultTableModel modelMovies) {
+
+		SesionManager sesionManager = new SesionManager();
+
+		String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
+		String selectedMovieId = getSelectedMovieId(moviesTable, modelMovies);
+
+		ArrayList<Session> dateTimesFromSessions = sesionManager.getAllTheDateTimesFromMovie(selectedCinemaId,
+				selectedMovieId);
+
+		for (int i = 0; i < dateTimesFromSessions.size(); i++) {
+			if (null != dateTimesFromSessions.get(i)) {
+				String[] dateTime = dateTimesFromSessions.get(i).getSessionDate().split(" ");
+				String[] row = { dateTime[0] };
+
+				dateModel.addRow(row);
+			}
+		}
+	}
+
+	/**
+	 * Displays in the table rows the time about the DateTimes taken from the DB.
+	 * 
+	 * @param moviesFromSessions
+	 * @param dateModel
+	 */
+	private void displayMoviesTime(DefaultTableModel timeModel, JTable tableCinemas, DefaultTableModel cinemaModel,
+			JTable moviesTable, DefaultTableModel modelMovies, JTable tableDate, DefaultTableModel dateModel) {
+
+		SesionManager sesionManager = new SesionManager();
+
+		String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
+		String selectedMovieId = getSelectedMovieId(moviesTable, modelMovies);
+		String selectedDateTime = getSelectedDateTime(tableDate, dateModel);
+
+		ArrayList<Session> dateTimesFromSessions = sesionManager.getAllTheDateTimesFromMovie(selectedCinemaId,
+				selectedMovieId);
+
+		for (int i = 0; i < dateTimesFromSessions.size(); i++) {
+			if (null != dateTimesFromSessions.get(i)
+					&& dateTimesFromSessions.get(i).getSessionDate().contains(selectedDateTime)) {
+				String[] dateTime = dateTimesFromSessions.get(i).getSessionDate().split(" ");
+				String[] row = { dateTime[1] };
+
+				timeModel.addRow(row);
+			}
+		}
+	}
+
+	/**
+	 * Gets the cinemaId that is selected at the moment.
+	 * 
+	 * @param cinemaModel
+	 * @param tableCinemas
+	 * @return
+	 */
+	private String getSelectedCinemaId(DefaultTableModel cinemaModel, JTable tableCinemas) {
+		String ret = null;
+		try {
+			ret = (String) cinemaModel.getValueAt(tableCinemas.getSelectedRow(), 0);
+
+		} catch (Exception e) {
+			System.err.println("Err, index para el numero de Rows"); // no deveria salir
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Gets the mmovieId that is selected at the moment.
+	 * 
+	 * @param moviesTable
+	 * @param modelMovies
+	 * @return
+	 */
+	private String getSelectedMovieId(JTable moviesTable, DefaultTableModel modelMovies) {
+		String ret = null;
+		try {
+			ret = (String) modelMovies.getValueAt(moviesTable.getSelectedRow(), 0);
+		} catch (Exception e) {
+			System.err.println("Err, index para el numero de Rows"); // no deveria salir
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Gets the dateTime that is selected at the moment.
+	 * 
+	 * @param moviesTable
+	 * @param modelMovies
+	 * @return
+	 */
+	private String getSelectedDateTime(JTable dateTable, DefaultTableModel dateModel) {
+		String ret = null;
+		try {
+			ret = (String) dateModel.getValueAt(dateTable.getSelectedRow(), 0);
+		} catch (Exception e) {
+			System.err.println("Err, index para el numero de Rows"); // no deveria salir
+		}
+
+		return ret;
+	}
+
+	public JPanel getCinemasPanel() {
+		return cinemasPanel;
 	}
 }
