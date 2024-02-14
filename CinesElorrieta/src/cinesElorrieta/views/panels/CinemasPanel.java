@@ -23,6 +23,7 @@ import cinesElorrieta.bbdd.managers.SesionManager;
 import cinesElorrieta.bbdd.pojo.Cinema;
 import cinesElorrieta.bbdd.pojo.Movie;
 import cinesElorrieta.bbdd.pojo.Session;
+import cinesElorrieta.bbdd.pojo.Ticket;
 
 public class CinemasPanel {
 
@@ -48,7 +49,7 @@ public class CinemasPanel {
 	private DefaultTableModel timeModel;
 	private JButton btnSelect;
 
-	public CinemasPanel(ArrayList<JPanel> paneles, ArrayList<Session> selectedSessions) {
+	public CinemasPanel(ArrayList<JPanel> paneles, ArrayList<Ticket> selectedSessions) {
 
 		cinemasPanel = new JPanel();
 		cinemasPanel.setBackground(new Color(255, 66, 70));
@@ -245,8 +246,9 @@ public class CinemasPanel {
 				String selectedDateTime = tableDate.getValueAt(0, 0).toString() + " "
 						+ tableTableTime.getValueAt(0, 0).toString();
 
-				Session selectedSession = sesionManager.getTheDataFromSelectedSession(selectedCinemaId, selectedMovieId,
-						selectedDateTime);
+				Ticket selectedSession = new Ticket();
+				selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
+						selectedMovieId, selectedDateTime));
 
 				if (!(selectedSessions.size() > 5)) {
 					selectedSessions.add(selectedSession);

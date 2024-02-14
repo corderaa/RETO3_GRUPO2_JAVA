@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import cinesElorrieta.bbdd.pojo.Session;
+import cinesElorrieta.bbdd.pojo.Ticket;
 import cinesElorrieta.views.panels.CheckoutPanel;
 import cinesElorrieta.views.panels.CinemasPanel;
 import cinesElorrieta.views.panels.LoginPanel;
@@ -21,7 +21,7 @@ public class MainFrame {
 	private JFrame frame;
 	private ArrayList<JPanel> panels = null;
 
-	public ArrayList<Session> selectedSessions = null;
+	public ArrayList<Ticket> selectedSessions = null;
 	boolean selectionDone = false;
 
 	/**
@@ -50,7 +50,7 @@ public class MainFrame {
 		frame.getContentPane().setLayout(null);
 
 		panels = new ArrayList<JPanel>();
-		selectedSessions = new ArrayList<Session>();
+		selectedSessions = new ArrayList<Ticket>();
 
 		// Panel 0
 		WelcomePanel gestorpanel0 = new WelcomePanel(panels);

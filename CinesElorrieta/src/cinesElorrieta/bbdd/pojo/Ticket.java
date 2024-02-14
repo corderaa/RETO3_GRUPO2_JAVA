@@ -17,9 +17,6 @@ public class Ticket implements Serializable {
 	Date ticketDate = null;
 	double ticketPrice = 0;
 
-	private Cinema cinema = null;
-	private Movie movie = null;
-	private Room room = null;
 	private Session session = null;
 	private User user = null;
 
@@ -55,30 +52,6 @@ public class Ticket implements Serializable {
 		this.ticketPrice = ticketPrice;
 	}
 
-	public Cinema getCinema() {
-		return cinema;
-	}
-
-	public void setCinema(Cinema cinema) {
-		this.cinema = cinema;
-	}
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
-	}
-
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
 	public Session getSession() {
 		return session;
 	}
@@ -101,7 +74,7 @@ public class Ticket implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cinema, movie, room, session, tickedId, ticketBuyDate, ticketDate, ticketPrice, user);
+		return Objects.hash(session, tickedId, ticketBuyDate, ticketDate, ticketPrice, user);
 	}
 
 	@Override
@@ -113,10 +86,8 @@ public class Ticket implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Ticket other = (Ticket) obj;
-		return Objects.equals(cinema, other.cinema) && Objects.equals(movie, other.movie)
-				&& Objects.equals(room, other.room) && Objects.equals(session, other.session)
-				&& tickedId == other.tickedId && Objects.equals(ticketBuyDate, other.ticketBuyDate)
-				&& Objects.equals(ticketDate, other.ticketDate)
+		return Objects.equals(session, other.session) && tickedId == other.tickedId
+				&& Objects.equals(ticketBuyDate, other.ticketBuyDate) && Objects.equals(ticketDate, other.ticketDate)
 				&& Double.doubleToLongBits(ticketPrice) == Double.doubleToLongBits(other.ticketPrice)
 				&& Objects.equals(user, other.user);
 	}
@@ -124,8 +95,7 @@ public class Ticket implements Serializable {
 	@Override
 	public String toString() {
 		return "Ticket [tickedId=" + tickedId + ", ticketBuyDate=" + ticketBuyDate + ", ticketDate=" + ticketDate
-				+ ", ticketPrice=" + ticketPrice + ", cinema=" + cinema + ", movie=" + movie + ", room=" + room
-				+ ", session=" + session + ", user=" + user + "]";
+				+ ", ticketPrice=" + ticketPrice + ", session=" + session + ", user=" + user + "]";
 	}
 
 }

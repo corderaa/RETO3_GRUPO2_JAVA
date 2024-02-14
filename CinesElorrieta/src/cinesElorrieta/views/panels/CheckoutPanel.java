@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import cinesElorrieta.bbdd.pojo.Session;
+import cinesElorrieta.bbdd.pojo.Ticket;
 
 public class CheckoutPanel {
 
@@ -35,7 +35,7 @@ public class CheckoutPanel {
 	private JButton btnBuy;
 	private DefaultTableModel modelSummary;
 
-	public CheckoutPanel(ArrayList<JPanel> paneles, ArrayList<Session> selectedSessions) {
+	public CheckoutPanel(ArrayList<JPanel> paneles, ArrayList<Ticket> selectedSessions) {
 
 		checkoutPanel = new JPanel();
 		checkoutPanel.setBackground(new Color(255, 66, 70));
@@ -153,17 +153,18 @@ public class CheckoutPanel {
 		return checkoutPanel;
 	}
 
-	private void displaySelectedSessionsOnTable(DefaultTableModel modelSummary, ArrayList<Session> selectedSessions) {
+	private void displaySelectedSessionsOnTable(DefaultTableModel modelSummary, ArrayList<Ticket> selectedSessions) {
 		if (selectedSessions != null) {
 			for (int i = 0; i < selectedSessions.size(); i++) {
 				if (selectedSessions.get(i) != null) {
 
-					String moviePrice = Double.toString(selectedSessions.get(i).getMovie().getMoviePrice());
+					String moviePrice = Double
+							.toString(selectedSessions.get(i).getSession().getMovie().getMoviePrice());
 
-					String[] row = { selectedSessions.get(i).getMovie().getMovieName(),
-							selectedSessions.get(i).getSessionDate(),
-							selectedSessions.get(i).getCinema().getCinemaName(),
-							selectedSessions.get(i).getRoom().getRoomName(), moviePrice };
+					String[] row = { selectedSessions.get(i).getSession().getMovie().getMovieName(),
+							selectedSessions.get(i).getSession().getSessionDate(),
+							selectedSessions.get(i).getSession().getCinema().getCinemaName(),
+							selectedSessions.get(i).getSession().getRoom().getRoomName(), moviePrice };
 
 					modelSummary.addRow(row);
 				}
