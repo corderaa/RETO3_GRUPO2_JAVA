@@ -11,6 +11,7 @@ import cinesElorrieta.views.panels.CinemasPanel;
 import cinesElorrieta.views.panels.LoginPanel;
 
 import cinesElorrieta.views.panels.RegisterPanel;
+import cinesElorrieta.views.panels.TicketPanel;
 import cinesElorrieta.views.panels.WelcomePanel;
 
 /**
@@ -91,6 +92,14 @@ public class MainFrame {
 
 		panels.add(checkoutPanel);
 		frame.getContentPane().add(checkoutPanel);
+
+		// Panel 5
+		TicketPanel gestorpanel5 = new TicketPanel(panels, selectedSessions);
+		JPanel ticketPanel = gestorpanel5.getTicketPanel();
+		ticketPanel.setVisible(false);
+
+		panels.add(ticketPanel);
+		frame.getContentPane().add(ticketPanel);
 	}
 
 	public ArrayList<JPanel> getPanels() {

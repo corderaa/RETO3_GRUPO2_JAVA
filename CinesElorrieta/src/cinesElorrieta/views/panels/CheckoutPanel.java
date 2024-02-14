@@ -134,6 +134,15 @@ public class CheckoutPanel {
 				textFieldAfterDiscounts.setText("0.00");
 			}
 		});
+		
+		btnBuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paneles.get(4).setVisible(false);
+				paneles.get(5).setVisible(true);
+				
+			}
+		
+		});
 
 		checkoutPanel.addComponentListener(new ComponentAdapter() {
 			public void componentHidden(ComponentEvent e) {
@@ -189,7 +198,6 @@ public class CheckoutPanel {
 
 	private void setBuyTotal() {
 		String buyTotal = getBuyTotal(tableSummary);
-		System.out.println(buyTotal);
 		textBuyTotal.setText(buyTotal);
 
 	}
@@ -209,7 +217,6 @@ public class CheckoutPanel {
 
 	private void setDiscountedTotal(JTextField textBuyTotal) {
 		String discountedTotal = getDiscountedTotal(textBuyTotal);
-		System.out.println(discountedTotal);
 		textFieldAfterDiscounts.setText(discountedTotal);
 	}
 
