@@ -2,8 +2,11 @@ package cinesElorrieta.views.panels;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -71,7 +74,6 @@ public class CheckoutPanel {
 		modelSummary.addColumn("PRECIO DE LA PELICULA");
 
 		tableSummary = new JTable(modelSummary);
-		displaySelectedSessionsOnTable(modelSummary, selectedSessions);
 		scrollPaneSummary.setViewportView(tableSummary);
 
 		lblBuyTotal = new JLabel("TOTAL:");
@@ -84,6 +86,8 @@ public class CheckoutPanel {
 		textBuyTotal.setBounds(1151, 580, 59, 46);
 		checkoutPanel.add(textBuyTotal);
 		textBuyTotal.setColumns(10);
+		textBuyTotal.setText("0.00");
+		textBuyTotal.setEditable(false);
 
 		lblAfterDisconts = new JLabel("DESPUES DE DESCUENTOS:");
 		lblAfterDisconts.setForeground(Color.WHITE);
@@ -95,6 +99,8 @@ public class CheckoutPanel {
 		textFieldAfterDiscounts.setColumns(10);
 		textFieldAfterDiscounts.setBounds(1151, 637, 59, 46);
 		checkoutPanel.add(textFieldAfterDiscounts);
+		textFieldAfterDiscounts.setText("0.00");
+		textFieldAfterDiscounts.setEditable(false);
 
 		lblBuyTotal_Background = new JLabel("TOTAL:");
 		lblBuyTotal_Background.setForeground(new Color(0, 0, 0));
@@ -117,6 +123,30 @@ public class CheckoutPanel {
 		btnBuy.setBackground(new Color(255, 255, 255));
 		btnBuy.setBounds(21, 572, 212, 71);
 		checkoutPanel.add(btnBuy);
+
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paneles.get(4).setVisible(false);
+				paneles.get(3).setVisible(true);
+				selectedSessions.clear();
+				modelSummary.setRowCount(0);
+				textBuyTotal.setText("0.00");
+				textFieldAfterDiscounts.setText("0.00");
+			}
+		});
+
+		checkoutPanel.addComponentListener(new ComponentAdapter() {
+			public void componentHidden(ComponentEvent e) {
+				// no importa
+			}
+
+			public void componentShown(ComponentEvent e) {
+				displaySelectedSessionsOnTable(modelSummary, selectedSessions);
+				setBuyTotal();
+				setDiscountedTotal(textBuyTotal);
+			}
+		});
+
 	}
 
 	public JPanel getCheckoutPanel() {
@@ -140,4 +170,46 @@ public class CheckoutPanel {
 			}
 		}
 	}
+
+	private String getBuyTotal(JTable tableSummary) {
+		String ret = null;
+
+		double d = 0.00;
+		for (int i = 0; i < modelSummary.getRowCount(); i++) {
+			String n = (String) modelSummary.getValueAt(i, 4);
+
+			d += Double.parseDouble(n);
+		}
+
+		ret = Double.toString(d);
+
+		return ret;
+	}
+
+	private void setBuyTotal() {
+		String buyTotal = getBuyTotal(tableSummary);
+		System.out.println(buyTotal);
+		textBuyTotal.setText(buyTotal);
+
+	}
+
+	private String getDiscountedTotal(JTextField textBuyTotal) {
+		String ret = textBuyTotal.getText().trim();
+		double n = 0.00;
+
+		n = Double.parseDouble(ret);
+
+		double discountedTotalDouble = 0.00;
+		discountedTotalDouble = n - (n * tableSummary.getRowCount() / 10);
+
+		ret = Double.toString(discountedTotalDouble);
+		return ret;
+	}
+
+	private void setDiscountedTotal(JTextField textBuyTotal) {
+		String discountedTotal = getDiscountedTotal(textBuyTotal);
+		System.out.println(discountedTotal);
+		textFieldAfterDiscounts.setText(discountedTotal);
+	}
+
 }

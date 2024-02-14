@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import cinesElorrieta.bbdd.pojo.Session;
 import cinesElorrieta.views.panels.CheckoutPanel;
 import cinesElorrieta.views.panels.CinemasPanel;
 import cinesElorrieta.views.panels.LoginPanel;
@@ -19,6 +20,9 @@ public class MainFrame {
 
 	private JFrame frame;
 	private ArrayList<JPanel> panels = null;
+
+	public ArrayList<Session> selectedSessions = null;
+	boolean selectionDone = false;
 
 	/**
 	 * Initializes the frame
@@ -46,6 +50,7 @@ public class MainFrame {
 		frame.getContentPane().setLayout(null);
 
 		panels = new ArrayList<JPanel>();
+		selectedSessions = new ArrayList<Session>();
 
 		// Panel 0
 		WelcomePanel gestorpanel0 = new WelcomePanel(panels);
@@ -72,7 +77,7 @@ public class MainFrame {
 		frame.getContentPane().add(loginPanel);
 
 		// Panel 3
-		CinemasPanel gestorpanel3 = new CinemasPanel(panels);
+		CinemasPanel gestorpanel3 = new CinemasPanel(panels, selectedSessions);
 		JPanel cinemasPanel = gestorpanel3.getCinemasPanel();
 		cinemasPanel.setVisible(false);
 
@@ -80,7 +85,7 @@ public class MainFrame {
 		frame.getContentPane().add(cinemasPanel);
 
 		// Panel 4
-		CheckoutPanel gestorpanel4 = new CheckoutPanel(panels, gestorpanel3.getSelectedSessions());
+		CheckoutPanel gestorpanel4 = new CheckoutPanel(panels, selectedSessions);
 		JPanel checkoutPanel = gestorpanel4.getCheckoutPanel();
 		checkoutPanel.setVisible(false);
 

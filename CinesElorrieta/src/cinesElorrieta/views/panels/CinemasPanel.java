@@ -27,8 +27,6 @@ import cinesElorrieta.bbdd.pojo.Session;
 public class CinemasPanel {
 
 	private JPanel cinemasPanel;
-	public ArrayList<Session> selectedSessions = new ArrayList<Session>();
-
 	private JTable tableCinemas;
 	private JTable tableMovies;
 	private JTable tableDate;
@@ -50,7 +48,7 @@ public class CinemasPanel {
 	private DefaultTableModel timeModel;
 	private JButton btnSelect;
 
-	public CinemasPanel(ArrayList<JPanel> paneles) {
+	public CinemasPanel(ArrayList<JPanel> paneles, ArrayList<Session> selectedSessions) {
 
 		cinemasPanel = new JPanel();
 		cinemasPanel.setBackground(new Color(255, 66, 70));
@@ -94,6 +92,7 @@ public class CinemasPanel {
 		cinemaModel.addColumn("Id Del Cine");
 		cinemaModel.addColumn("Nombre Del Cine");
 		cinemaModel.addColumn("Direccion");
+		tableCinemas.removeColumn(tableCinemas.getColumn("Id Del Cine"));
 		scrollPaneCinema.setViewportView(tableCinemas);
 
 		displayCinemasTable(cinemaModel);
@@ -121,6 +120,7 @@ public class CinemasPanel {
 		modelMovies.addColumn("Genero de la pelicula");
 		modelMovies.addColumn("Duracion");
 		tableMovies = new JTable(modelMovies);
+		tableMovies.removeColumn(tableMovies.getColumn("Id de la Pelicula"));
 		scrollPaneMovies.setViewportView(tableMovies);
 
 		lblMovies = new JLabel("P E L I C U L A S   D I S P O N I B L E S");
@@ -201,6 +201,9 @@ public class CinemasPanel {
 			public void actionPerformed(ActionEvent e) {
 				paneles.get(4).setVisible(true);
 				paneles.get(3).setVisible(false);
+				modelMovies.setRowCount(0);
+				dateModel.setRowCount(0);
+				timeModel.setRowCount(0);
 			}
 		});
 
@@ -245,15 +248,15 @@ public class CinemasPanel {
 				Session selectedSession = sesionManager.getTheDataFromSelectedSession(selectedCinemaId, selectedMovieId,
 						selectedDateTime);
 
-				int listSize = 0;
-				listSize = selectedSessions.size();
-
-				if (listSize >= 5) {
+				if (!(selectedSessions.size() > 5)) {
 					selectedSessions.add(selectedSession);
 				} else {
-					JOptionPane.showMessageDialog(null,
-							"Ya has llegado al numero maximo de peliculas que puedes seleccionar!!!");
+					JOptionPane.showMessageDialog(null, "Err, Has llegado al limite de peliculas por añadir");
 				}
+
+				modelMovies.setRowCount(0);
+				dateModel.setRowCount(0);
+				timeModel.setRowCount(0);
 			}
 		});
 	}
@@ -425,9 +428,5 @@ public class CinemasPanel {
 
 	public JPanel getCinemasPanel() {
 		return cinemasPanel;
-	}
-
-	public ArrayList<Session> getSelectedSessions() {
-		return selectedSessions;
 	}
 }

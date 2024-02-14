@@ -119,7 +119,7 @@ public class SesionManager {
 		Session ret = null;
 
 		String sql = "SELECT DISTINCT m.movieName, s.sessionDateTime, c.cinemaName, h.hallName,m.moviePrice FROM t_session AS s JOIN t_movie m ON s.movieId = m.movieId JOIN t_cinema c ON s.cinemaId = c.cinemaId JOIN t_hall h ON s.hallId = h.hallId WHERE s.cinemaId = "
-				+ cinemaId + " and s.movieId = " + movieId + " and s.sessionDateTime = '" + dateTime + " AM';";
+				+ cinemaId + " and s.movieId = " + movieId + " and s.sessionDateTime = '" + dateTime + "';";
 
 		Connection connection = null;
 
@@ -154,6 +154,8 @@ public class SesionManager {
 				Room roomAdd = new Room();
 				roomAdd.setRoomName(hallName);
 
+				ret.setCinema(cinemaAdd);
+				ret.setRoom(roomAdd);
 				ret.setMovie(movieAdd);
 				ret.setSessionDate(datetimeAdd);
 			}
