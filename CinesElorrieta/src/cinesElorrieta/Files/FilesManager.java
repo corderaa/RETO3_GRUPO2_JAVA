@@ -18,15 +18,25 @@ public class FilesManager {
 			printWriter = new PrintWriter(fileWriter);
 
 			for (int i = 0; i < selectedSessions.size(); i++) {
-				String datos = "NOMBRE DE LA PELICULA: "
-						+ selectedSessions.get(i).getSession().getMovie().getMovieName() + "\n"
-						+ "FECHA Y HORA DE LA SESION: " + selectedSessions.get(i).getSession().getSessionDate() + "\n"
-						+ "CINE: " + selectedSessions.get(i).getSession().getCinema().getCinemaName() + "\n" + "SALA: "
-						+ selectedSessions.get(i).getSession().getRoom().getRoomName() + "\n" + "PRECIO: "
-						+ selectedSessions.get(i).getSession().getMovie().getMoviePrice() + "\n" + "HORA DE IMPRESION: "
-						+ selectedSessions.get(i).getTicketBuyDate()+"\n" + "NOMBRE USUARIO: "
-						+ selectedSessions.get(i).getUser().getUserName()+"\n" + "APELLIDO: "
-						+ selectedSessions.get(i).getUser().getUserLasName();
+				String datos = /*
+								 * + "\n" + "NOMBRE USUARIO: " + selectedSessions.get(i).getUser().getUserName()
+								 * + "\n" + "APELLIDO: " + selectedSessions.get(i).getUser().getUserLasName()
+								 */
+						"-----------------------" + "\n" + "NOMBRE DE LA PELICULA: "
+								+ selectedSessions.get(i).getSession().getMovie().getMovieName() + "\n"
+								+ "DURACION DE LA PELICULA: "
+								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration() + "\n"
+								+ "FECHA Y HORA DE LA SESION: " + selectedSessions.get(i).getSession().getSessionDate()
+								+ "\n" + "CINE: " + selectedSessions.get(i).getSession().getCinema().getCinemaName()
+								+ "\n" + "DIRECCION CINE: "
+								+ selectedSessions.get(i).getSession().getCinema().getCinemaAddress() + "\n" + "SALA: "
+								+ selectedSessions.get(i).getSession().getRoom().getRoomName() + "\n"
+								+ "PRECIO DE LA PELICULA: "
+								+ selectedSessions.get(i).getSession().getMovie().getMoviePrice() + "\n"
+								+ "PRECIO TOTAL: " + selectedSessions.get(i).getTicketPrice() + "\n"
+								+ "HORA DE IMPRESION: " + selectedSessions.get(i).getTicketBuyDate() + "\n"
+								+ "-----------------------";
+
 				printWriter.println(datos);
 			}
 
