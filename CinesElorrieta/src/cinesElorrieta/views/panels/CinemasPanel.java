@@ -200,7 +200,7 @@ public class CinemasPanel {
 
 		btnFinalize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedSessions.get(0) != null) {
+				if (selectedSessions != null) {
 					paneles.get(4).setVisible(true);
 					paneles.get(3).setVisible(false);
 					modelMovies.setRowCount(0);
@@ -246,9 +246,15 @@ public class CinemasPanel {
 
 				String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
 				String selectedMovieId = getSelectedMovieId(tableMovies, modelMovies);
+				String selectedDateTime = null;
 
-				String selectedDateTime = tableDate.getValueAt(0, 0).toString() + " "
-						+ tableTableTime.getValueAt(0, 0).toString();
+				try {
+					selectedDateTime = tableDate.getValueAt(0, 0).toString() + " "
+							+ tableTableTime.getValueAt(0, 0).toString();
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null,
+							"Err, No hay sessiones para seleccionar con los datos elejidos");
+				}
 
 				Ticket selectedSession = new Ticket();
 				selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,

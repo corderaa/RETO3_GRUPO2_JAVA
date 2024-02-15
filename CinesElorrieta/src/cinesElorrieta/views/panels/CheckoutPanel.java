@@ -146,7 +146,6 @@ public class CheckoutPanel {
 
 		checkoutPanel.addComponentListener(new ComponentAdapter() {
 			public void componentHidden(ComponentEvent e) {
-				// no importa
 			}
 
 			public void componentShown(ComponentEvent e) {
