@@ -134,14 +134,14 @@ public class CheckoutPanel {
 				textFieldAfterDiscounts.setText("0.00");
 			}
 		});
-		
+
 		btnBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paneles.get(4).setVisible(false);
 				paneles.get(5).setVisible(true);
-				
+
 			}
-		
+
 		});
 
 		checkoutPanel.addComponentListener(new ComponentAdapter() {
@@ -152,7 +152,7 @@ public class CheckoutPanel {
 			public void componentShown(ComponentEvent e) {
 				displaySelectedSessionsOnTable(modelSummary, selectedSessions);
 				setBuyTotal();
-				setDiscountedTotal(textBuyTotal);
+				setDiscountedTotal(textBuyTotal, modelSummary);
 			}
 		});
 
@@ -202,21 +202,24 @@ public class CheckoutPanel {
 
 	}
 
-	private String getDiscountedTotal(JTextField textBuyTotal) {
+	private String getDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary) {
 		String ret = textBuyTotal.getText().trim();
-		double n = 0.00;
+		if (tableSummary.getRowCount() != 1) {
+			double n = 0.00;
 
-		n = Double.parseDouble(ret);
+			n = Double.parseDouble(ret);
 
-		double discountedTotalDouble = 0.00;
-		discountedTotalDouble = n - (n * tableSummary.getRowCount() / 10);
+			double discountedTotalDouble = 0.00;
+			discountedTotalDouble = n - (n * tableSummary.getRowCount() / 10);
 
-		ret = Double.toString(discountedTotalDouble);
+			ret = Double.toString(discountedTotalDouble);
+		}
+
 		return ret;
 	}
 
-	private void setDiscountedTotal(JTextField textBuyTotal) {
-		String discountedTotal = getDiscountedTotal(textBuyTotal);
+	private void setDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary) {
+		String discountedTotal = getDiscountedTotal(textBuyTotal, modelSummary);
 		textFieldAfterDiscounts.setText(discountedTotal);
 	}
 

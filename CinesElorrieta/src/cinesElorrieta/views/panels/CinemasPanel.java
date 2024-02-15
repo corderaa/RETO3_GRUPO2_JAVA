@@ -200,11 +200,15 @@ public class CinemasPanel {
 
 		btnFinalize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paneles.get(4).setVisible(true);
-				paneles.get(3).setVisible(false);
-				modelMovies.setRowCount(0);
-				dateModel.setRowCount(0);
-				timeModel.setRowCount(0);
+				if (selectedSessions.get(0) != null) {
+					paneles.get(4).setVisible(true);
+					paneles.get(3).setVisible(false);
+					modelMovies.setRowCount(0);
+					dateModel.setRowCount(0);
+					timeModel.setRowCount(0);
+				} else {
+					JOptionPane.showMessageDialog(null, "Err, Todavia no hay sesiones seleccionadas");
+				}
 			}
 		});
 
