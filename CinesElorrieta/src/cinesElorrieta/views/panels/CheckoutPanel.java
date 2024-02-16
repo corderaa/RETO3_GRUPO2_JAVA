@@ -151,7 +151,7 @@ public class CheckoutPanel {
 			public void componentShown(ComponentEvent e) {
 				displaySelectedSessionsOnTable(modelSummary, selectedSessions);
 				setBuyTotal();
-				setDiscountedTotal(textBuyTotal, modelSummary);
+				setDiscountedTotal(textBuyTotal, modelSummary, selectedSessions);
 			}
 		});
 
@@ -217,9 +217,10 @@ public class CheckoutPanel {
 		return ret;
 	}
 
-	private void setDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary) {
+	private void setDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary,
+			ArrayList<Ticket> selectedSessions) {
 		String discountedTotal = getDiscountedTotal(textBuyTotal, modelSummary);
 		textFieldAfterDiscounts.setText(discountedTotal);
+		selectedSessions.get(0).setTicketPrice(Double.parseDouble(textFieldAfterDiscounts.getText()));
 	}
-
 }
