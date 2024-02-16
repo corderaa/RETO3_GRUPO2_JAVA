@@ -118,7 +118,7 @@ public class SesionManager {
 	public Session getTheDataFromSelectedSession(String cinemaId, String movieId, String dateTime) {
 		Session ret = null;
 
-		String sql = "SELECT DISTINCT m.movieName, s.sessionDateTime, c.cinemaName, h.hallName,m.moviePrice FROM t_session AS s JOIN t_movie m ON s.movieId = m.movieId JOIN t_cinema c ON s.cinemaId = c.cinemaId JOIN t_hall h ON s.hallId = h.hallId WHERE s.cinemaId = "
+		String sql = "SELECT DISTINCT m.movieName, m.movieDuration s.sessionDateTime, c.cinemaName, c.cinemaAddress,  h.hallName,m.moviePrice FROM t_session AS s JOIN t_movie m ON s.movieId = m.movieId JOIN t_cinema c ON s.cinemaId = c.cinemaId JOIN t_hall h ON s.hallId = h.hallId WHERE s.cinemaId = "
 				+ cinemaId + " and s.movieId = " + movieId + " and s.sessionDateTime = '" + dateTime + "';";
 
 		Connection connection = null;
@@ -139,18 +139,21 @@ public class SesionManager {
 				ret = new Session();
 
 				String movieName = resultSet.getString("movieName");
+				String movieDuration = resultSet.getString("movieDuration");
 				String datetimeAdd = resultSet.getString("sessionDateTime");
 				String cinemaName = resultSet.getString("cinemaName");
+				String cinemaAddress = resultSet.getString("cinemaAddress");
 				String hallName = resultSet.getString("hallName");
 				Double moviePrice = resultSet.getDouble("moviePrice");
 
 				Movie movieAdd = new Movie();
 				movieAdd.setMovieName(movieName);
 				movieAdd.setMoviePrice(moviePrice);
+				movieAdd.setMovieDuration(movieDuration);
 
 				Cinema cinemaAdd = new Cinema();
-				cinemaAdd.setCinemaName(cinemaName);
-
+				cinemaAdd.setCinemaName(cinemaName); 
+				cinemaAdd.setCinemaAddress(cinemaAddress);
 				Room roomAdd = new Room();
 				roomAdd.setRoomName(hallName);
 
