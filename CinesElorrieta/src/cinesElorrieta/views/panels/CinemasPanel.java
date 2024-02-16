@@ -188,13 +188,11 @@ public class CinemasPanel {
 
 				try {
 					selectedCinemaId = (String) cinemaModel.getValueAt(tableCinemas.getSelectedRow(), 0);
-
+					modelMovies.setRowCount(0);
+					displayMoviesTable(modelMovies, selectedCinemaId);
 				} catch (Exception d) {
-					System.err.println("Err, index para el numero de Rows"); // no deveria salir
+					JOptionPane.showMessageDialog(null, "Err, Selecciona un cine porfavor");// no deveria salir
 				}
-
-				modelMovies.setRowCount(0);
-				displayMoviesTable(modelMovies, selectedCinemaId);
 			}
 		});
 
@@ -260,7 +258,7 @@ public class CinemasPanel {
 				selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
 						selectedMovieId, selectedDateTime));
 
-				if (!(selectedSessions.size() > 5)) {
+				if (!(selectedSessions.size() > 4)) {
 					selectedSessions.add(selectedSession);
 				} else {
 					JOptionPane.showMessageDialog(null, "Err, Has llegado al limite de peliculas por añadir");
