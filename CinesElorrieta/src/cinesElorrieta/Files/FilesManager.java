@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
 import cinesElorrieta.bbdd.pojo.Ticket;
 
 public class FilesManager {
@@ -33,12 +34,13 @@ public class FilesManager {
 								+ selectedSessions.get(i).getSession().getRoom().getRoomName() + "\n"
 								+ "PRECIO DE LA PELICULA: "
 								+ selectedSessions.get(i).getSession().getMovie().getMoviePrice() + "\n"
-								+ "PRECIO TOTAL: " + selectedSessions.get(i).getTicketPrice() + "\n"
 								+ "HORA DE IMPRESION: " + selectedSessions.get(i).getTicketBuyDate() + "\n"
 								+ "-----------------------";
 
 				printWriter.println(datos);
 			}
+			
+			printWriter.println("PRECIO TOTAL: " + selectedSessions.get(0).getTicketPrice());
 
 		} catch (IOException e) {
 			System.out.println("IOException - Error de escritura en el fichero " + RUTA_FICHERO + NOMBRE_FICHERO);
