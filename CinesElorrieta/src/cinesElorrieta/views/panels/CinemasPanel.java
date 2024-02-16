@@ -198,7 +198,7 @@ public class CinemasPanel {
 
 		btnFinalize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedSessions != null) {
+				if (!selectedSessions.isEmpty()) {
 					paneles.get(4).setVisible(true);
 					paneles.get(3).setVisible(false);
 					modelMovies.setRowCount(0);

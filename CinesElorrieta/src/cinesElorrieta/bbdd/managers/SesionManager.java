@@ -152,7 +152,7 @@ public class SesionManager {
 				movieAdd.setMovieDuration(movieDuration);
 
 				Cinema cinemaAdd = new Cinema();
-				cinemaAdd.setCinemaName(cinemaName); 
+				cinemaAdd.setCinemaName(cinemaName);
 				cinemaAdd.setCinemaAddress(cinemaAddress);
 				Room roomAdd = new Room();
 				roomAdd.setRoomName(hallName);
