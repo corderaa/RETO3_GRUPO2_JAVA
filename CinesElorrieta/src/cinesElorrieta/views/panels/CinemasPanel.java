@@ -249,19 +249,18 @@ public class CinemasPanel {
 				try {
 					selectedDateTime = tableDate.getValueAt(0, 0).toString() + " "
 							+ tableTableTime.getValueAt(0, 0).toString();
+					Ticket selectedSession = new Ticket();
+					selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
+							selectedMovieId, selectedDateTime));
+
+					if (!(selectedSessions.size() > 4)) {
+						selectedSessions.add(selectedSession);
+					} else {
+						JOptionPane.showMessageDialog(null, "Err, Has llegado al limite de peliculas por añadir");
+					}
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null,
 							"Err, No hay sessiones para seleccionar con los datos elejidos");
-				}
-
-				Ticket selectedSession = new Ticket();
-				selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
-						selectedMovieId, selectedDateTime));
-
-				if (!(selectedSessions.size() > 4)) {
-					selectedSessions.add(selectedSession);
-				} else {
-					JOptionPane.showMessageDialog(null, "Err, Has llegado al limite de peliculas por añadir");
 				}
 
 				modelMovies.setRowCount(0);
@@ -390,12 +389,8 @@ public class CinemasPanel {
 	 */
 	private String getSelectedCinemaId(DefaultTableModel cinemaModel, JTable tableCinemas) {
 		String ret = null;
-		try {
+		if (tableCinemas.getRowCount() > 0)
 			ret = (String) cinemaModel.getValueAt(tableCinemas.getSelectedRow(), 0);
-
-		} catch (Exception e) {
-			System.err.println("Err, index para el numero de Rows"); // no deveria salir
-		}
 
 		return ret;
 	}
@@ -410,11 +405,8 @@ public class CinemasPanel {
 	 */
 	private String getSelectedMovieId(JTable moviesTable, DefaultTableModel modelMovies) {
 		String ret = null;
-		try {
+		if (moviesTable.getRowCount() > 0)
 			ret = (String) modelMovies.getValueAt(moviesTable.getSelectedRow(), 0);
-		} catch (Exception e) {
-			System.err.println("Err, index para el numero de Rows"); // no deveria salir
-		}
 
 		return ret;
 	}
@@ -428,11 +420,8 @@ public class CinemasPanel {
 	 */
 	private String getSelectedDateTime(JTable dateTable, DefaultTableModel dateModel) {
 		String ret = null;
-		try {
+		if (dateTable.getRowCount() > 0)
 			ret = (String) dateModel.getValueAt(dateTable.getSelectedRow(), 0);
-		} catch (Exception e) {
-			System.err.println("Err, index para el numero de Rows"); // no deveria salir
-		}
 
 		return ret;
 	}
