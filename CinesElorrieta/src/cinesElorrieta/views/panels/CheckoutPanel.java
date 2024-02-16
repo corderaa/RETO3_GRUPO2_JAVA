@@ -18,6 +18,10 @@ import javax.swing.table.DefaultTableModel;
 
 import cinesElorrieta.bbdd.pojo.Ticket;
 
+/**
+ * javadoc
+ * 
+ */
 public class CheckoutPanel {
 
 	private JPanel checkoutPanel;

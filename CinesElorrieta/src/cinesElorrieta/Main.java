@@ -19,7 +19,7 @@ public class Main {
 			new MainFrame().run();
 		}
 
-		// = new Main().isDataBaseValid() ? new MainFrame().run() : null);
+		// si = new Main().isDataBaseValid() ? new MainFrame().run() : null);
 	}
 
 	private boolean isDataBaseValid() {

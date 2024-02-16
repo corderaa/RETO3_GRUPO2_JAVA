@@ -406,6 +406,7 @@ public class CinemasPanel {
 	 * @param moviesTable
 	 * @param modelMovies
 	 * @return
+	 * 
 	 */
 	private String getSelectedMovieId(JTable moviesTable, DefaultTableModel modelMovies) {
 		String ret = null;
