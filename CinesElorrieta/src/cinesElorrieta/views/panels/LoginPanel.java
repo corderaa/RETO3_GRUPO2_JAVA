@@ -30,6 +30,7 @@ public class LoginPanel {
 	private JButton btnRegister = null;
 	private JPanel panelForm_background = null;
 
+	
 	public LoginPanel(ArrayList<JPanel> paneles,ArrayList<Ticket> selectedSessions) {
 
 		loginPanel = new JPanel();

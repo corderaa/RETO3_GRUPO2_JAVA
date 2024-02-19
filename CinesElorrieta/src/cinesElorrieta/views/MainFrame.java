@@ -14,6 +14,7 @@ import cinesElorrieta.views.panels.RegisterPanel;
 import cinesElorrieta.views.panels.TicketPanel;
 import cinesElorrieta.views.panels.WelcomePanel;
 
+
 /**
  * The main JFrame
  */
