@@ -26,6 +26,8 @@ public class LoginPanel {
 	private JLabel lblMain = null;
 	private JLabel lblPassword = null;
 	private JButton btnLogin = null;
+	private JButton btnClose = null;
+	private JButton btnRegister = null;
 	private JPanel panelForm_background = null;
 
 	public LoginPanel(ArrayList<JPanel> paneles) {
@@ -66,11 +68,18 @@ public class LoginPanel {
 		lblPassword.setBounds(47, 265, 115, 20);
 		panelForm.add(lblPassword);
 
+		btnRegister = new JButton("REGISTRATE SI NO TIENES CUENTA");
+		btnRegister.setForeground(new Color(255, 255, 255));
+		btnRegister.setBackground(new Color(255, 51, 51));
+		btnRegister.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
+		btnRegister.setBounds(47, 434, 331, 57);
+		panelForm.add(btnRegister);
+
 		btnLogin = new JButton("ENTRAR");
-		btnLogin.setForeground(new Color(255, 255, 255));
-		btnLogin.setBackground(new Color(255, 51, 51));
+		btnLogin.setForeground(Color.WHITE);
 		btnLogin.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 15));
-		btnLogin.setBounds(47, 409, 331, 57);
+		btnLogin.setBackground(new Color(255, 51, 51));
+		btnLogin.setBounds(47, 366, 331, 57);
 		panelForm.add(btnLogin);
 
 		panelForm_background = new JPanel();
@@ -79,31 +88,40 @@ public class LoginPanel {
 		panelForm_background.setBounds(423, 71, 436, 529);
 		loginPanel.add(panelForm_background);
 
-		btnLogin.addActionListener(new ActionListener() {
+		btnClose = new JButton("CERRAR");
+		btnClose.setForeground(new Color(255, 255, 255));
+		btnClose.setBackground(new Color(204, 51, 51));
+		btnClose.setBounds(1135, 686, 89, 44);
+		loginPanel.add(btnClose);
+
+		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				String mail = textFieldMail.getText();
-				String password = textFieldPassword.getText();
 
-				
-				boolean correctLogin = verifyUser(mail, password);
+				paneles.get(0).setVisible(false);
+				paneles.get(1).setVisible(true);
+				paneles.get(2).setVisible(false);
+				paneles.get(3).setVisible(false);
 
-			
-				if (correctLogin) {
-					JOptionPane.showMessageDialog(null, "BIeeeeeeeeeeeeeeeeen");
-				} else {
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
-				}
 			}
 		});
-	}
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-	private boolean verifyUser(String mail, String password) {
-		
-		UserManager userManager = new UserManager();
-		User user = userManager.getUser(mail, password);
+				paneles.get(0).setVisible(true);
+				paneles.get(2).setVisible(false);
 
-		return user != null;
+			}
+		});
+
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,
+						null == new UserManager().getUser(textFieldMail.getText(), textFieldPassword.getText())
+								? "Usuario o contraseña incorrecta"
+								: "Bienvenido: " + textFieldMail.getText());
+
+			}
+		});
 	}
 
 	public JPanel getLoginPanel() {
