@@ -135,8 +135,21 @@ public class RegisterPanel {
 		btnClose.setBounds(1135, 686, 89, 44);
 		panelRegister.add(btnClose);
 
+		chckbxFemale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				chckbxMale.setSelected(false);
+			}
+		});
+
+		chckbxMale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				chckbxFemale.setSelected(false);
+			}
+		});
+
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				clearFields();
 				paneles.get(0).setVisible(true);
 				paneles.get(1).setVisible(false);
 			}
@@ -162,6 +175,8 @@ public class RegisterPanel {
 					userManager.insertUser(newUser);
 
 					JOptionPane.showMessageDialog(null, "Usuario registrado con exito");
+
+					clearFields();
 
 					paneles.get(0).setVisible(true);
 					paneles.get(1).setVisible(false);
@@ -196,5 +211,20 @@ public class RegisterPanel {
 	public JPanel getPanel() {
 
 		return panelRegister;
+	}
+
+	/**
+	 * Clears the fields of the form
+	 */
+	private void clearFields() {
+
+		textFieldLasName.setText("");
+		textFieldMail.setText("");
+		textFieldPassword.setText("");
+		textFieldUser.setText("");
+		textFieldDNI.setText("");
+
+		chckbxFemale.setSelected(false);
+		chckbxMale.setSelected(false);
 	}
 }

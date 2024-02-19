@@ -166,6 +166,12 @@ public class CheckoutPanel {
 		return checkoutPanel;
 	}
 
+	/**
+	 * Displays the selectedSessions on the table
+	 * 
+	 * @param modelSummary
+	 * @param selectedSessions
+	 */
 	private void displaySelectedSessionsOnTable(DefaultTableModel modelSummary, ArrayList<Ticket> selectedSessions) {
 		if (selectedSessions != null) {
 			for (int i = 0; i < selectedSessions.size(); i++) {
@@ -229,6 +235,5 @@ public class CheckoutPanel {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 	}
 }
