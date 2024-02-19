@@ -29,6 +29,7 @@ public class RegisterPanel {
 	private JTextField textFieldPassword = null;
 	private JLabel lblContrasea = null;
 	private JButton btnRegistrarse = null;
+	private JButton btnClose;
 	private JLabel lblDni = null;
 	private JTextField textFieldDNI = null;
 	private JCheckBox chckbxMale = null;
@@ -126,8 +127,21 @@ public class RegisterPanel {
 		panelFormulario_fondo.setBounds(423, 71, 436, 529);
 		panelRegister.add(panelFormulario_fondo);
 
+		btnClose = new JButton("CERRAR");
+		btnClose.setForeground(new Color(255, 255, 255));
+		btnClose.setBackground(new Color(204, 51, 51));
+		btnClose.setBounds(1135, 686, 89, 44);
+		panelRegister.add(btnClose);
+
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paneles.get(0).setVisible(true);
+				paneles.get(1).setVisible(false);
+			}
+		});
+
 		btnRegistrarse.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				UserManager userManager = new UserManager();
 				User newUser = new User();
@@ -143,7 +157,7 @@ public class RegisterPanel {
 
 				paneles.get(0).setVisible(false);
 				paneles.get(1).setVisible(true);
-		
+
 			}
 
 			/**

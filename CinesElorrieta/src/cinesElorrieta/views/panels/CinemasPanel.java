@@ -182,6 +182,13 @@ public class CinemasPanel {
 		btnSelectSession.setBounds(598, 684, 256, 44);
 		cinemasPanel.add(btnSelectSession);
 
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				paneles.get(3).setVisible(false);
+				paneles.get(0).setVisible(true);
+			}
+		});
+
 		btnSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String selectedCinemaId = null;

@@ -21,7 +21,8 @@ public class WelcomePanel {
 	private JLabel lblTitulo_fondo = null;
 	private JLabel lblNewLabel = null;
 	private JLabel lblNewLabel_fondo = null;
-	private JButton btnNewButton = null;
+	private JButton btnlogin = null;
+	private JButton btnRegister = null;
 
 	public WelcomePanel(ArrayList<JPanel> paneles) {
 
@@ -58,14 +59,19 @@ public class WelcomePanel {
 		lblNewLabel_fondo.setBounds(379, 347, 473, 51);
 		welcomePanel.add(lblNewLabel_fondo);
 
-		btnNewButton = new JButton("login");
-		btnNewButton.setBackground(Color.RED);
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setBounds(0, 718, 64, 23);
-		welcomePanel.add(btnNewButton);
+		btnlogin = new JButton("login");
+		btnlogin.setBackground(Color.RED);
+		btnlogin.setForeground(Color.WHITE);
+		btnlogin.setBounds(0, 718, 64, 23);
+		welcomePanel.add(btnlogin);
 
-		// BOTON LOGIN
-		btnNewButton.addActionListener(new ActionListener() {
+		btnRegister = new JButton("register");
+		btnRegister.setBackground(Color.RED);
+		btnRegister.setForeground(Color.WHITE);
+		btnRegister.setBounds(70, 718, 64, 23);
+		welcomePanel.add(btnRegister);
+
+		btnlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/*
 				 * try { Thread.sleep(3000); } catch (InterruptedException a) { // No hacer nada
@@ -73,14 +79,22 @@ public class WelcomePanel {
 				 */
 
 				paneles.get(0).setVisible(false);
-				paneles.get(1).setVisible(false);
 				paneles.get(2).setVisible(true);
-				paneles.get(3).setVisible(false);
-
 			}
 		});
 
-		// CLICK EN LA PANTALLA
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				 * try { Thread.sleep(3000); } catch (InterruptedException a) { // No hacer nada
+				 * }
+				 */
+
+				paneles.get(0).setVisible(false);
+				paneles.get(1).setVisible(true);
+			}
+		});
+
 		welcomePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
