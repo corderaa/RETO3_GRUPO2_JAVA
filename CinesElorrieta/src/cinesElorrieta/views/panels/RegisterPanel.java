@@ -3,6 +3,8 @@ package cinesElorrieta.views.panels;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -143,20 +145,29 @@ public class RegisterPanel {
 		btnRegistrarse.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				UserManager userManager = new UserManager();
-				User newUser = new User();
 
-				newUser.setUserName(textFieldUser.getText().trim());
-				newUser.setUserLasName(textFieldLasName.getText());
-				newUser.setUserId(textFieldDNI.getText().trim());
-				newUser.setUserEmail(textFieldMail.getText().trim());
-				newUser.setUserPassword(textFieldPassword.getText().trim());
-				newUser.setUserSex(getUserGenre());
+				if (!textFieldDNI.getText().isEmpty() || !textFieldLasName.getText().isEmpty()
+						|| !textFieldMail.getText().isEmpty() || !textFieldPassword.getText().isEmpty()
+						|| !textFieldUser.getText().isEmpty()) {
+					UserManager userManager = new UserManager();
+					User newUser = new User();
 
-				userManager.insertUser(newUser);
+					newUser.setUserName(textFieldUser.getText().trim());
+					newUser.setUserLasName(textFieldLasName.getText());
+					newUser.setUserId(textFieldDNI.getText().trim());
+					newUser.setUserEmail(textFieldMail.getText().trim());
+					newUser.setUserPassword(textFieldPassword.getText().trim());
+					newUser.setUserSex(getUserGenre());
 
-				paneles.get(0).setVisible(false);
-				paneles.get(1).setVisible(true);
+					userManager.insertUser(newUser);
+
+					JOptionPane.showMessageDialog(null, "Usuario registrado con exito");
+
+					paneles.get(0).setVisible(true);
+					paneles.get(1).setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Err, Algun campo esta vacio o es incorrecto");
+				}
 
 			}
 

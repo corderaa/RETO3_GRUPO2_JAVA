@@ -59,29 +59,28 @@ public class WelcomePanel {
 		lblNewLabel_fondo.setBounds(379, 347, 473, 51);
 		welcomePanel.add(lblNewLabel_fondo);
 
-		btnlogin = new JButton("login");
-		btnlogin.setBackground(Color.RED);
-		btnlogin.setForeground(Color.WHITE);
-		btnlogin.setBounds(0, 718, 64, 23);
-		welcomePanel.add(btnlogin);
+		/*
+		 * btnlogin = new JButton("login"); btnlogin.setBackground(Color.RED);
+		 * btnlogin.setForeground(Color.WHITE); btnlogin.setBounds(0, 718, 64, 23);
+		 * welcomePanel.add(btnlogin);
+		 */
 
 		btnRegister = new JButton("register");
 		btnRegister.setBackground(Color.RED);
 		btnRegister.setForeground(Color.WHITE);
-		btnRegister.setBounds(70, 718, 64, 23);
+		btnRegister.setBounds(0, 718, 64, 23);
 		welcomePanel.add(btnRegister);
 
-		btnlogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				/*
-				 * try { Thread.sleep(3000); } catch (InterruptedException a) { // No hacer nada
-				 * }
-				 */
-
-				paneles.get(0).setVisible(false);
-				paneles.get(2).setVisible(true);
-			}
-		});
+		/*
+		 * btnlogin.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) {
+		 * 
+		 * try { Thread.sleep(3000); } catch (InterruptedException a) { // No hacer nada
+		 * }
+		 * 
+		 * 
+		 * paneles.get(0).setVisible(false); paneles.get(2).setVisible(true); } });
+		 */
 
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

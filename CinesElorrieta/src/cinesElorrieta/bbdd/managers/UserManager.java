@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import cinesElorrieta.bbdd.pojo.User;
 import cinesElorrieta.bbdd.utils.DBUtils;
 
@@ -23,17 +25,17 @@ public class UserManager {
 	 * @return
 	 */
 	public User getUser(String mail, String password) {
-		
+
 		// La conexion con BBDD
 		Connection connection = null;
-		
+
 		// Vamos a lanzar una sentencia SQL contra la BBDD mas o menos
 		PreparedStatement statement = null;
-		
-		//Consulta a la base de datos y nos da los resultados
+
+		// Consulta a la base de datos y nos da los resultados
 		ResultSet resultSet = null;
-		
-		//Llamamos al usuario
+
+		// Llamamos al usuario
 		User user = null;
 
 		try {
@@ -55,9 +57,9 @@ public class UserManager {
 
 			// Si encuentra el usuario lo envia no es necesario todo pero bueno
 			if (resultSet.next()) {
-				
+
 				user = new User();
-				
+
 				user.setUserId(resultSet.getString("userDNI"));
 				user.setUserName(resultSet.getString("userName"));
 				user.setUserLasName(resultSet.getString("userSurname"));
@@ -126,9 +128,9 @@ public class UserManager {
 			statement.executeUpdate(sql);
 
 		} catch (SQLException sqle) {
-			System.out.println("Error con la BBDD - " + sqle.getMessage());
+			JOptionPane.showMessageDialog(null, "Err, Algun dato introducido esta incorrecto");
 		} catch (Exception e) {
-			System.out.println("Error generico - " + e.getMessage());
+			JOptionPane.showMessageDialog(null, "Err, Algun dato introducido ya existe");
 		} finally {
 			// Cerramos al reves de como las abrimos
 			try {
