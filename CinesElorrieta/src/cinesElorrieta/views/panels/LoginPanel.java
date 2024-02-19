@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import cinesElorrieta.bbdd.managers.UserManager;
-import cinesElorrieta.bbdd.pojo.User;
+import cinesElorrieta.bbdd.pojo.Ticket;
 
 public class LoginPanel {
 
@@ -30,7 +30,7 @@ public class LoginPanel {
 	private JButton btnRegister = null;
 	private JPanel panelForm_background = null;
 
-	public LoginPanel(ArrayList<JPanel> paneles) {
+	public LoginPanel(ArrayList<JPanel> paneles,ArrayList<Ticket> selectedSessions) {
 
 		loginPanel = new JPanel();
 		loginPanel.setBackground(new Color(255, 66, 70));
@@ -93,10 +93,12 @@ public class LoginPanel {
 		btnClose.setBackground(new Color(204, 51, 51));
 		btnClose.setBounds(1135, 686, 89, 44);
 		loginPanel.add(btnClose);
-
+/*
+ * Button that switches to the registration panel
+ */
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				clearTextFields(textFieldMail,textFieldPassword);
 				paneles.get(0).setVisible(false);
 				paneles.get(1).setVisible(true);
 				paneles.get(2).setVisible(false);
@@ -106,7 +108,7 @@ public class LoginPanel {
 		});
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				clearTextFields(textFieldMail,textFieldPassword);
 				paneles.get(0).setVisible(true);
 				paneles.get(2).setVisible(false);
 
@@ -120,10 +122,20 @@ public class LoginPanel {
 								? "Usuario o contraseña incorrecta"
 								: "Bienvenido: " + textFieldMail.getText());
 
+								clearTextFields(textFieldMail,textFieldPassword);
+								paneles.get(2).setVisible(false);
+								paneles.get(5).setVisible(true);
+
+
 			}
+
+			
 		});
 	}
-
+	private void clearTextFields(JTextField textFieldMail, JTextField textFieldPassword) {
+		textFieldMail.setText(null);
+		textFieldPassword.setText(null);
+	}
 	public JPanel getLoginPanel() {
 
 		return loginPanel;

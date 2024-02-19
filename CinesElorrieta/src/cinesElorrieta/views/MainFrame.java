@@ -70,7 +70,7 @@ public class MainFrame {
 		frame.getContentPane().add(panelRegister);
 
 		// Panel 2
-		LoginPanel gestorpanel2 = new LoginPanel(panels);
+		LoginPanel gestorpanel2 = new LoginPanel(panels,selectedSessions);
 		JPanel loginPanel = gestorpanel2.getLoginPanel();
 		loginPanel.setVisible(false);
 
