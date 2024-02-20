@@ -1,10 +1,12 @@
 package cinesElorrieta.bbdd.managers;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class MovieManager {
 				Movie movie = new Movie();
 
 				int movieId = resultSet.getInt("movieId");
-				String movieDuration = resultSet.getString("movieDuration");
+				Timestamp movieDuration = resultSet.getTimestamp("movieDuration");
 				String movieGenre = resultSet.getString("movieGenre");
 				String movieName = resultSet.getString("movieName");
 

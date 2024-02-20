@@ -322,9 +322,10 @@ public class CinemasPanel {
 		} else {
 			for (int i = 0; i < moviesFromSessions.size(); i++) {
 				if (null != moviesFromSessions.get(i)) {
+
 					String movieId = Integer.toString(moviesFromSessions.get(i).getMovieId());
 					String[] row = { movieId, moviesFromSessions.get(i).getMovieName(),
-							moviesFromSessions.get(i).getMovieKind(), moviesFromSessions.get(i).getMovieDuration() };
+							moviesFromSessions.get(i).getMovieKind(), formatTimeStamp(moviesFromSessions, i) };
 					modelMovies.addRow(row);
 				}
 			}
@@ -435,5 +436,15 @@ public class CinemasPanel {
 
 	public JPanel getCinemasPanel() {
 		return cinemasPanel;
+	}
+
+	public String formatTimeStamp(ArrayList<Movie> moviesFromSessions, int i) {
+		String ret = null;
+
+		String[] duration = moviesFromSessions.get(i).getMovieDuration().toString().split(" ");
+
+		ret = duration[1];
+
+		return ret;
 	}
 }

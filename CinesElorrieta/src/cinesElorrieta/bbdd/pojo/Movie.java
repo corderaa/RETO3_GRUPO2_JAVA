@@ -1,7 +1,7 @@
 package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -12,12 +12,10 @@ public class Movie implements Serializable {
 	private static final long serialVersionUID = 5115264711006430061L;
 
 	int movieId = 0;
-	String movieDuration = null;
+	Date movieDuration = null;
 	String movieKind = null;
 	String movieName = null;
 	Double moviePrice = 0.0;
-
-	List<Session> SessionIDs = null;
 
 	public int getMovieId() {
 		return movieId;
@@ -27,11 +25,11 @@ public class Movie implements Serializable {
 		this.movieId = movieId;
 	}
 
-	public String getMovieDuration() {
+	public Date getMovieDuration() {
 		return movieDuration;
 	}
 
-	public void setMovieDuration(String movieDuration) {
+	public void setMovieDuration(Date movieDuration) {
 		this.movieDuration = movieDuration;
 	}
 
@@ -59,21 +57,13 @@ public class Movie implements Serializable {
 		this.moviePrice = moviePrice;
 	}
 
-	public List<Session> getSessionIDs() {
-		return SessionIDs;
-	}
-
-	public void setSessionIDs(List<Session> sessionIDs) {
-		SessionIDs = sessionIDs;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(SessionIDs, movieDuration, movieId, movieKind, movieName, moviePrice);
+		return Objects.hash(movieDuration, movieId, movieKind, movieName, moviePrice);
 	}
 
 	@Override
@@ -85,15 +75,15 @@ public class Movie implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Movie other = (Movie) obj;
-		return Objects.equals(SessionIDs, other.SessionIDs) && Objects.equals(movieDuration, other.movieDuration)
-				&& movieId == other.movieId && Objects.equals(movieKind, other.movieKind)
-				&& Objects.equals(movieName, other.movieName) && Objects.equals(moviePrice, other.moviePrice);
+		return Objects.equals(movieDuration, other.movieDuration) && movieId == other.movieId
+				&& Objects.equals(movieKind, other.movieKind) && Objects.equals(movieName, other.movieName)
+				&& Objects.equals(moviePrice, other.moviePrice);
 	}
 
 	@Override
 	public String toString() {
 		return "Movie [movieId=" + movieId + ", movieDuration=" + movieDuration + ", movieKind=" + movieKind
-				+ ", movieName=" + movieName + ", moviePrice=" + moviePrice + ", SessionIDs=" + SessionIDs + "]";
+				+ ", movieName=" + movieName + ", moviePrice=" + moviePrice + "]";
 	}
 
 }
