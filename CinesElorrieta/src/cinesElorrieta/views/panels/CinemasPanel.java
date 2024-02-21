@@ -31,7 +31,6 @@ public class CinemasPanel {
 	private JPanel cinemasPanel;
 	private JTable tableCinemas;
 	private JTable tableMovies;
-	private JTable tableDate;
 	private JTable tableTableTime;
 	private JScrollPane scrollPaneMovies;
 	private JLabel lblCinemas;
@@ -42,11 +41,9 @@ public class CinemasPanel {
 	private JButton btnSelectSession;
 	private JButton btnFinalize;
 	private JScrollPane scrollPaneCinema;
-	private JScrollPane scrollPaneDate;
 	private JScrollPane scrollPaneTime;
 	private DefaultTableModel cinemaModel;
 	private DefaultTableModel modelMovies;
-	private DefaultTableModel dateModel;
 	private DefaultTableModel timeModel;
 	private JButton btnSelect;
 
@@ -145,26 +142,8 @@ public class CinemasPanel {
 		btnFinalize.setBounds(334, 684, 256, 44);
 		cinemasPanel.add(btnFinalize);
 
-		scrollPaneDate = new JScrollPane();
-		scrollPaneDate.setBounds(823, 330, 332, 158);
-		cinemasPanel.add(scrollPaneDate);
-
-		dateModel = new DefaultTableModel() {
-			private static final long serialVersionUID = 1L;
-
-			public boolean isCellEditable(int row, int column) {
-
-				return false;
-			}
-		};
-		dateModel.addColumn("Fecha Emision");
-		dateModel.addColumn("Horario Emision");
-		tableDate = new JTable(dateModel);
-		tableDate.removeColumn(tableDate.getColumn("Horario Emision"));
-		scrollPaneDate.setViewportView(tableDate);
-
 		scrollPaneTime = new JScrollPane();
-		scrollPaneTime.setBounds(823, 499, 332, 176);
+		scrollPaneTime.setBounds(823, 330, 332, 345);
 		cinemasPanel.add(scrollPaneTime);
 
 		timeModel = new DefaultTableModel() {
@@ -212,7 +191,6 @@ public class CinemasPanel {
 					paneles.get(4).setVisible(true);
 					paneles.get(3).setVisible(false);
 					modelMovies.setRowCount(0);
-					dateModel.setRowCount(0);
 					timeModel.setRowCount(0);
 				} else {
 					JOptionPane.showMessageDialog(null, "Err, Todavia no hay sesiones seleccionadas");
@@ -223,19 +201,9 @@ public class CinemasPanel {
 		tableMovies.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					dateModel.setRowCount(0);
 					timeModel.setRowCount(0);
-					displayMoviesDate(dateModel, tableCinemas, cinemaModel, tableMovies, modelMovies);
-				}
-			}
-		});
-
-		tableDate.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					timeModel.setRowCount(0);
-					displayMoviesTime(timeModel, tableCinemas, cinemaModel, tableMovies, modelMovies, tableDate,
-							dateModel);
+					displayMoviesTime(timeModel, tableCinemas, cinemaModel, tableMovies, modelMovies, tableCinemas,
+							timeModel);
 				}
 			}
 		});
@@ -243,7 +211,6 @@ public class CinemasPanel {
 		tableCinemas.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				modelMovies.setRowCount(0);
-				dateModel.setRowCount(0);
 				timeModel.setRowCount(0);
 			}
 		});
@@ -257,7 +224,7 @@ public class CinemasPanel {
 				String selectedDateTime = null;
 
 				try {
-					selectedDateTime = tableDate.getValueAt(0, 0).toString() + " "
+					selectedDateTime = tableTableTime.getValueAt(0, 0).toString() + " "
 							+ tableTableTime.getValueAt(0, 0).toString();
 					Ticket selectedSession = new Ticket();
 					selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
@@ -274,7 +241,6 @@ public class CinemasPanel {
 				}
 
 				modelMovies.setRowCount(0);
-				dateModel.setRowCount(0);
 				timeModel.setRowCount(0);
 			}
 		});
@@ -337,38 +303,6 @@ public class CinemasPanel {
 	}
 
 	/**
-	 * Displays in the table rows the date about the Movies taken from the DB.
-	 * 
-	 * @param moviesFromSessions
-	 * @param dateModel
-	 */
-	private void displayMoviesDate(DefaultTableModel dateModel, JTable tableCinemas, DefaultTableModel cinemaModel,
-			JTable moviesTable, DefaultTableModel modelMovies) {
-
-		SesionManager sesionManager = new SesionManager();
-
-		String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
-		String selectedMovieId = getSelectedMovieId(moviesTable, modelMovies);
-
-		ArrayList<Session> dateTimesFromSessions = sesionManager.getAllTheDateTimesFromMovie(selectedCinemaId,
-				selectedMovieId);
-
-		for (int i = 0; i < dateTimesFromSessions.size(); i++) {
-			if (null != dateTimesFromSessions.get(i)) {
-				System.out.println(dateTimesFromSessions.get(i).getSessionDate().toString());
-
-				String[] row = { formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[2],
-						formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3] };
-
-				if (dateModel.getRowCount() > 0) {
-
-				}
-				dateModel.addRow(row);
-			}
-		}
-	}
-
-	/**
 	 * Displays in the table rows the time about the DateTimes taken from the DB.
 	 * 
 	 * @param moviesFromSessions
@@ -381,16 +315,12 @@ public class CinemasPanel {
 
 		String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
 		String selectedMovieId = getSelectedMovieId(moviesTable, modelMovies);
-		String selectedDateTime = getSelectedDateTime(tableDate, dateModel);
 
 		ArrayList<Session> dateTimesFromSessions = sesionManager.getAllTheDateTimesFromMovie(selectedCinemaId,
 				selectedMovieId);
 
 		for (int i = 0; i < dateTimesFromSessions.size(); i++) {
-			System.out.println(formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3]);
-			System.out.println(selectedDateTime);
-			if (null != dateTimesFromSessions.get(i)
-					&& formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3].contains(selectedDateTime)) {
+			if (null != dateTimesFromSessions.get(i)) {
 				String[] row = { formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3] };
 
 				timeModel.addRow(row);
@@ -425,21 +355,6 @@ public class CinemasPanel {
 		String ret = null;
 		if (moviesTable.getRowCount() > 0)
 			ret = (String) modelMovies.getValueAt(moviesTable.getSelectedRow(), 0);
-
-		return ret;
-	}
-
-	/**
-	 * Gets the dateTime that is selected at the moment.
-	 * 
-	 * @param moviesTable
-	 * @param modelMovies
-	 * @return
-	 */
-	private String getSelectedDateTime(JTable dateTable, DefaultTableModel dateModel) {
-		String ret = null;
-		if (dateTable.getRowCount() > 0)
-			ret = (String) dateModel.getValueAt(dateTable.getSelectedRow(), 1);
 
 		return ret;
 	}
