@@ -19,14 +19,18 @@ public class FilesManager {
 			printWriter = new PrintWriter(fileWriter);
 
 			for (int i = 0; i < selectedSessions.size(); i++) {
-				String datos = /*
-								 * + "\n" + "NOMBRE USUARIO: " + selectedSessions.get(i).getUser().getUserName()
-								 * + "\n" + "APELLIDO: " + selectedSessions.get(i).getUser().getUserLasName()
-								 */
+				String datos =
+						/*
+						 * "\n" + "NOMBRE USUARIO: " + selectedSessions.get(i).getUser().getUserName() +
+						 * "\n" + "APELLIDO: " + selectedSessions.get(i).getUser().getUserLasName()
+						 */
+
 						"-----------------------" + "\n" + "NOMBRE DE LA PELICULA: "
 								+ selectedSessions.get(i).getSession().getMovie().getMovieName() + "\n"
 								+ "DURACION DE LA PELICULA: "
-								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration() + "\n"
+								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getHours() + ":"
+								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getMinutes() + ":"
+								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getSeconds() + "\n"
 								+ "FECHA Y HORA DE LA SESION: " + selectedSessions.get(i).getSession().getSessionDate()
 								+ "\n" + "CINE: " + selectedSessions.get(i).getSession().getCinema().getCinemaName()
 								+ "\n" + "DIRECCION CINE: "
@@ -39,7 +43,7 @@ public class FilesManager {
 
 				printWriter.println(datos);
 			}
-			
+
 			printWriter.println("PRECIO TOTAL: " + selectedSessions.get(0).getTicketPrice());
 
 		} catch (IOException e) {
