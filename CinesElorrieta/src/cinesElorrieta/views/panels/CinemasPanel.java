@@ -218,14 +218,15 @@ public class CinemasPanel {
 		btnSelectSession.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SesionManager sesionManager = new SesionManager();
-
-				String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
-				String selectedMovieId = getSelectedMovieId(tableMovies, modelMovies);
-				String selectedDateTime = null;
-
 				try {
-					selectedDateTime = tableTableTime.getValueAt(0, 0).toString() + " "
-							+ tableTableTime.getValueAt(0, 0).toString();
+					String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
+					String selectedMovieId = getSelectedMovieId(tableMovies, modelMovies);
+					String selectedDateTime = null;
+
+					if (tableTableTime.getSelectedRowCount() != 0) {
+						selectedDateTime = tableTableTime.getValueAt(0, 0).toString() + " "
+								+ tableTableTime.getValueAt(0, 0).toString();
+					}
 					Ticket selectedSession = new Ticket();
 					selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
 							selectedMovieId, selectedDateTime));
