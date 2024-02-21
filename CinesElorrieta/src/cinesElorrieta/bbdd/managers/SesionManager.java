@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import cinesElorrieta.bbdd.pojo.Movie;
 import cinesElorrieta.bbdd.pojo.Room;
 import cinesElorrieta.bbdd.pojo.Session;
 import cinesElorrieta.bbdd.utils.DBUtils;
+import cinesElorrieta.utils.Converter;
 
 /**
  * Manager of the table t_sesion. It contains all the methods for that table.
@@ -21,6 +23,8 @@ import cinesElorrieta.bbdd.utils.DBUtils;
  * Manager of the table t_sesion. It contains all the methods for that table.
  */
 public class SesionManager {
+
+	Converter converter = new Converter();
 
 	/**
 	 * Gets the Session specified by the id
@@ -73,9 +77,9 @@ public class SesionManager {
 
 				Session moviesFromCinemaAdd = new Session();
 
-				String sessionDateTimeAdd = resultSet.getString("sessionDateTime");
+				Timestamp sessionDateTimeAdd = resultSet.getTimestamp("sessionDateTime");
 
-				moviesFromCinemaAdd.setSessionDate(sessionDateTimeAdd);
+				moviesFromCinemaAdd.setSessionDate(converter.convertTimeStampJavaDate(sessionDateTimeAdd));
 
 				ret.add(moviesFromCinemaAdd);
 			}
@@ -139,8 +143,8 @@ public class SesionManager {
 				ret = new Session();
 
 				String movieName = resultSet.getString("movieName");
-				String movieDuration = resultSet.getString("movieDuration");
-				String datetimeAdd = resultSet.getString("sessionDateTime");
+				Timestamp movieDuration = resultSet.getTimestamp("movieDuration");
+				Timestamp datetimeAdd = resultSet.getTimestamp("sessionDateTime");
 				String cinemaName = resultSet.getString("cinemaName");
 				String cinemaAddress = resultSet.getString("cinemaAddress");
 				String hallName = resultSet.getString("hallName");
@@ -149,7 +153,7 @@ public class SesionManager {
 				Movie movieAdd = new Movie();
 				movieAdd.setMovieName(movieName);
 				movieAdd.setMoviePrice(moviePrice);
-				movieAdd.setMovieDuration(movieDuration);
+				movieAdd.setMovieDuration(converter.convertTimeStampJavaDate(movieDuration));
 
 				Cinema cinemaAdd = new Cinema();
 				cinemaAdd.setCinemaName(cinemaName);
@@ -160,7 +164,7 @@ public class SesionManager {
 				ret.setCinema(cinemaAdd);
 				ret.setRoom(roomAdd);
 				ret.setMovie(movieAdd);
-				ret.setSessionDate(datetimeAdd);
+				ret.setSessionDate(converter.convertTimeStampJavaDate(datetimeAdd));
 			}
 
 		} catch (SQLException sqle) {

@@ -1,6 +1,7 @@
 package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ public class Session implements Serializable {
 	private static final long serialVersionUID = 346639021818786350L;
 
 	private int sessionID = 0;
-	private String sessionDate = null;
+	private Date sessionDate = null;
 
 	private Room room = null;
 	private Cinema cinema = null;
@@ -25,11 +26,11 @@ public class Session implements Serializable {
 		this.sessionID = sessionID;
 	}
 
-	public String getSessionDate() {
+	public Date getSessionDate() {
 		return sessionDate;
 	}
 
-	public void setSessionDate(String sessionDate) {
+	public void setSessionDate(Date sessionDate) {
 		this.sessionDate = sessionDate;
 	}
 

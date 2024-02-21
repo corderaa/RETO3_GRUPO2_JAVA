@@ -181,7 +181,7 @@ public class CheckoutPanel {
 							.toString(selectedSessions.get(i).getSession().getMovie().getMoviePrice());
 
 					String[] row = { selectedSessions.get(i).getSession().getMovie().getMovieName(),
-							selectedSessions.get(i).getSession().getSessionDate(),
+							selectedSessions.get(i).getSession().getSessionDate().toString(),
 							selectedSessions.get(i).getSession().getCinema().getCinemaName(),
 							selectedSessions.get(i).getSession().getRoom().getRoomName(), moviePrice };
 

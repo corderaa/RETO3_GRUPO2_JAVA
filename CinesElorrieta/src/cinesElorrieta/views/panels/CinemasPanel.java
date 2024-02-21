@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -157,7 +158,9 @@ public class CinemasPanel {
 			}
 		};
 		dateModel.addColumn("Fecha Emision");
+		dateModel.addColumn("Horario Emision");
 		tableDate = new JTable(dateModel);
+		tableDate.removeColumn(tableDate.getColumn("Horario Emision"));
 		scrollPaneDate.setViewportView(tableDate);
 
 		scrollPaneTime = new JScrollPane();
@@ -325,7 +328,8 @@ public class CinemasPanel {
 
 					String movieId = Integer.toString(moviesFromSessions.get(i).getMovieId());
 					String[] row = { movieId, moviesFromSessions.get(i).getMovieName(),
-							moviesFromSessions.get(i).getMovieKind(), formatTimeStamp(moviesFromSessions, i) };
+							moviesFromSessions.get(i).getMovieKind(),
+							formatDate(i, moviesFromSessions.get(i).getMovieDuration())[1] };
 					modelMovies.addRow(row);
 				}
 			}
@@ -351,9 +355,14 @@ public class CinemasPanel {
 
 		for (int i = 0; i < dateTimesFromSessions.size(); i++) {
 			if (null != dateTimesFromSessions.get(i)) {
-				String[] dateTime = dateTimesFromSessions.get(i).getSessionDate().split(" ");
-				String[] row = { dateTime[0] };
+				System.out.println(dateTimesFromSessions.get(i).getSessionDate().toString());
 
+				String[] row = { formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[2],
+						formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3] };
+
+				if (dateModel.getRowCount() > 0) {
+
+				}
 				dateModel.addRow(row);
 			}
 		}
@@ -378,10 +387,11 @@ public class CinemasPanel {
 				selectedMovieId);
 
 		for (int i = 0; i < dateTimesFromSessions.size(); i++) {
+			System.out.println(formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3]);
+			System.out.println(selectedDateTime);
 			if (null != dateTimesFromSessions.get(i)
-					&& dateTimesFromSessions.get(i).getSessionDate().contains(selectedDateTime)) {
-				String[] dateTime = dateTimesFromSessions.get(i).getSessionDate().split(" ");
-				String[] row = { dateTime[1] };
+					&& formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3].contains(selectedDateTime)) {
+				String[] row = { formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3] };
 
 				timeModel.addRow(row);
 			}
@@ -429,7 +439,7 @@ public class CinemasPanel {
 	private String getSelectedDateTime(JTable dateTable, DefaultTableModel dateModel) {
 		String ret = null;
 		if (dateTable.getRowCount() > 0)
-			ret = (String) dateModel.getValueAt(dateTable.getSelectedRow(), 0);
+			ret = (String) dateModel.getValueAt(dateTable.getSelectedRow(), 1);
 
 		return ret;
 	}
@@ -438,12 +448,9 @@ public class CinemasPanel {
 		return cinemasPanel;
 	}
 
-	public String formatTimeStamp(ArrayList<Movie> moviesFromSessions, int i) {
-		String ret = null;
+	public String[] formatDate(int i, Date dateToFormat) {
 
-		String[] duration = moviesFromSessions.get(i).getMovieDuration().toString().split(" ");
-
-		ret = duration[1];
+		String[] ret = dateToFormat.toString().split(" ");
 
 		return ret;
 	}

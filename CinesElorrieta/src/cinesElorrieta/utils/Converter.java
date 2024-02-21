@@ -1,5 +1,6 @@
 package cinesElorrieta.utils;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -44,5 +45,13 @@ public class Converter {
 
 	public java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
 		return new java.sql.Date(date.getTime());
+	}
+
+	public Date convertTimeStampJavaDate(Timestamp timestamp) {
+
+		Date ret = new Date();
+		ret.setTime(timestamp.getTime());
+
+		return ret;
 	}
 }
