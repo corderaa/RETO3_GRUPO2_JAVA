@@ -10,7 +10,7 @@ import cinesElorrieta.bbdd.pojo.Ticket;
 /**
  * Generates a text file on the desktop with the data entered previously
  * 
- * @return a text file
+ * @return a text file with all the data
  */
 
 public class FilesManager {

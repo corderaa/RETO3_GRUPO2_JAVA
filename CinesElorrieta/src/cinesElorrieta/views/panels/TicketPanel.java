@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import cinesElorrieta.Files.FilesManager;
 import cinesElorrieta.bbdd.managers.TicketManager;
 import cinesElorrieta.bbdd.pojo.Ticket;
+import javax.swing.ImageIcon;
 
 public class TicketPanel {
 
@@ -36,19 +37,19 @@ public class TicketPanel {
 		JLabel lblNewLabel = new JLabel("GRACIAS POR SU COMPRA");
 		lblNewLabel.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(360, 287, 539, 29);
+		lblNewLabel.setBounds(360, 287, 529, 29);
 		ticketPanel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("GRACIAS POR SU COMPRA");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
-		lblNewLabel_1.setBounds(360, 287, 529, 29);
+		lblNewLabel_1.setBounds(360, 287, 539, 29);
 		ticketPanel.add(lblNewLabel_1);
 
 		JButton btnSaveTicket = new JButton("Guardar ticket");
 		btnSaveTicket.addActionListener(new ActionListener() {
-
+			
 			public void actionPerformed(ActionEvent e) {
 
 				ArrayList<Ticket> tickets = new ArrayList<Ticket>();
@@ -84,8 +85,13 @@ public class TicketPanel {
 
 		});
 		btnSaveTicket.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
-		btnSaveTicket.setBounds(525, 362, 167, 69);
+		btnSaveTicket.setBounds(533, 362, 167, 69);
 		ticketPanel.add(btnSaveTicket);
+		
+		JLabel imgElorrieta = new JLabel("l");
+		imgElorrieta.setIcon(new ImageIcon("D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png"));
+		imgElorrieta.setBounds(517, 442, 201, 81);
+		ticketPanel.add(imgElorrieta);
 	}
 
 	public JPanel getTicketPanel() {
