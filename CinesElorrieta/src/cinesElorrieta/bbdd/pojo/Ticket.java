@@ -14,7 +14,7 @@ public class Ticket implements Serializable {
 
 	int tickedId = 0;
 	Date ticketBuyDate = new Date();
-	Date ticketDate = null;
+	Date ticketDate = new Date();
 	double ticketPrice = 0;
 
 	private Session session = null;

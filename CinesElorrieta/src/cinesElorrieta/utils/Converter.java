@@ -29,8 +29,12 @@ public class Converter {
 		return null;
 	}
 
-	public java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
-		return new java.sql.Date(date.getTime());
+	public Timestamp convertJavaDateToTimeStamp(java.util.Date date) {
+
+		Timestamp sqlDate = new Timestamp(date.getTime());
+		sqlDate.setTime(date.getTime());
+
+		return sqlDate;
 	}
 
 	public Date convertTimeStampJavaDate(Timestamp timestamp) {

@@ -221,18 +221,17 @@ public class CheckoutPanel {
 		String[] retSplit = textBuyTotal.getText().trim().split(",");
 		String ret = retSplit[0] + "." + retSplit[1];
 		DecimalFormat df = new DecimalFormat("0.00");
+
+		Double n = Double.parseDouble(ret);
+
 		if (modelSummary.getRowCount() != 1) {
-
-			System.out.println(ret);
-
-			Double n = Double.parseDouble(ret);
-			System.out.println(n);
 
 			n = n - (n * tableSummary.getRowCount() / 10);
 
-			System.out.println(n);
 			ret = df.format(n);
 		}
+
+		ret = df.format(n);
 
 		return ret;
 	}
@@ -261,9 +260,15 @@ public class CheckoutPanel {
 	}
 
 	private String formatPrices(String priceText) {
-		String[] retSlited = priceText.split(",");
+		String[] retSlited = null;
+		String ret = null;
 
-		String ret = retSlited[0] + "." + retSlited[1];
+		try {
+			retSlited = priceText.split(",");
+			ret = retSlited[0] + "." + retSlited[1];
+		} catch (Exception e) {
+			System.out.println("err");
+		}
 
 		return ret;
 	}
