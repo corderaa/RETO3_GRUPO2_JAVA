@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 import cinesElorrieta.bbdd.pojo.Ticket;
 
+/**
+ * Generates a text file on the desktop with the data entered previously
+ * 
+ * @return a text file
+ */
+
 public class FilesManager {
 	private static final String NOMBRE_FICHERO = "ticket.txt";
 	private static final String RUTA_FICHERO = "C:\\Users\\in1dm3-v\\Desktop\\";
@@ -18,6 +24,9 @@ public class FilesManager {
 			fileWriter = new FileWriter(RUTA_FICHERO + NOMBRE_FICHERO);
 			printWriter = new PrintWriter(fileWriter);
 
+			printWriter.println("NOMBRE USUARIO: " + selectedSessions.get(0).getUser().getUserName() + "\n"
+					+ "APELLIDO: " + selectedSessions.get(0).getUser().getUserLasName());
+			
 			for (int i = 0; i < selectedSessions.size(); i++) {
 				String datos = "-----------------------" + "\n" + "NOMBRE DE LA PELICULA: "
 						+ selectedSessions.get(i).getSession().getMovie().getMovieName() + "\n"
@@ -36,9 +45,7 @@ public class FilesManager {
 				printWriter.println(datos);
 			}
 
-			printWriter.println("PRECIO TOTAL: " + selectedSessions.get(0).getTicketPrice() + "\n" + "NOMBRE USUARIO: "
-					+ selectedSessions.get(0).getUser().getUserName() + "\n" + "APELLIDO: "
-					+ selectedSessions.get(0).getUser().getUserLasName());
+			printWriter.println("PRECIO TOTAL CON DESCUENTO: " + selectedSessions.get(0).getTicketPrice());
 
 		} catch (IOException e) {
 			System.out.println("IOException - Error de escritura en el fichero " + RUTA_FICHERO + NOMBRE_FICHERO);

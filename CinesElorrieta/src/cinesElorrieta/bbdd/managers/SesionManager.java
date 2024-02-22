@@ -124,7 +124,7 @@ public class SesionManager {
 
 		String[] splitedDateTime = dateTime.split(":");
 
-		String sql = "SELECT DISTINCT m.movieName, m.movieDuration, s.sessionDateTime, c.cinemaName, c.cinemaAddress, h.hallName,m.moviePrice FROM t_session AS s JOIN t_movie m ON s.movieId = m.movieId JOIN t_cinema c ON s.cinemaId = c.cinemaId JOIN t_hall h ON s.hallId = h.hallId WHERE s.cinemaId = '"
+		String sql = "SELECT DISTINCT m.movieName,s.sessionId, m.movieDuration, s.sessionDateTime, c.cinemaName, c.cinemaAddress, h.hallName,m.moviePrice FROM t_session AS s JOIN t_movie m ON s.movieId = m.movieId JOIN t_cinema c ON s.cinemaId = c.cinemaId JOIN t_hall h ON s.hallId = h.hallId WHERE s.cinemaId = '"
 				+ cinemaId + "' and s.movieId = '" + movieId + "' and hour(s.sessionDateTime) = '" + splitedDateTime[0]
 				+ "' and minute(s.sessionDateTime) = '" + splitedDateTime[1] + "' and second(s.sessionDateTime) = '"
 				+ splitedDateTime[2] + "' ;";
@@ -169,6 +169,8 @@ public class SesionManager {
 				ret.setRoom(roomAdd);
 				ret.setMovie(movieAdd);
 				ret.setSessionDate(converter.convertTimeStampJavaDate(datetimeAdd));
+				ret.setSessionID(resultSet.getInt("sessionId"));
+				System.out.println(resultSet.getInt("sessionId"));
 			}
 
 		} catch (SQLException sqle) {

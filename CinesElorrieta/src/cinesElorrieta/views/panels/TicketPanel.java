@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import cinesElorrieta.Files.FilesManager;
 import cinesElorrieta.bbdd.managers.TicketManager;
@@ -21,12 +20,10 @@ public class TicketPanel {
 	private JPanel ticketPanel;
 
 	/**
-	 * Create the frame.
+	 * 
+	 * @param panels
+	 * @param selectedSessions arraylist with all selected data
 	 */
-	public List<Ticket> getAllTicket() {
-		return null;
-	}
-
 	public TicketPanel(ArrayList<JPanel> panels, ArrayList<Ticket> selectedSessions) {
 
 		ticketPanel = new JPanel();

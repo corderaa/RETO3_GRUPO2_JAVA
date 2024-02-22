@@ -124,9 +124,11 @@ public class LoginPanel {
 								: "Bienvenido: " + textFieldMail.getText());
 
 				User loggedUser = new UserManager().getUser(textFieldMail.getText(), textFieldPassword.getText());
-
-				selectedSessions.get(0).setUser(loggedUser);
-
+				
+				for (int i = 0; i < selectedSessions.size(); i++) {
+					selectedSessions.get(i).setUser(loggedUser);	
+				}
+				
 				clearTextFields(textFieldMail, textFieldPassword);
 				paneles.get(2).setVisible(false);
 				paneles.get(5).setVisible(true);

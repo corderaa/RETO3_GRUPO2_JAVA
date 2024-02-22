@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import cinesElorrieta.bbdd.pojo.Ticket;
 import cinesElorrieta.bbdd.utils.DBUtils;
@@ -16,25 +14,13 @@ import cinesElorrieta.utils.Converter;
  * Manager of the table t_Ticket. It contains all the methods for that table.
  */
 public class TicketManager {
-
+	
 	/**
-	 * Gets the Ticket specified by the id
+	 * Insert the ticket parameters into the database
 	 * 
-	 * @param id
-	 * @return
+	 * @param ticket
+	 * @return 
 	 */
-	public Ticket getTicket(int id) {
-		return null;
-	}
-
-	/**
-	 * Gets all the Tickets from the table t_ticket. Returns a LIST of Tickets.
-	 * 
-	 * @return
-	 */
-	public List<Ticket> getAllTicket() {
-		return null;
-	}
 
 	public void insertTicket(Ticket ticket) {
 		// La conexion con BBDD
@@ -58,10 +44,10 @@ public class TicketManager {
 			System.out.println(converter.convertJavaDateToTimeStamp(ticket.getTicketBuyDate()));
 			System.out.println(converter.convertJavaDateToTimeStamp(ticket.getTicketDate()));
 			String sql = "insert into t_ticket (ticketId, ticketPrice, ticketPurchaseDate, ticketPrintDate, sessionId, userDNI) VALUES ("
-					+ ticket.getTickedId() + ", " + ticket.getTicketPrice() + ", "
-					+ converter.convertJavaDateToTimeStamp(ticket.getTicketBuyDate()) + ","
-					+ converter.convertJavaDateToTimeStamp(ticket.getTicketDate()) + ", "
-					+ ticket.getSession().getSessionID() + ", " + ticket.getUser().getUserId() + ")";
+					+ ticket.getTickedId() + ", " + ticket.getTicketPrice() + ", '"
+					+ converter.convertJavaDateToTimeStamp(ticket.getTicketBuyDate()) + "','"
+					+ converter.convertJavaDateToTimeStamp(ticket.getTicketDate()) + "', "
+					+ ticket.getSession().getSessionID() + ", '" + ticket.getUser().getUserId() + "')";
 
 			// La ejecutamos...
 			statement.executeUpdate(sql);
@@ -87,6 +73,11 @@ public class TicketManager {
 			}
 		}
 	}
+	/**
+	 * Select the id of a single ticket from the database
+	 * 
+	 * @return last ticket Id
+	 */
 
 	public int getLastTicketId() {
 		int ret = 0;
