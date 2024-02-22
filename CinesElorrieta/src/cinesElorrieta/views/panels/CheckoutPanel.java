@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -147,7 +148,8 @@ public class CheckoutPanel {
 					paneles.get(4).setVisible(false);
 					paneles.get(2).setVisible(true);
 
-					selectedSessions.get(0).setTicketPrice(Double.parseDouble(textFieldAfterDiscounts.getText()));
+					selectedSessions.get(0)
+							.setTicketPrice(Double.parseDouble(formatPrices(textFieldAfterDiscounts.getText())));
 				}
 			}
 		});
@@ -196,7 +198,7 @@ public class CheckoutPanel {
 
 	private String getBuyTotal(JTable tableSummary) {
 		String ret = null;
-
+		DecimalFormat df = new DecimalFormat("0.00");
 		double d = 0.00;
 		for (int i = 0; i < modelSummary.getRowCount(); i++) {
 			String n = (String) modelSummary.getValueAt(i, 4);
@@ -204,7 +206,7 @@ public class CheckoutPanel {
 			d += Double.parseDouble(n);
 		}
 
-		ret = Double.toString(d);
+		ret = df.format(d);
 
 		return ret;
 	}
@@ -216,16 +218,20 @@ public class CheckoutPanel {
 	}
 
 	private String getDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary) {
-		String ret = textBuyTotal.getText().trim();
-		if (tableSummary.getRowCount() != 1) {
-			double n = 0.00;
+		String[] retSplit = textBuyTotal.getText().trim().split(",");
+		String ret = retSplit[0] + "." + retSplit[1];
+		DecimalFormat df = new DecimalFormat("0.00");
+		if (modelSummary.getRowCount() != 1) {
 
-			n = Double.parseDouble(ret);
+			System.out.println(ret);
 
-			double discountedTotalDouble = 0.00;
-			discountedTotalDouble = n - (n * tableSummary.getRowCount() / 10);
+			Double n = Double.parseDouble(ret);
+			System.out.println(n);
 
-			ret = Double.toString(discountedTotalDouble);
+			n = n - (n * tableSummary.getRowCount() / 10);
+
+			System.out.println(n);
+			ret = df.format(n);
 		}
 
 		return ret;
@@ -252,5 +258,13 @@ public class CheckoutPanel {
 		} else {
 			return false;
 		}
+	}
+
+	private String formatPrices(String priceText) {
+		String[] retSlited = priceText.split(",");
+
+		String ret = retSlited[0] + "." + retSlited[1];
+
+		return ret;
 	}
 }
