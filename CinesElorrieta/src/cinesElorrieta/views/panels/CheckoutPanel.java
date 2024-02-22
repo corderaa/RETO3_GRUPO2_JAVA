@@ -8,7 +8,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -141,12 +143,13 @@ public class CheckoutPanel {
 
 		btnBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paneles.get(4).setVisible(false);
-				paneles.get(5).setVisible(true);
+				if (confirmBuy()) {
+					paneles.get(4).setVisible(false);
+					paneles.get(2).setVisible(true);
 
-				selectedSessions.get(0).setTicketPrice(Double.parseDouble(textFieldAfterDiscounts.getText()));
+					selectedSessions.get(0).setTicketPrice(Double.parseDouble(textFieldAfterDiscounts.getText()));
+				}
 			}
-
 		});
 
 		checkoutPanel.addComponentListener(new ComponentAdapter() {
@@ -233,7 +236,21 @@ public class CheckoutPanel {
 			String discountedTotal = getDiscountedTotal(textBuyTotal, modelSummary);
 			textFieldAfterDiscounts.setText(discountedTotal);
 		} catch (Exception e) {
-			// TODO: handle exception
+		}
+	}
+
+	private boolean confirmBuy() {
+		int res = JOptionPane.showOptionDialog(new JFrame(), "Estas seguro que quieres proceder al pago?",
+				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				new Object[] { "Si", "No" }, JOptionPane.YES_OPTION);
+		if (res == JOptionPane.YES_OPTION) {
+			return true;
+		} else if (res == JOptionPane.NO_OPTION) {
+			return false;
+		} else if (res == JOptionPane.CLOSED_OPTION) {
+			return false;
+		} else {
+			return false;
 		}
 	}
 }

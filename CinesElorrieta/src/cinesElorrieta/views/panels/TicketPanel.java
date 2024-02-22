@@ -55,7 +55,8 @@ public class TicketPanel {
 			public void actionPerformed(ActionEvent e) {
 				gestor.insertTicketIntoFile(selectedSessions);
 				JOptionPane.showMessageDialog(btnSaveTicket, "Ticket guardado correctamente");
-				//setVisible(true);
+				panels.get(5).setVisible(false);
+				panels.get(0).setVisible(true);
 			}
 
 		});

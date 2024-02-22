@@ -19,32 +19,26 @@ public class FilesManager {
 			printWriter = new PrintWriter(fileWriter);
 
 			for (int i = 0; i < selectedSessions.size(); i++) {
-				String datos =
-						/*
-						 * "\n" + "NOMBRE USUARIO: " + selectedSessions.get(i).getUser().getUserName() +
-						 * "\n" + "APELLIDO: " + selectedSessions.get(i).getUser().getUserLasName()
-						 */
-
-						"-----------------------" + "\n" + "NOMBRE DE LA PELICULA: "
-								+ selectedSessions.get(i).getSession().getMovie().getMovieName() + "\n"
-								+ "DURACION DE LA PELICULA: "
-								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getHours() + ":"
-								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getMinutes() + ":"
-								+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getSeconds() + "\n"
-								+ "FECHA Y HORA DE LA SESION: " + selectedSessions.get(i).getSession().getSessionDate()
-								+ "\n" + "CINE: " + selectedSessions.get(i).getSession().getCinema().getCinemaName()
-								+ "\n" + "DIRECCION CINE: "
-								+ selectedSessions.get(i).getSession().getCinema().getCinemaAddress() + "\n" + "SALA: "
-								+ selectedSessions.get(i).getSession().getRoom().getRoomName() + "\n"
-								+ "PRECIO DE LA PELICULA: "
-								+ selectedSessions.get(i).getSession().getMovie().getMoviePrice() + "\n"
-								+ "HORA DE IMPRESION: " + selectedSessions.get(i).getTicketBuyDate() + "\n"
-								+ "-----------------------";
+				String datos = "-----------------------" + "\n" + "NOMBRE DE LA PELICULA: "
+						+ selectedSessions.get(i).getSession().getMovie().getMovieName() + "\n"
+						+ "DURACION DE LA PELICULA: "
+						+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getHours() + ":"
+						+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getMinutes() + ":"
+						+ selectedSessions.get(i).getSession().getMovie().getMovieDuration().getSeconds() + "\n"
+						+ "FECHA Y HORA DE LA SESION: " + selectedSessions.get(i).getSession().getSessionDate() + "\n"
+						+ "CINE: " + selectedSessions.get(i).getSession().getCinema().getCinemaName() + "\n"
+						+ "DIRECCION CINE: " + selectedSessions.get(i).getSession().getCinema().getCinemaAddress()
+						+ "\n" + "SALA: " + selectedSessions.get(i).getSession().getRoom().getRoomName() + "\n"
+						+ "PRECIO DE LA PELICULA: " + selectedSessions.get(i).getSession().getMovie().getMoviePrice()
+						+ "\n" + "HORA DE IMPRESION: " + selectedSessions.get(i).getTicketBuyDate() + "\n"
+						+ "-----------------------";
 
 				printWriter.println(datos);
 			}
 
-			printWriter.println("PRECIO TOTAL: " + selectedSessions.get(0).getTicketPrice());
+			printWriter.println("PRECIO TOTAL: " + selectedSessions.get(0).getTicketPrice() + "\n" + "NOMBRE USUARIO: "
+					+ selectedSessions.get(0).getUser().getUserName() + "\n" + "APELLIDO: "
+					+ selectedSessions.get(0).getUser().getUserLasName());
 
 		} catch (IOException e) {
 			System.out.println("IOException - Error de escritura en el fichero " + RUTA_FICHERO + NOMBRE_FICHERO);
