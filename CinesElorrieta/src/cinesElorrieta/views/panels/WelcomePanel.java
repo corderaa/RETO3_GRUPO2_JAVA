@@ -21,7 +21,6 @@ public class WelcomePanel {
 	private JLabel lblTitulo_fondo = null;
 	private JLabel lblNewLabel = null;
 	private JLabel lblNewLabel_fondo = null;
-	private JButton btnlogin = null;
 	private JButton btnRegister = null;
 
 	public WelcomePanel(ArrayList<JPanel> paneles) {
@@ -59,57 +58,45 @@ public class WelcomePanel {
 		lblNewLabel_fondo.setBounds(379, 347, 473, 51);
 		welcomePanel.add(lblNewLabel_fondo);
 
-		/*
-		 * btnlogin = new JButton("login"); btnlogin.setBackground(Color.RED);
-		 * btnlogin.setForeground(Color.WHITE); btnlogin.setBounds(0, 718, 64, 23);
-		 * welcomePanel.add(btnlogin);
-		 */
-
 		btnRegister = new JButton("register");
 		btnRegister.setBackground(Color.RED);
 		btnRegister.setForeground(Color.WHITE);
 		btnRegister.setBounds(0, 718, 64, 23);
 		welcomePanel.add(btnRegister);
 
-		/*
-		 * btnlogin.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) {
-		 * 
-		 * try { Thread.sleep(3000); } catch (InterruptedException a) { // No hacer nada
-		 * }
-		 * 
-		 * 
-		 * paneles.get(0).setVisible(false); paneles.get(2).setVisible(true); } });
-		 */
-
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * try { Thread.sleep(3000); } catch (InterruptedException a) { // No hacer nada
-				 * }
-				 */
+
+//				try {
+//					Thread.sleep(3000);
+//				} catch (InterruptedException a) {
+//					// No hacer nada
+//				}
 
 				paneles.get(0).setVisible(false);
 				paneles.get(1).setVisible(true);
+				paneles.get(2).setVisible(false);
+				paneles.get(3).setVisible(false);
+				paneles.get(4).setVisible(false);
+				paneles.get(5).setVisible(false);
 			}
 		});
 
 		welcomePanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
 				paneles.get(0).setVisible(false);
 				paneles.get(1).setVisible(false);
 				paneles.get(2).setVisible(false);
 				paneles.get(3).setVisible(true);
-
+				paneles.get(4).setVisible(false);
+				paneles.get(5).setVisible(false);
 			}
 		});
 
 	}
 
 	public JPanel getPanel() {
-
 		return welcomePanel;
 	}
 

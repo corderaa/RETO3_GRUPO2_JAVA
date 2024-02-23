@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 import cinesElorrieta.bbdd.pojo.Cinema;
 import cinesElorrieta.bbdd.pojo.Movie;
@@ -24,27 +23,6 @@ import cinesElorrieta.utils.Converter;
  */
 public class SesionManager {
 
-	Converter converter = new Converter();
-
-	/**
-	 * Gets the Session specified by the id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public Session getSession(int id) {
-		return null;
-	}
-
-	/**
-	 * Gets all the Sessions from the table t_movie. Returns a LIST of Sessions.
-	 * 
-	 * @return
-	 */
-	public List<Session> getAllSessions() {
-		return null;
-	}
-
 	/**
 	 * Gets all the Sessions from the table t_movie. Returns a LIST of Sessions.
 	 * 
@@ -52,6 +30,9 @@ public class SesionManager {
 	 */
 	public ArrayList<Session> getAllTheDateTimesFromMovie(String cinemaId, String movieId) {
 		ArrayList<Session> ret = null;
+
+		Converter converter = null;
+		Session moviesFromCinemaAdd = null;
 
 		String sql = "SELECT DISTINCT s.sessionDateTime FROM t_session AS s JOIN t_movie m ON s.movieId = m.movieId WHERE s.cinemaId = "
 				+ cinemaId + " and s.movieId = " + movieId + ";";
@@ -71,11 +52,14 @@ public class SesionManager {
 			resultSet = statement.executeQuery(sql);
 
 			while (resultSet.next()) {
+
 				if (null == ret) {
 					ret = new ArrayList<Session>();
 				}
 
-				Session moviesFromCinemaAdd = new Session();
+				converter = new Converter();
+
+				moviesFromCinemaAdd = new Session();
 
 				Timestamp sessionDateTimeAdd = resultSet.getTimestamp("sessionDateTime");
 
@@ -95,21 +79,18 @@ public class SesionManager {
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (statement != null)
 					statement.close();
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
 
 			}
-			;
 		}
 		return ret;
 	}
@@ -121,6 +102,11 @@ public class SesionManager {
 	 */
 	public Session getTheDataFromSelectedSession(String cinemaId, String movieId, String dateTime) {
 		Session ret = null;
+
+		Converter converter = null;
+		Movie movieAdd = null;
+		Cinema cinemaAdd = null;
+		Room roomAdd = null;
 
 		String[] splitedDateTime = dateTime.split(":");
 
@@ -143,8 +129,9 @@ public class SesionManager {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sql);
 
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				ret = new Session();
+				converter = null == converter ? new Converter() : converter;
 
 				String movieName = resultSet.getString("movieName");
 				Timestamp movieDuration = resultSet.getTimestamp("movieDuration");
@@ -154,15 +141,16 @@ public class SesionManager {
 				String hallName = resultSet.getString("hallName");
 				Double moviePrice = resultSet.getDouble("moviePrice");
 
-				Movie movieAdd = new Movie();
+				movieAdd = new Movie();
 				movieAdd.setMovieName(movieName);
 				movieAdd.setMoviePrice(moviePrice);
 				movieAdd.setMovieDuration(converter.convertTimeStampJavaDate(movieDuration));
 
-				Cinema cinemaAdd = new Cinema();
+				cinemaAdd = new Cinema();
 				cinemaAdd.setCinemaName(cinemaName);
 				cinemaAdd.setCinemaAddress(cinemaAddress);
-				Room roomAdd = new Room();
+
+				roomAdd = new Room();
 				roomAdd.setRoomName(hallName);
 
 				ret.setCinema(cinemaAdd);
@@ -170,7 +158,6 @@ public class SesionManager {
 				ret.setMovie(movieAdd);
 				ret.setSessionDate(converter.convertTimeStampJavaDate(datetimeAdd));
 				ret.setSessionID(resultSet.getInt("sessionId"));
-				System.out.println(resultSet.getInt("sessionId"));
 			}
 
 		} catch (SQLException sqle) {
@@ -185,21 +172,18 @@ public class SesionManager {
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (statement != null)
 					statement.close();
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
 
 			}
-			;
 		}
 		return ret;
 	}

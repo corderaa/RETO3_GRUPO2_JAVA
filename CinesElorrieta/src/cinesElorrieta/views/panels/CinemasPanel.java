@@ -31,7 +31,7 @@ public class CinemasPanel {
 	private JPanel cinemasPanel;
 	private JTable tableCinemas;
 	private JTable tableMovies;
-	private JTable tableTableTime;
+	private JTable tableTime;
 	private JScrollPane scrollPaneMovies;
 	private JLabel lblCinemas;
 	private JLabel lblMovies;
@@ -82,10 +82,10 @@ public class CinemasPanel {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
-
 				return false;
 			}
 		};
+
 		tableCinemas = new JTable(cinemaModel);
 
 		cinemaModel.addColumn("Id Del Cine");
@@ -110,10 +110,10 @@ public class CinemasPanel {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
-
 				return false;
 			}
 		};
+
 		modelMovies.addColumn("Id de la Pelicula");
 		modelMovies.addColumn("Nombre de la Pelicula");
 		modelMovies.addColumn("Genero de la pelicula");
@@ -150,13 +150,13 @@ public class CinemasPanel {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
-
 				return false;
 			}
 		};
+
 		timeModel.addColumn("Horario Emision");
-		tableTableTime = new JTable(timeModel);
-		scrollPaneTime.setViewportView(tableTableTime);
+		tableTime = new JTable(timeModel);
+		scrollPaneTime.setViewportView(tableTime);
 
 		btnSelectSession = new JButton("SELECCIONAR SESION");
 		btnSelectSession.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
@@ -218,15 +218,17 @@ public class CinemasPanel {
 		btnSelectSession.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SesionManager sesionManager = new SesionManager();
+
 				try {
 					String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
 					String selectedMovieId = getSelectedMovieId(tableMovies, modelMovies);
 					String selectedDateTime = null;
 
-					if (tableTableTime.getSelectedRowCount() != 0) {
-						selectedDateTime = tableTableTime.getValueAt(0, 0).toString() + " "
-								+ tableTableTime.getValueAt(0, 0).toString();
+					if (tableTime.getSelectedRowCount() != 0) {
+						selectedDateTime = tableTime.getValueAt(tableTime.getSelectedRow(), 0).toString() + " "
+								+ tableTime.getValueAt(tableTime.getSelectedRow(), 0).toString();
 					}
+
 					Ticket selectedSession = new Ticket();
 					selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
 							selectedMovieId, selectedDateTime));
@@ -236,6 +238,7 @@ public class CinemasPanel {
 					} else {
 						JOptionPane.showMessageDialog(null, "Err, Has llegado al limite de peliculas por añadir");
 					}
+
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null,
 							"Err, No hay sessiones para seleccionar con los datos elejidos");
@@ -258,9 +261,7 @@ public class CinemasPanel {
 
 		ArrayList<Cinema> cinemaList = cinemaManager.getAllCinemas();
 
-		if (null == cinemaList) {
-			JOptionPane.showMessageDialog(null, "Err, No hay Cines");
-		} else {
+		if (null != cinemaList) {
 			for (int i = 0; i < cinemaList.size(); i++) {
 				if (cinemaList.get(i) != null) {
 
@@ -271,6 +272,8 @@ public class CinemasPanel {
 					cinemaModel.addRow(row);
 				}
 			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Err, No hay Cines");
 		}
 	}
 
@@ -340,7 +343,6 @@ public class CinemasPanel {
 		String ret = null;
 		if (tableCinemas.getRowCount() > 0)
 			ret = (String) cinemaModel.getValueAt(tableCinemas.getSelectedRow(), 0);
-
 		return ret;
 	}
 
@@ -360,14 +362,14 @@ public class CinemasPanel {
 		return ret;
 	}
 
-	public JPanel getCinemasPanel() {
-		return cinemasPanel;
-	}
-
 	public String[] formatDate(int i, Date dateToFormat) {
 
 		String[] ret = dateToFormat.toString().split(" ");
 
 		return ret;
+	}
+
+	public JPanel getCinemasPanel() {
+		return cinemasPanel;
 	}
 }

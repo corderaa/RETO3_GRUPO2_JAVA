@@ -12,7 +12,7 @@ public class Ticket implements Serializable {
 
 	private static final long serialVersionUID = 6484501230287264913L;
 
-	int tickedId = 0;
+	private int tickedId = 0;
 	Date ticketBuyDate = new Date();
 	Date ticketDate = new Date();
 	double ticketPrice = 0;

@@ -1,7 +1,6 @@
 package cinesElorrieta.bbdd.pojo;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,8 +13,6 @@ public class Room implements Serializable {
 	private int roomId = 0;
 	private int cinemaId = 0;
 	private String roomName = null;
-
-	private List<Session> sessions = null;
 
 	public int getRoomId() {
 		return roomId;
@@ -35,14 +32,6 @@ public class Room implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public List<Session> getSessions() {
-		return sessions;
-	}
-
-	public void setSessions(List<Session> sessions) {
-		this.sessions = sessions;
 	}
 
 	public int getCinemaId() {
@@ -72,8 +61,7 @@ public class Room implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Room [roomId=" + roomId + ", roomName=" + roomName + ", cinema=" + cinemaId + ", sessions=" + sessions
-				+ "]";
+		return "Room [roomId=" + roomId + ", roomName=" + roomName + ", cinema=" + cinemaId + ", sessions=" + "]";
 	}
 
 }

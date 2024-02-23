@@ -14,42 +14,37 @@ import cinesElorrieta.utils.Converter;
  * Manager of the table t_Ticket. It contains all the methods for that table.
  */
 public class TicketManager {
-	
+
 	/**
 	 * Insert the ticket parameters into the database
 	 * 
 	 * @param ticket
-	 * @return 
+	 * @return
 	 */
-
 	public void insertTicket(Ticket ticket) {
-		// La conexion con BBDD
+
+		Converter converter = null;
+
 		Connection connection = null;
 
-		// Vamos a lanzar una sentencia SQL contra la BBDD
 		Statement statement = null;
 
 		try {
-			// El Driver que vamos a usar
+
 			Class.forName(DBUtils.DRIVER);
 
-			// Abrimos la conexion con BBDD
 			connection = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASS);
 
-			// Vamos a lanzar la sentencia...
 			statement = connection.createStatement();
 
-			Converter converter = new Converter();
-			// Montamos la SQL
-			System.out.println(converter.convertJavaDateToTimeStamp(ticket.getTicketBuyDate()));
-			System.out.println(converter.convertJavaDateToTimeStamp(ticket.getTicketDate()));
+			converter = new Converter();
+
 			String sql = "insert into t_ticket (ticketId, ticketPrice, ticketPurchaseDate, ticketPrintDate, sessionId, userDNI) VALUES ("
 					+ ticket.getTickedId() + ", " + ticket.getTicketPrice() + ", '"
 					+ converter.convertJavaDateToTimeStamp(ticket.getTicketBuyDate()) + "','"
 					+ converter.convertJavaDateToTimeStamp(ticket.getTicketDate()) + "', "
 					+ ticket.getSession().getSessionID() + ", '" + ticket.getUser().getUserId() + "')";
 
-			// La ejecutamos...
 			statement.executeUpdate(sql);
 
 		} catch (SQLException sqle) {
@@ -57,28 +52,28 @@ public class TicketManager {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Err, Algun dato introducido ya existe");
 		} finally {
-			// Cerramos al reves de como las abrimos
+
 			try {
 				if (statement != null)
 					statement.close();
 			} catch (Exception e) {
-				// No hace falta
+
 			}
 
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
-				// No hace falta
+
 			}
 		}
 	}
+
 	/**
 	 * Select the id of a single ticket from the database
 	 * 
 	 * @return last ticket Id
 	 */
-
 	public int getLastTicketId() {
 		int ret = 0;
 

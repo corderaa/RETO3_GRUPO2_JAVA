@@ -29,7 +29,7 @@ public class LoginPanel {
 	private JButton btnLogin = null;
 	private JButton btnClose = null;
 	private JButton btnRegister = null;
-	private JPanel panelForm_background = null;
+	private JPanel panelFormBackground = null;
 
 	public LoginPanel(ArrayList<JPanel> paneles, ArrayList<Ticket> selectedSessions) {
 
@@ -83,20 +83,18 @@ public class LoginPanel {
 		btnLogin.setBounds(47, 366, 331, 57);
 		panelForm.add(btnLogin);
 
-		panelForm_background = new JPanel();
-		panelForm_background.setLayout(null);
-		panelForm_background.setBackground(Color.BLACK);
-		panelForm_background.setBounds(423, 71, 436, 529);
-		loginPanel.add(panelForm_background);
+		panelFormBackground = new JPanel();
+		panelFormBackground.setLayout(null);
+		panelFormBackground.setBackground(Color.BLACK);
+		panelFormBackground.setBounds(423, 71, 436, 529);
+		loginPanel.add(panelFormBackground);
 
 		btnClose = new JButton("CERRAR");
 		btnClose.setForeground(new Color(255, 255, 255));
 		btnClose.setBackground(new Color(204, 51, 51));
 		btnClose.setBounds(1135, 686, 89, 44);
 		loginPanel.add(btnClose);
-		/*
-		 * Button that switches to the registration panel
-		 */
+
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearTextFields(textFieldMail, textFieldPassword);
@@ -104,37 +102,46 @@ public class LoginPanel {
 				paneles.get(1).setVisible(true);
 				paneles.get(2).setVisible(false);
 				paneles.get(3).setVisible(false);
-
+				paneles.get(4).setVisible(false);
+				paneles.get(5).setVisible(false);
 			}
 		});
+
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearTextFields(textFieldMail, textFieldPassword);
 				paneles.get(0).setVisible(true);
+				paneles.get(1).setVisible(false);
 				paneles.get(2).setVisible(false);
+				paneles.get(3).setVisible(false);
+				paneles.get(4).setVisible(false);
+				paneles.get(5).setVisible(false);
 
 			}
 		});
 
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,
-						null == new UserManager().getUser(textFieldMail.getText(), textFieldPassword.getText())
-								? "Usuario o contraseña incorrecta"
-								: "Bienvenido: " + textFieldMail.getText());
 
-				User loggedUser = new UserManager().getUser(textFieldMail.getText(), textFieldPassword.getText());
-				
-				for (int i = 0; i < selectedSessions.size(); i++) {
-					selectedSessions.get(i).setUser(loggedUser);	
+				if (null != new UserManager().getUser(textFieldMail.getText(), textFieldPassword.getText())) {
+					JOptionPane.showMessageDialog(null, "Bienvenido:" + textFieldMail.getText());
+					User loggedUser = new UserManager().getUser(textFieldMail.getText(), textFieldPassword.getText());
+
+					for (int i = 0; i < selectedSessions.size(); i++) {
+						selectedSessions.get(i).setUser(loggedUser);
+					}
+
+					clearTextFields(textFieldMail, textFieldPassword);
+					paneles.get(0).setVisible(false);
+					paneles.get(1).setVisible(false);
+					paneles.get(2).setVisible(false);
+					paneles.get(3).setVisible(false);
+					paneles.get(4).setVisible(false);
+					paneles.get(5).setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 				}
-				
-				clearTextFields(textFieldMail, textFieldPassword);
-				paneles.get(2).setVisible(false);
-				paneles.get(5).setVisible(true);
-
 			}
-
 		});
 	}
 
@@ -144,7 +151,6 @@ public class LoginPanel {
 	}
 
 	public JPanel getLoginPanel() {
-
 		return loginPanel;
 	}
 }

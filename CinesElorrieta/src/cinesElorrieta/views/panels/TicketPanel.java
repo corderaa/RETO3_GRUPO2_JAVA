@@ -20,6 +20,8 @@ public class TicketPanel {
 
 	private JPanel ticketPanel;
 
+	private static String ICON_PATH = "D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png";
+
 	/**
 	 * 
 	 * @param panels
@@ -34,20 +36,29 @@ public class TicketPanel {
 
 		ticketPanel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("GRACIAS POR SU COMPRA");
-		lblNewLabel.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(360, 287, 529, 29);
-		ticketPanel.add(lblNewLabel);
+		JLabel lblThanksForBuying = new JLabel("GRACIAS POR SU COMPRA");
+		lblThanksForBuying.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
+		lblThanksForBuying.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThanksForBuying.setBounds(360, 287, 529, 29);
+		ticketPanel.add(lblThanksForBuying);
 
-		JLabel lblNewLabel_1 = new JLabel("GRACIAS POR SU COMPRA");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
-		lblNewLabel_1.setBounds(360, 287, 539, 29);
-		ticketPanel.add(lblNewLabel_1);
+		JLabel lblThanksForBuyingBackground = new JLabel("GRACIAS POR SU COMPRA");
+		lblThanksForBuyingBackground.setForeground(new Color(255, 255, 255));
+		lblThanksForBuyingBackground.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThanksForBuyingBackground.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 40));
+		lblThanksForBuyingBackground.setBounds(360, 287, 539, 29);
+		ticketPanel.add(lblThanksForBuyingBackground);
 
 		JButton btnSaveTicket = new JButton("Guardar ticket");
+		btnSaveTicket.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+		btnSaveTicket.setBounds(533, 362, 167, 69);
+		ticketPanel.add(btnSaveTicket);
+
+		JLabel imgElorrieta = new JLabel("l");
+		imgElorrieta.setIcon(new ImageIcon(ICON_PATH));
+		imgElorrieta.setBounds(517, 442, 201, 81);
+		ticketPanel.add(imgElorrieta);
+
 		btnSaveTicket.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -57,7 +68,6 @@ public class TicketPanel {
 				gestor.insertTicketIntoFile(selectedSessions);
 				TicketManager ticketManager = new TicketManager();
 				int lastId = ticketManager.getLastTicketId();
-				System.out.println(lastId);
 				Ticket newTicket = null;
 
 				for (int i = 0; i < selectedSessions.size(); i++) {
@@ -76,22 +86,18 @@ public class TicketPanel {
 					ticketManager.insertTicket(newTicket);
 				}
 
-				JOptionPane.showMessageDialog(btnSaveTicket, "Ticket guardado correctamente");
+				JOptionPane.showMessageDialog(null, "Ticket guardado correctamente");
 				tickets.clear();
-				panels.get(5).setVisible(false);
+
 				panels.get(0).setVisible(true);
+				panels.get(1).setVisible(false);
+				panels.get(2).setVisible(false);
+				panels.get(3).setVisible(false);
+				panels.get(4).setVisible(false);
+				panels.get(5).setVisible(false);
 			}
 
 		});
-		btnSaveTicket.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
-		btnSaveTicket.setBounds(533, 362, 167, 69);
-		ticketPanel.add(btnSaveTicket);
-
-		JLabel imgElorrieta = new JLabel("l");
-		imgElorrieta
-				.setIcon(new ImageIcon("D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png"));
-		imgElorrieta.setBounds(517, 442, 201, 81);
-		ticketPanel.add(imgElorrieta);
 	}
 
 	public JPanel getTicketPanel() {

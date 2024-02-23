@@ -18,27 +18,9 @@ import cinesElorrieta.bbdd.utils.DBUtils;
  */
 public class MovieManager {
 
-	/**
-	 * Gets the Movie specified by the id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public Movie getMovie(int id) {
-		return null;
-	}
-
-	/**
-	 * Gets all the Movies from the table t_movie. Returns a LIST of Movies.
-	 * 
-	 * @return
-	 */
-	public List<Movie> getAllMovie() {
-		return null;
-	}
-
 	public ArrayList<Movie> getAllMoviesFromCinema(String cinemaId) {
 		ArrayList<Movie> ret = null;
+		Movie movie = null;
 
 		String sql = "SELECT DISTINCT m.movieId ,m.movieName, m.movieDuration, m.movieGenre FROM t_session AS s JOIN t_movie m ON s.movieId = m.movieId WHERE s.cinemaId = "
 				+ cinemaId;
@@ -61,7 +43,7 @@ public class MovieManager {
 				if (null == ret)
 					ret = new ArrayList<Movie>();
 
-				Movie movie = new Movie();
+				movie = new Movie();
 
 				int movieId = resultSet.getInt("movieId");
 				Timestamp movieDuration = resultSet.getTimestamp("movieDuration");

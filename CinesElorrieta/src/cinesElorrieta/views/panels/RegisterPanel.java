@@ -38,7 +38,7 @@ public class RegisterPanel {
 	private JCheckBox chckbxFemale = null;
 	private JTextField textFieldLasName = null;
 	private JLabel lblApellidos = null;
-	private JPanel panelFormulario_fondo = null;
+	private JPanel panelFormularioFondo = null;
 
 	public RegisterPanel(ArrayList<JPanel> paneles) {
 
@@ -107,10 +107,12 @@ public class RegisterPanel {
 
 		chckbxMale = new JCheckBox("Hombre");
 		chckbxMale.setBounds(47, 424, 97, 23);
+		chckbxMale.setSelected(true);
 		panelFormulario.add(chckbxMale);
 
 		chckbxFemale = new JCheckBox("Mujer");
 		chckbxFemale.setBounds(146, 424, 97, 23);
+		chckbxMale.setSelected(false);
 		panelFormulario.add(chckbxFemale);
 
 		textFieldLasName = new JTextField();
@@ -123,11 +125,11 @@ public class RegisterPanel {
 		lblApellidos.setBounds(247, 89, 76, 20);
 		panelFormulario.add(lblApellidos);
 
-		panelFormulario_fondo = new JPanel();
-		panelFormulario_fondo.setLayout(null);
-		panelFormulario_fondo.setBackground(Color.BLACK);
-		panelFormulario_fondo.setBounds(423, 71, 436, 529);
-		panelRegister.add(panelFormulario_fondo);
+		panelFormularioFondo = new JPanel();
+		panelFormularioFondo.setLayout(null);
+		panelFormularioFondo.setBackground(Color.BLACK);
+		panelFormularioFondo.setBounds(423, 71, 436, 529);
+		panelRegister.add(panelFormularioFondo);
 
 		btnClose = new JButton("CERRAR");
 		btnClose.setForeground(new Color(255, 255, 255));
@@ -159,9 +161,7 @@ public class RegisterPanel {
 
 			public void actionPerformed(ActionEvent e) {
 
-				if (!textFieldDNI.getText().isEmpty() || !textFieldLasName.getText().isEmpty()
-						|| !textFieldMail.getText().isEmpty() || !textFieldPassword.getText().isEmpty()
-						|| !textFieldUser.getText().isEmpty()) {
+				if (fieldsFilled() && fieldValid()) {
 					UserManager userManager = new UserManager();
 					User newUser = new User();
 
@@ -170,7 +170,7 @@ public class RegisterPanel {
 					newUser.setUserId(textFieldDNI.getText().trim());
 					newUser.setUserEmail(textFieldMail.getText().trim());
 					newUser.setUserPassword(textFieldPassword.getText().trim());
-					newUser.setUserSex(getUserGenre());
+					newUser.setUserSex(chckbxMale.isSelected() == true ? "hombre" : "mujer");
 
 					userManager.insertUser(newUser);
 
@@ -186,38 +186,26 @@ public class RegisterPanel {
 
 			}
 
-			/**
-			 * Gets the selected GENDER of the user. Returns the appropriate STRING for the
-			 * DB
-			 * 
-			 * @return
-			 */
+			public boolean fieldsFilled() {
+				return !textFieldDNI.getText().isEmpty() || !textFieldLasName.getText().isEmpty()
+						|| !textFieldMail.getText().isEmpty() || !textFieldPassword.getText().isEmpty()
+						|| !textFieldUser.getText().isEmpty();
 
-			public String getUserGenre() {
-
-				if (chckbxMale.isSelected()) {
-					return "hombre";
-				} else if (chckbxFemale.isSelected()) {
-					return "mujer";
-				} else {
-					return null;
-				}
 			}
 
+			public boolean fieldValid() {
+				return !(textFieldDNI.getText().length() > 9) || !(textFieldLasName.getText().length() > 50
+						|| !(textFieldMail.getText().length() > 100) || !(textFieldPassword.getText().length() > 100)
+						|| !(textFieldUser.getText().length() > 30));
+			}
 		});
 
-	}
-
-	public JPanel getPanel() {
-
-		return panelRegister;
 	}
 
 	/**
 	 * Clears the fields of the form
 	 */
 	private void clearFields() {
-
 		textFieldLasName.setText("");
 		textFieldMail.setText("");
 		textFieldPassword.setText("");
@@ -227,4 +215,9 @@ public class RegisterPanel {
 		chckbxFemale.setSelected(false);
 		chckbxMale.setSelected(false);
 	}
+
+	public JPanel getPanel() {
+		return panelRegister;
+	}
+
 }

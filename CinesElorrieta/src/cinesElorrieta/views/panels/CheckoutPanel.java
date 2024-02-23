@@ -8,6 +8,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,17 +29,19 @@ import cinesElorrieta.bbdd.pojo.Ticket;
  */
 public class CheckoutPanel {
 
+	private static String ICON_PATH = "D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png";
+
 	private JPanel checkoutPanel;
 	private JTable tableSummary;
 	private JTextField textBuyTotal;
 	private JTextField textFieldAfterDiscounts;
 	private JLabel lblBuyingSummary;
-	private JLabel lblBuyingSummary_Background;
+	private JLabel lblBuyingSummaryBackground;
 	private JScrollPane scrollPaneSummary;
 	private JLabel lblBuyTotal;
 	private JLabel lblAfterDisconts;
-	private JLabel lblBuyTotal_Background;
-	private JLabel lblAfterDisconts_Background;
+	private JLabel lblBuyTotalBackground;
+	private JLabel lblAfterDiscontsBackground;
 	private JButton btnCancel;
 	private JButton btnBuy;
 	private JButton btnKeepBuying;
@@ -57,11 +61,11 @@ public class CheckoutPanel {
 		lblBuyingSummary.setBounds(243, 35, 738, 116);
 		checkoutPanel.add(lblBuyingSummary);
 
-		lblBuyingSummary_Background = new JLabel("R E S U M E N   D E   C O M P R A");
-		lblBuyingSummary_Background.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBuyingSummary_Background.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
-		lblBuyingSummary_Background.setBounds(243, 35, 731, 116);
-		checkoutPanel.add(lblBuyingSummary_Background);
+		lblBuyingSummaryBackground = new JLabel("R E S U M E N   D E   C O M P R A");
+		lblBuyingSummaryBackground.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBuyingSummaryBackground.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 32));
+		lblBuyingSummaryBackground.setBounds(243, 35, 731, 116);
+		checkoutPanel.add(lblBuyingSummaryBackground);
 
 		scrollPaneSummary = new JScrollPane();
 		scrollPaneSummary.setBounds(21, 162, 1192, 390);
@@ -71,10 +75,10 @@ public class CheckoutPanel {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
-
 				return false;
 			}
 		};
+
 		modelSummary.addColumn("NOMBRE DE LA PELICULA");
 		modelSummary.addColumn("FECHA DE LA EMISION");
 		modelSummary.addColumn("NOMBRE DEL CINE");
@@ -110,17 +114,17 @@ public class CheckoutPanel {
 		textFieldAfterDiscounts.setText("0.00");
 		textFieldAfterDiscounts.setEditable(false);
 
-		lblBuyTotal_Background = new JLabel("TOTAL:");
-		lblBuyTotal_Background.setForeground(new Color(0, 0, 0));
-		lblBuyTotal_Background.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
-		lblBuyTotal_Background.setBounds(1072, 583, 67, 43);
-		checkoutPanel.add(lblBuyTotal_Background);
+		lblBuyTotalBackground = new JLabel("TOTAL:");
+		lblBuyTotalBackground.setForeground(new Color(0, 0, 0));
+		lblBuyTotalBackground.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
+		lblBuyTotalBackground.setBounds(1072, 583, 67, 43);
+		checkoutPanel.add(lblBuyTotalBackground);
 
-		lblAfterDisconts_Background = new JLabel("DESPUES DE DESCUENTOS:");
-		lblAfterDisconts_Background.setForeground(new Color(0, 0, 0));
-		lblAfterDisconts_Background.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
-		lblAfterDisconts_Background.setBounds(908, 637, 231, 43);
-		checkoutPanel.add(lblAfterDisconts_Background);
+		lblAfterDiscontsBackground = new JLabel("DESPUES DE DESCUENTOS:");
+		lblAfterDiscontsBackground.setForeground(new Color(0, 0, 0));
+		lblAfterDiscontsBackground.setFont(new Font("Microsoft YaHei UI", Font.BOLD, 17));
+		lblAfterDiscontsBackground.setBounds(908, 637, 231, 43);
+		checkoutPanel.add(lblAfterDiscontsBackground);
 
 		btnCancel = new JButton("CANCELAR");
 		btnCancel.setBackground(Color.WHITE);
@@ -140,16 +144,26 @@ public class CheckoutPanel {
 
 		btnKeepBuying.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paneles.get(4).setVisible(false);
+				paneles.get(0).setVisible(false);
+				paneles.get(1).setVisible(false);
+				paneles.get(2).setVisible(false);
 				paneles.get(3).setVisible(true);
+				paneles.get(4).setVisible(false);
+				paneles.get(5).setVisible(false);
+
 			}
 		});
 
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (confirmCancel()) {
-					paneles.get(4).setVisible(false);
+					paneles.get(0).setVisible(false);
+					paneles.get(1).setVisible(false);
+					paneles.get(2).setVisible(false);
 					paneles.get(3).setVisible(true);
+					paneles.get(4).setVisible(false);
+					paneles.get(5).setVisible(false);
+
 					selectedSessions.clear();
 					modelSummary.setRowCount(0);
 					textBuyTotal.setText("0.00");
@@ -161,8 +175,12 @@ public class CheckoutPanel {
 		btnBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (confirmBuy()) {
-					paneles.get(4).setVisible(false);
+					paneles.get(0).setVisible(false);
+					paneles.get(1).setVisible(false);
 					paneles.get(2).setVisible(true);
+					paneles.get(3).setVisible(false);
+					paneles.get(4).setVisible(false);
+					paneles.get(5).setVisible(false);
 
 					selectedSessions.get(0)
 							.setTicketPrice(Double.parseDouble(formatPrices(textFieldAfterDiscounts.getText())));
@@ -171,9 +189,6 @@ public class CheckoutPanel {
 		});
 
 		checkoutPanel.addComponentListener(new ComponentAdapter() {
-			public void componentHidden(ComponentEvent e) {
-			}
-
 			public void componentShown(ComponentEvent e) {
 				modelSummary.setRowCount(0);
 				displaySelectedSessionsOnTable(selectedSessions);
@@ -202,6 +217,7 @@ public class CheckoutPanel {
 					String moviePrice = Double
 							.toString(selectedSessions.get(i).getSession().getMovie().getMoviePrice());
 
+					// TODO CAMBIAR A OBJECT[]
 					String[] row = { selectedSessions.get(i).getSession().getMovie().getMovieName(),
 							selectedSessions.get(i).getSession().getSessionDate().toString(),
 							selectedSessions.get(i).getSession().getCinema().getCinemaName(),
@@ -216,14 +232,12 @@ public class CheckoutPanel {
 	private String getBuyTotal(JTable tableSummary) {
 		String ret = null;
 		DecimalFormat df = new DecimalFormat("0.00");
-		double d = 0.00;
+		double doubleNumer = 0.00;
 		for (int i = 0; i < modelSummary.getRowCount(); i++) {
-			String n = (String) modelSummary.getValueAt(i, 4);
-
-			d += Double.parseDouble(n);
+			String num = (String) modelSummary.getValueAt(i, 4);
+			doubleNumer += Double.parseDouble(num);
 		}
-
-		ret = df.format(d);
+		ret = df.format(doubleNumer);
 
 		return ret;
 	}
@@ -258,50 +272,39 @@ public class CheckoutPanel {
 			String discountedTotal = getDiscountedTotal(textBuyTotal, modelSummary);
 			textFieldAfterDiscounts.setText(discountedTotal);
 		} catch (Exception e) {
+			// TODO luego hacer
 		}
 	}
 
 	private boolean confirmBuy() {
+
+		ImageIcon image = new ImageIcon(ICON_PATH);
+
 		int res = JOptionPane.showOptionDialog(new JFrame(), "Estas seguro que quieres proceder al pago?",
-				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, image,
 				new Object[] { "Si", "No" }, JOptionPane.YES_OPTION);
-		if (res == JOptionPane.YES_OPTION) {
-			return true;
-		} else if (res == JOptionPane.NO_OPTION) {
-			return false;
-		} else if (res == JOptionPane.CLOSED_OPTION) {
-			return false;
-		} else {
-			return false;
-		}
+
+		return res == JOptionPane.YES_OPTION ? true : false;
 	}
 
 	private boolean confirmCancel() {
+		ImageIcon image = new ImageIcon(ICON_PATH);
+
 		int res = JOptionPane.showOptionDialog(new JFrame(), "Estas seguro que quieres cancelar la compra?",
-				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, image,
 				new Object[] { "Si", "No" }, JOptionPane.YES_OPTION);
-		if (res == JOptionPane.YES_OPTION) {
-			return true;
-		} else if (res == JOptionPane.NO_OPTION) {
-			return false;
-		} else if (res == JOptionPane.CLOSED_OPTION) {
-			return false;
-		} else {
-			return false;
-		}
+
+		return res == JOptionPane.YES_OPTION ? true : false;
 	}
 
 	private String formatPrices(String priceText) {
-		String[] retSlited = null;
 		String ret = null;
-
 		try {
-			retSlited = priceText.split(",");
+			String[] retSlited = priceText.split(",");
 			ret = retSlited[0] + "." + retSlited[1];
 		} catch (Exception e) {
-			System.out.println("err");
+			// TODO luego hacer
 		}
-
 		return ret;
 	}
 }

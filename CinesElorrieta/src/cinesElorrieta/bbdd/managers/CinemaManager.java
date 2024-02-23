@@ -67,21 +67,18 @@ public class CinemaManager {
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (statement != null)
 					statement.close();
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
 
 			}
-			;
 		}
 		return ret;
 	}
@@ -93,6 +90,7 @@ public class CinemaManager {
 	 */
 	public ArrayList<Cinema> getAllCinemas() {
 		ArrayList<Cinema> ret = null;
+		Cinema cinemaAdd = null;
 
 		String sql = "SELECT * from t_cinema";
 
@@ -115,7 +113,7 @@ public class CinemaManager {
 					ret = new ArrayList<Cinema>();
 				}
 
-				Cinema cinemaAdd = new Cinema();
+				cinemaAdd = new Cinema();
 
 				int idAdd = resultSet.getInt("cinemaId");
 				String nameAdd = resultSet.getString("cinemaName");
@@ -139,21 +137,18 @@ public class CinemaManager {
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (statement != null)
 					statement.close();
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
 
 			}
-			;
 		}
 		return ret;
 	}
