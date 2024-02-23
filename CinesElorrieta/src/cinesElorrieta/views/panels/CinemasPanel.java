@@ -136,7 +136,7 @@ public class CinemasPanel {
 		lblMovies_Background.setBounds(264, 245, 695, 93);
 		cinemasPanel.add(lblMovies_Background);
 
-		btnFinalize = new JButton("FINALIZAR");
+		btnFinalize = new JButton("RESUMEN DE COMPRA");
 		btnFinalize.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 15));
 		btnFinalize.setBackground(Color.WHITE);
 		btnFinalize.setBounds(334, 684, 256, 44);

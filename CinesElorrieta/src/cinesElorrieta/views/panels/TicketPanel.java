@@ -49,7 +49,7 @@ public class TicketPanel {
 
 		JButton btnSaveTicket = new JButton("Guardar ticket");
 		btnSaveTicket.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 
 				ArrayList<Ticket> tickets = new ArrayList<Ticket>();
@@ -67,7 +67,6 @@ public class TicketPanel {
 					newTicket = new Ticket();
 
 					newTicket.setTickedId(lastId);
-					System.out.println(lastId);
 					newTicket.setTicketPrice(selectedSessions.get(0).getTicketPrice());
 					newTicket.setTicketBuyDate(selectedSessions.get(i).getTicketBuyDate());
 					newTicket.setTicketDate(selectedSessions.get(i).getTicketDate());
@@ -87,9 +86,10 @@ public class TicketPanel {
 		btnSaveTicket.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
 		btnSaveTicket.setBounds(533, 362, 167, 69);
 		ticketPanel.add(btnSaveTicket);
-		
+
 		JLabel imgElorrieta = new JLabel("l");
-		imgElorrieta.setIcon(new ImageIcon("D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png"));
+		imgElorrieta
+				.setIcon(new ImageIcon("D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png"));
 		imgElorrieta.setBounds(517, 442, 201, 81);
 		ticketPanel.add(imgElorrieta);
 	}

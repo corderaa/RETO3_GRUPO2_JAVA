@@ -40,6 +40,7 @@ public class CheckoutPanel {
 	private JLabel lblAfterDisconts_Background;
 	private JButton btnCancel;
 	private JButton btnBuy;
+	private JButton btnKeepBuying;
 	private DefaultTableModel modelSummary;
 
 	public CheckoutPanel(ArrayList<JPanel> paneles, ArrayList<Ticket> selectedSessions) {
@@ -126,19 +127,34 @@ public class CheckoutPanel {
 		btnCancel.setBounds(243, 572, 212, 71);
 		checkoutPanel.add(btnCancel);
 
+		btnKeepBuying = new JButton("SEGUIR COMPRANDO");
+
+		btnKeepBuying.setBackground(Color.WHITE);
+		btnKeepBuying.setBounds(465, 572, 212, 71);
+		checkoutPanel.add(btnKeepBuying);
+
 		btnBuy = new JButton("PAGAR");
 		btnBuy.setBackground(new Color(255, 255, 255));
 		btnBuy.setBounds(21, 572, 212, 71);
 		checkoutPanel.add(btnBuy);
 
-		btnCancel.addActionListener(new ActionListener() {
+		btnKeepBuying.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				paneles.get(4).setVisible(false);
 				paneles.get(3).setVisible(true);
-				selectedSessions.clear();
-				modelSummary.setRowCount(0);
-				textBuyTotal.setText("0.00");
-				textFieldAfterDiscounts.setText("0.00");
+			}
+		});
+
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (confirmCancel()) {
+					paneles.get(4).setVisible(false);
+					paneles.get(3).setVisible(true);
+					selectedSessions.clear();
+					modelSummary.setRowCount(0);
+					textBuyTotal.setText("0.00");
+					textFieldAfterDiscounts.setText("0.00");
+				}
 			}
 		});
 
@@ -159,7 +175,8 @@ public class CheckoutPanel {
 			}
 
 			public void componentShown(ComponentEvent e) {
-				displaySelectedSessionsOnTable(modelSummary, selectedSessions);
+				modelSummary.setRowCount(0);
+				displaySelectedSessionsOnTable(selectedSessions);
 				setBuyTotal();
 				setDiscountedTotal(textBuyTotal, modelSummary);
 			}
@@ -177,7 +194,7 @@ public class CheckoutPanel {
 	 * @param modelSummary
 	 * @param selectedSessions
 	 */
-	private void displaySelectedSessionsOnTable(DefaultTableModel modelSummary, ArrayList<Ticket> selectedSessions) {
+	private void displaySelectedSessionsOnTable(ArrayList<Ticket> selectedSessions) {
 		if (selectedSessions != null) {
 			for (int i = 0; i < selectedSessions.size(); i++) {
 				if (selectedSessions.get(i) != null) {
@@ -246,6 +263,21 @@ public class CheckoutPanel {
 
 	private boolean confirmBuy() {
 		int res = JOptionPane.showOptionDialog(new JFrame(), "Estas seguro que quieres proceder al pago?",
+				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				new Object[] { "Si", "No" }, JOptionPane.YES_OPTION);
+		if (res == JOptionPane.YES_OPTION) {
+			return true;
+		} else if (res == JOptionPane.NO_OPTION) {
+			return false;
+		} else if (res == JOptionPane.CLOSED_OPTION) {
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean confirmCancel() {
+		int res = JOptionPane.showOptionDialog(new JFrame(), "Estas seguro que quieres cancelar la compra?",
 				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				new Object[] { "Si", "No" }, JOptionPane.YES_OPTION);
 		if (res == JOptionPane.YES_OPTION) {
