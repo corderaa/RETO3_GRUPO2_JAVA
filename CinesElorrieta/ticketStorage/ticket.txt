@@ -1,0 +1,13 @@
+NOMBRE USUARIO: Nahikari
+APELLIDO: Vallejo
+-----------------------
+NOMBRE DE LA PELICULA: Seven
+DURACION DE LA PELICULA: 2:20:0
+FECHA Y HORA DE LA SESION: Tue Feb 13 21:06:43 CET 2024
+CINE: Cinesa Zubiarte
+DIRECCION CINE: Centro Comercial Zubiarte, Leizaola Lehendakariaren Kalea, 2, Abando, 48009 Bilbao, Biscay
+SALA: Sala 1
+PRECIO DE LA PELICULA: 10.75
+HORA DE IMPRESION: Sun Feb 25 21:19:48 CET 2024
+-----------------------
+PRECIO TOTAL CON DESCUENTO: 10.75

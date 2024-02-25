@@ -18,6 +18,12 @@ import cinesElorrieta.bbdd.utils.DBUtils;
  */
 public class MovieManager {
 
+	/**
+	 * Gets all the movies from a selected cinema
+	 * 
+	 * @param cinemaId The selected Cinema
+	 * @return The ArrayList of Movies
+	 */
 	public ArrayList<Movie> getAllMoviesFromCinema(String cinemaId) {
 		ArrayList<Movie> ret = null;
 		Movie movie = null;
@@ -69,21 +75,18 @@ public class MovieManager {
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (statement != null)
 					statement.close();
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
 
 			}
-			;
 		}
 		return ret;
 	}

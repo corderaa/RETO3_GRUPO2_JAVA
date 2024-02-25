@@ -13,6 +13,12 @@ import cinesElorrieta.views.MainFrame;
  */
 public class Main {
 
+	/**
+	 * Verifies if the database is Up then if true it starts the program, if false
+	 * it doesn't.
+	 * 
+	 * @return true or false
+	 */
 	private boolean isDataBaseValid() {
 		boolean ret = false;
 		try {

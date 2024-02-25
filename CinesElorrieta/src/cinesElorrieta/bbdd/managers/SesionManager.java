@@ -18,15 +18,12 @@ import cinesElorrieta.utils.Converter;
 /**
  * Manager of the table t_sesion. It contains all the methods for that table.
  */
-/**
- * Manager of the table t_sesion. It contains all the methods for that table.
- */
 public class SesionManager {
 
 	/**
 	 * Gets all the Sessions from the table t_movie. Returns a LIST of Sessions.
 	 * 
-	 * @return
+	 * @return ArrayList of Sessions
 	 */
 	public ArrayList<Session> getAllTheDateTimesFromMovie(String cinemaId, String movieId) {
 		ArrayList<Session> ret = null;
@@ -98,7 +95,7 @@ public class SesionManager {
 	/**
 	 * Gets all the Sessions from the table t_movie. Returns a LIST of Sessions.
 	 * 
-	 * @return
+	 * @return Selected session
 	 */
 	public Session getTheDataFromSelectedSession(String cinemaId, String movieId, String dateTime) {
 		Session ret = null;

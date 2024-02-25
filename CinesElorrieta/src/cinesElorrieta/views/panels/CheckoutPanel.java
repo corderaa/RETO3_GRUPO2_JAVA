@@ -29,7 +29,7 @@ import cinesElorrieta.bbdd.pojo.Ticket;
  */
 public class CheckoutPanel {
 
-	private static String ICON_PATH = "D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png";
+	private String ICON_PATH = ".\\img\\logo_transparente_negro_mini.png";
 
 	private JPanel checkoutPanel;
 	private JTable tableSummary;
@@ -217,7 +217,6 @@ public class CheckoutPanel {
 					String moviePrice = Double
 							.toString(selectedSessions.get(i).getSession().getMovie().getMoviePrice());
 
-					// TODO CAMBIAR A OBJECT[]
 					String[] row = { selectedSessions.get(i).getSession().getMovie().getMovieName(),
 							selectedSessions.get(i).getSession().getSessionDate().toString(),
 							selectedSessions.get(i).getSession().getCinema().getCinemaName(),
@@ -229,7 +228,13 @@ public class CheckoutPanel {
 		}
 	}
 
-	private String getBuyTotal(JTable tableSummary) {
+	/**
+	 * Calculates the sum of all prices
+	 * 
+	 * @param tableSummary
+	 * @return the total price
+	 */
+	private String calculateBuyTotal(JTable tableSummary) {
 		String ret = null;
 		DecimalFormat df = new DecimalFormat("0.00");
 		double doubleNumer = 0.00;
@@ -242,40 +247,60 @@ public class CheckoutPanel {
 		return ret;
 	}
 
+	/**
+	 * Sets the calculated buy total in the panel
+	 */
 	private void setBuyTotal() {
-		String buyTotal = getBuyTotal(tableSummary);
+		String buyTotal = calculateBuyTotal(tableSummary);
 		textBuyTotal.setText(buyTotal);
 
 	}
 
-	private String getDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary) {
-		String[] retSplit = textBuyTotal.getText().trim().split(",");
-		String ret = retSplit[0] + "." + retSplit[1];
-		DecimalFormat df = new DecimalFormat("0.00");
+	/**
+	 * Calculates the discounted total
+	 * 
+	 * @param textBuyTotal
+	 * @param modelSummary
+	 * @return the discounted price
+	 */
+	private String calculateDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary) {
+		String ret = formatPrices(textBuyTotal.getText());
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
-		Double n = Double.parseDouble(ret);
+		Double discountedTotal = Double.parseDouble(ret);
 
 		if (modelSummary.getRowCount() != 1) {
 
-			n = n - (n * tableSummary.getRowCount() / 10);
+			discountedTotal = discountedTotal - (discountedTotal * tableSummary.getRowCount() / 10);
 
-			ret = df.format(n);
+			ret = decimalFormat.format(discountedTotal);
 		}
 
-		ret = df.format(n);
+		ret = decimalFormat.format(discountedTotal);
 
 		return ret;
 	}
 
+	/**
+	 * Sets the discounted total in the panel
+	 * 
+	 * @param textBuyTotal
+	 * @param modelSummary
+	 */
 	private void setDiscountedTotal(JTextField textBuyTotal, DefaultTableModel modelSummary) {
 		try {
-			String discountedTotal = getDiscountedTotal(textBuyTotal, modelSummary);
+			String discountedTotal = calculateDiscountedTotal(textBuyTotal, modelSummary);
 			textFieldAfterDiscounts.setText(discountedTotal);
 		} catch (Exception e) {
-			// TODO luego hacer
+			// it shouldn't do anything
 		}
 	}
 
+	/**
+	 * Ask the user a if he wants to proceed to the buy
+	 * 
+	 * @return true if yes, false if anything else
+	 */
 	private boolean confirmBuy() {
 
 		ImageIcon image = new ImageIcon(ICON_PATH);
@@ -287,6 +312,11 @@ public class CheckoutPanel {
 		return res == JOptionPane.YES_OPTION ? true : false;
 	}
 
+	/**
+	 * Ask the user a if he wants to proceed to the calcelation of the buy
+	 * 
+	 * @return true if yes, false if anything else
+	 */
 	private boolean confirmCancel() {
 		ImageIcon image = new ImageIcon(ICON_PATH);
 
@@ -297,13 +327,19 @@ public class CheckoutPanel {
 		return res == JOptionPane.YES_OPTION ? true : false;
 	}
 
+	/**
+	 * formats prices, getting rid of the , and changing it for a .
+	 * 
+	 * @param priceText
+	 * @return formated number
+	 */
 	private String formatPrices(String priceText) {
 		String ret = null;
 		try {
 			String[] retSlited = priceText.split(",");
 			ret = retSlited[0] + "." + retSlited[1];
 		} catch (Exception e) {
-			// TODO luego hacer
+			// it shouldn't do anything
 		}
 		return ret;
 	}

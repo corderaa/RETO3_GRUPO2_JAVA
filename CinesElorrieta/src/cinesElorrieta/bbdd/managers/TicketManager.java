@@ -19,7 +19,6 @@ public class TicketManager {
 	 * Insert the ticket parameters into the database
 	 * 
 	 * @param ticket
-	 * @return
 	 */
 	public void insertTicket(Ticket ticket) {
 
@@ -93,9 +92,9 @@ public class TicketManager {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sql);
 
-			resultSet.next();
-
-			ret = resultSet.getInt("ticketId");
+			if (resultSet.next()) {
+				ret = resultSet.getInt("ticketId");
+			}
 
 		} catch (SQLException sqle) {
 			System.out.println("Error con la BBDD - " + sqle.getMessage());
@@ -109,21 +108,18 @@ public class TicketManager {
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (statement != null)
 					statement.close();
 			} catch (Exception e) {
 
 			}
-			;
 			try {
 				if (connection != null)
 					connection.close();
 			} catch (Exception e) {
 
 			}
-			;
 		}
 		return ret;
 	}

@@ -15,7 +15,7 @@ import cinesElorrieta.bbdd.pojo.Ticket;
 
 public class FilesManager {
 	private static final String NOMBRE_FICHERO = "ticket.txt";
-	private static final String RUTA_FICHERO = "C:\\Users\\in1dm3-v\\Desktop\\";
+	private static final String RUTA_FICHERO = ".\\ticketStorage\\";
 
 	public void insertTicketIntoFile(ArrayList<Ticket> selectedSessions) {
 		FileWriter fileWriter = null;
@@ -26,7 +26,7 @@ public class FilesManager {
 
 			printWriter.println("NOMBRE USUARIO: " + selectedSessions.get(0).getUser().getUserName() + "\n"
 					+ "APELLIDO: " + selectedSessions.get(0).getUser().getUserLasName());
-			
+
 			for (int i = 0; i < selectedSessions.size(); i++) {
 				String datos = "-----------------------" + "\n" + "NOMBRE DE LA PELICULA: "
 						+ selectedSessions.get(i).getSession().getMovie().getMovieName() + "\n"

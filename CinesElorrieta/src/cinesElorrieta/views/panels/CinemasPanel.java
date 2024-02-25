@@ -9,7 +9,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +29,8 @@ import cinesElorrieta.bbdd.pojo.Session;
 import cinesElorrieta.bbdd.pojo.Ticket;
 
 public class CinemasPanel {
+
+	private String ICON_PATH = ".\\img\\logo_transparente_negro_mini.png";
 
 	private JPanel cinemasPanel;
 	private JTable tableCinemas;
@@ -166,8 +170,11 @@ public class CinemasPanel {
 
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				paneles.get(3).setVisible(false);
-				paneles.get(0).setVisible(true);
+				if (confirmCancel()) {
+					selectedSessions.clear();
+					paneles.get(3).setVisible(false);
+					paneles.get(0).setVisible(true);
+				}
 			}
 		});
 
@@ -219,31 +226,32 @@ public class CinemasPanel {
 			public void actionPerformed(ActionEvent e) {
 				SesionManager sesionManager = new SesionManager();
 
-				try {
-					String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
-					String selectedMovieId = getSelectedMovieId(tableMovies, modelMovies);
-					String selectedDateTime = null;
+				if (confirmSelection()) {
+					try {
+						String selectedCinemaId = getSelectedCinemaId(cinemaModel, tableCinemas);
+						String selectedMovieId = getSelectedMovieId(tableMovies, modelMovies);
+						String selectedDateTime = null;
 
-					if (tableTime.getSelectedRowCount() != 0) {
-						selectedDateTime = tableTime.getValueAt(tableTime.getSelectedRow(), 0).toString() + " "
-								+ tableTime.getValueAt(tableTime.getSelectedRow(), 0).toString();
+						if (tableTime.getSelectedRowCount() != 0) {
+							selectedDateTime = tableTime.getValueAt(tableTime.getSelectedRow(), 0).toString() + " "
+									+ tableTime.getValueAt(tableTime.getSelectedRow(), 0).toString();
+						}
+
+						Ticket selectedSession = new Ticket();
+						selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
+								selectedMovieId, selectedDateTime));
+
+						if (!(selectedSessions.size() > 4)) {
+							selectedSessions.add(selectedSession);
+						} else {
+							JOptionPane.showMessageDialog(null, "Err, Has llegado al limite de peliculas por añadir");
+						}
+
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null,
+								"Err, No hay sessiones para seleccionar con los datos elejidos");
 					}
-
-					Ticket selectedSession = new Ticket();
-					selectedSession.setSession(sesionManager.getTheDataFromSelectedSession(selectedCinemaId,
-							selectedMovieId, selectedDateTime));
-
-					if (!(selectedSessions.size() > 4)) {
-						selectedSessions.add(selectedSession);
-					} else {
-						JOptionPane.showMessageDialog(null, "Err, Has llegado al limite de peliculas por añadir");
-					}
-
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null,
-							"Err, No hay sessiones para seleccionar con los datos elejidos");
 				}
-
 				modelMovies.setRowCount(0);
 				timeModel.setRowCount(0);
 			}
@@ -278,8 +286,7 @@ public class CinemasPanel {
 	}
 
 	/**
-	 * // * Displays in the table rows all the data about the Movies taken from the
-	 * DB.
+	 * Displays in the table rows all the data about the Movies taken from the DB.
 	 * 
 	 * @param modelMovies
 	 * @param cinemaId
@@ -299,7 +306,7 @@ public class CinemasPanel {
 					String movieId = Integer.toString(moviesFromSessions.get(i).getMovieId());
 					String[] row = { movieId, moviesFromSessions.get(i).getMovieName(),
 							moviesFromSessions.get(i).getMovieKind(),
-							formatDate(i, moviesFromSessions.get(i).getMovieDuration())[1] };
+							formatDate(moviesFromSessions.get(i).getMovieDuration())[1] };
 					modelMovies.addRow(row);
 				}
 			}
@@ -325,7 +332,7 @@ public class CinemasPanel {
 
 		for (int i = 0; i < dateTimesFromSessions.size(); i++) {
 			if (null != dateTimesFromSessions.get(i)) {
-				String[] row = { formatDate(i, dateTimesFromSessions.get(i).getSessionDate())[3] };
+				String[] row = { formatDate(dateTimesFromSessions.get(i).getSessionDate())[3] };
 
 				timeModel.addRow(row);
 			}
@@ -362,11 +369,50 @@ public class CinemasPanel {
 		return ret;
 	}
 
-	public String[] formatDate(int i, Date dateToFormat) {
+	/**
+	 * 
+	 * @param i
+	 * @param dateToFormat
+	 * @return
+	 */
+	public String[] formatDate(Date dateToFormat) {
 
 		String[] ret = dateToFormat.toString().split(" ");
 
 		return ret;
+	}
+
+	/**
+	 * Asks the user if they wan't to close the selection, then it clears all data
+	 * 
+	 * @return true if yes, false if no
+	 */
+	private boolean confirmCancel() {
+
+		ImageIcon image = new ImageIcon(ICON_PATH);
+
+		int res = JOptionPane.showOptionDialog(new JFrame(),
+				"Estas seguro que quieres cerrar la seleccion? [TODOS LOS DATOS SE PERDERAN]", "Cine Elorrieta",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, image, new Object[] { "Si", "No" },
+				JOptionPane.YES_OPTION);
+
+		return res == JOptionPane.YES_OPTION ? true : false;
+	}
+
+	/**
+	 * Asks the user if they wan't to close the selection, then it clears all data
+	 * 
+	 * @return true if yes, false if no
+	 */
+	private boolean confirmSelection() {
+
+		ImageIcon image = new ImageIcon(ICON_PATH);
+
+		int res = JOptionPane.showOptionDialog(new JFrame(), "Estas seguro de que quieres seleccionar esta sesion?",
+				"Cine Elorrieta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, image,
+				new Object[] { "Si", "No" }, JOptionPane.YES_OPTION);
+
+		return res == JOptionPane.YES_OPTION ? true : false;
 	}
 
 	public JPanel getCinemasPanel() {

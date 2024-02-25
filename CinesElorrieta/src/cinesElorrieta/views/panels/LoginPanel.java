@@ -110,6 +110,7 @@ public class LoginPanel {
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearTextFields(textFieldMail, textFieldPassword);
+				selectedSessions.clear();
 				paneles.get(0).setVisible(true);
 				paneles.get(1).setVisible(false);
 				paneles.get(2).setVisible(false);
@@ -140,11 +141,18 @@ public class LoginPanel {
 					paneles.get(5).setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+					textFieldPassword.setText(null);
 				}
 			}
 		});
 	}
 
+	/**
+	 * Clears the text fields
+	 * 
+	 * @param textFieldMail
+	 * @param textFieldPassword
+	 */
 	private void clearTextFields(JTextField textFieldMail, JTextField textFieldPassword) {
 		textFieldMail.setText(null);
 		textFieldPassword.setText(null);

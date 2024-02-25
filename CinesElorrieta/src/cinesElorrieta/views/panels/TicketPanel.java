@@ -20,13 +20,8 @@ public class TicketPanel {
 
 	private JPanel ticketPanel;
 
-	private static String ICON_PATH = "D:\\Workspace\\RETO3_GRUPO2_JAVA\\CinesElorrieta\\src\\cineElorrietapng.png";
+	private static String ICON_PATH = ".\\img\\cineElorrietapng.png";
 
-	/**
-	 * 
-	 * @param panels
-	 * @param selectedSessions arraylist with all selected data
-	 */
 	public TicketPanel(ArrayList<JPanel> panels, ArrayList<Ticket> selectedSessions) {
 
 		ticketPanel = new JPanel();
@@ -63,7 +58,6 @@ public class TicketPanel {
 
 			public void actionPerformed(ActionEvent e) {
 
-				ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 				FilesManager gestor = new FilesManager();
 				gestor.insertTicketIntoFile(selectedSessions);
 				TicketManager ticketManager = new TicketManager();
@@ -73,7 +67,6 @@ public class TicketPanel {
 				for (int i = 0; i < selectedSessions.size(); i++) {
 
 					lastId++;
-					System.out.println(lastId);
 					newTicket = new Ticket();
 
 					newTicket.setTickedId(lastId);
@@ -87,7 +80,6 @@ public class TicketPanel {
 				}
 
 				JOptionPane.showMessageDialog(null, "Ticket guardado correctamente");
-				tickets.clear();
 
 				panels.get(0).setVisible(true);
 				panels.get(1).setVisible(false);
@@ -95,8 +87,8 @@ public class TicketPanel {
 				panels.get(3).setVisible(false);
 				panels.get(4).setVisible(false);
 				panels.get(5).setVisible(false);
+				selectedSessions.clear();
 			}
-
 		});
 	}
 

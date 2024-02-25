@@ -22,7 +22,7 @@ public class UserManager {
 	 * Gets the User specified by the id
 	 * 
 	 * @param id
-	 * @return
+	 * @return Logged user
 	 */
 	public User getUser(String mail, String password) {
 		User ret = null;
