@@ -9,26 +9,6 @@ import java.util.Date;
  */
 public class Converter {
 
-	/**
-	 * Converts a Date.Util
-	 * 
-	 * @param fecha
-	 * @return la fecha convertida
-	 */
-	public Date SQLDateToUTILDate(String fecha) {
-		return null;
-	}
-
-	/**
-	 * Converts a SQL.Date
-	 * 
-	 * @param fecha
-	 * @return la fecha convertida
-	 */
-	public Date UtilDateToSQLDate(String fecha) {
-		return null;
-	}
-
 	public Timestamp convertJavaDateToTimeStamp(java.util.Date date) {
 
 		Timestamp sqlDate = new Timestamp(date.getTime());
